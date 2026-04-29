@@ -21,6 +21,10 @@ struct SettingsView: View {
                     Toggle("Speed Anomaly Alerts", isOn: $settings.speedAnomalyAlertsEnabled)
                 }
 
+                Section("Recording") {
+                    Toggle("Record When Locked", isOn: $settings.backgroundRecordingEnabled)
+                }
+
                 Section("Privacy") {
                     Text("PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.")
                         .font(.footnote)

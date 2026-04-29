@@ -7,6 +7,7 @@ final class SettingsStore {
     var smartActivityAlertsEnabled: Bool = false
     var autoPauseEnabled: Bool = false
     var speedAnomalyAlertsEnabled: Bool = false
+    var backgroundRecordingEnabled: Bool = false
     var bodyWeightKilograms: Double?
     var healthKitSyncEnabled: Bool = false
 

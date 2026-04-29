@@ -27,9 +27,13 @@ struct HomeView: View {
                 WorkoutTypePicker(selection: $appModel.selectedWorkoutType)
 
                 Button {
-                    appModel.locationService.requestWhenInUsePermission()
+                    if appModel.settingsStore.backgroundRecordingEnabled {
+                        appModel.locationService.requestAlwaysPermission()
+                    } else {
+                        appModel.locationService.requestWhenInUsePermission()
+                    }
                     appModel.activeDraft = appModel.recorder.start(type: appModel.selectedWorkoutType)
-                    appModel.locationService.start(backgroundAllowed: false)
+                    appModel.locationService.start(backgroundAllowed: appModel.settingsStore.backgroundRecordingEnabled)
                     if appModel.settingsStore.isAnySmartAssistEnabled {
                         appModel.motionService.start()
                     }

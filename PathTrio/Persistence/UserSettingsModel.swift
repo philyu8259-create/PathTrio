@@ -8,6 +8,7 @@ final class UserSettingsModel {
     var smartActivityAlertsEnabled: Bool
     var autoPauseEnabled: Bool
     var speedAnomalyAlertsEnabled: Bool
+    var backgroundRecordingEnabled: Bool
     var bodyWeightKilograms: Double?
     var healthKitSyncEnabled: Bool
 
@@ -17,6 +18,7 @@ final class UserSettingsModel {
         smartActivityAlertsEnabled: Bool = false,
         autoPauseEnabled: Bool = false,
         speedAnomalyAlertsEnabled: Bool = false,
+        backgroundRecordingEnabled: Bool = false,
         bodyWeightKilograms: Double? = nil,
         healthKitSyncEnabled: Bool = false
     ) {
@@ -25,6 +27,7 @@ final class UserSettingsModel {
         self.smartActivityAlertsEnabled = smartActivityAlertsEnabled
         self.autoPauseEnabled = autoPauseEnabled
         self.speedAnomalyAlertsEnabled = speedAnomalyAlertsEnabled
+        self.backgroundRecordingEnabled = backgroundRecordingEnabled
         self.bodyWeightKilograms = bodyWeightKilograms
         self.healthKitSyncEnabled = healthKitSyncEnabled
     }

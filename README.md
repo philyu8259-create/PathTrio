@@ -18,6 +18,7 @@ The first version keeps the primary flow deliberately simple: users choose a wor
 - Pause, resume, end, summary, history, and workout detail views
 - SwiftData local persistence for completed workouts and route points
 - Optional Smart Assist toggles for auto-pause prompts, motion-type change prompts, and speed anomaly prompts
+- Optional background recording toggle for active workouts
 - Location and motion usage descriptions ready for App Store review wording
 
 ## Requirements
@@ -36,17 +37,17 @@ xcodegen generate
 Run the test suite:
 
 ```sh
-xcodebuild test -scheme PathTrio -destination 'platform=iOS Simulator,name=iPhone 17'
+xcodebuild test -scheme PathTrio -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max'
 ```
 
 Build the app:
 
 ```sh
-xcodebuild -scheme PathTrio -destination 'platform=iOS Simulator,name=iPhone 17' build
+xcodebuild -scheme PathTrio -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max' build
 ```
 
 ## Notes
 
 - Background location is declared so the app can continue recording during an active workout after the screen locks.
-- The current UI starts with foreground workout tracking. A later release should add a user-facing background-recording switch before enabling always-on behavior in production.
+- Background location remains user-controlled and is only requested when the background recording setting is enabled.
 - HealthKit sync is intentionally deferred until the core recording and history flow is stable.
