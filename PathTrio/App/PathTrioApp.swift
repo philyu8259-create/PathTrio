@@ -1,3 +1,4 @@
+import SwiftData
 import SwiftUI
 
 @main
@@ -9,5 +10,10 @@ struct PathTrioApp: App {
             HomeView()
                 .environment(appModel)
         }
+        .modelContainer(for: [
+            WorkoutSessionModel.self,
+            LocationPointModel.self,
+            UserSettingsModel.self
+        ])
     }
 }
