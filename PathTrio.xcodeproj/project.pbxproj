@@ -1,0 +1,442 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E727CFBBB5E5C75E797C408 /* PathTrioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */; };
+		472C0EA53D43947884E54BC3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A00B331D64F9A2E00A20F3 /* HomeView.swift */; };
+		A591D20C3CAB1F9DD4C2CA9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9353AE134A91B7464D141657 /* Assets.xcassets */; };
+		AE41E59352E6C5E5F75C23FD /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36759D4C04E331C7015B5A6 /* AppModel.swift */; };
+		CC3903836659B9681A842AE7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF5E95B2F02AF08C3CEBE7FB /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		48D28510F3606A8DF3F9B8A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88B2B17519363D76E32B9DD5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C08916CCF4BACA2E26A0283;
+			remoteInfo = PathTrio;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		090E1F8956F327E47AC2C728 /* PathTrio.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PathTrio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C66B1B3856873E72FD3D6F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9353AE134A91B7464D141657 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AF5E95B2F02AF08C3CEBE7FB /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		B0BAB76ED3360C3111D9F92E /* PathTrioTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PathTrioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B36759D4C04E331C7015B5A6 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTrioApp.swift; sourceTree = "<group>"; };
+		E1A00B331D64F9A2E00A20F3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0A617547B917EF8C6D85F845 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B36759D4C04E331C7015B5A6 /* AppModel.swift */,
+				CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		592D8D59FBC971CCFAFFA91B /* PathTrioTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PathTrioTests;
+			sourceTree = "<group>";
+		};
+		5B48613203CCFBFC5F450B82 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9353AE134A91B7464D141657 /* Assets.xcassets */,
+				AF5E95B2F02AF08C3CEBE7FB /* InfoPlist.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A179A07F42815E43149DFBFE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				090E1F8956F327E47AC2C728 /* PathTrio.app */,
+				B0BAB76ED3360C3111D9F92E /* PathTrioTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C23A1B60F92465675C7B4871 /* PathTrio */ = {
+			isa = PBXGroup;
+			children = (
+				2C66B1B3856873E72FD3D6F2 /* Info.plist */,
+				0A617547B917EF8C6D85F845 /* App */,
+				5B48613203CCFBFC5F450B82 /* Resources */,
+				E10209E5CF7A17E968724B94 /* Views */,
+			);
+			path = PathTrio;
+			sourceTree = "<group>";
+		};
+		CB093AC8BB8ED140FD5E9EBB = {
+			isa = PBXGroup;
+			children = (
+				C23A1B60F92465675C7B4871 /* PathTrio */,
+				592D8D59FBC971CCFAFFA91B /* PathTrioTests */,
+				A179A07F42815E43149DFBFE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E10209E5CF7A17E968724B94 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1A00B331D64F9A2E00A20F3 /* HomeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3C08916CCF4BACA2E26A0283 /* PathTrio */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06F23D468352BBD5E53F3DF3 /* Build configuration list for PBXNativeTarget "PathTrio" */;
+			buildPhases = (
+				A3D5457706F9664A71527730 /* Sources */,
+				3C20F2D032586811E27C3074 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PathTrio;
+			packageProductDependencies = (
+			);
+			productName = PathTrio;
+			productReference = 090E1F8956F327E47AC2C728 /* PathTrio.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8C1244173D2FB7DE43673E62 /* PathTrioTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 390C512AD80C348882EEA458 /* Build configuration list for PBXNativeTarget "PathTrioTests" */;
+			buildPhases = (
+				5FC041E8E86CC8290E5A6267 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				51BF4E69476AC8CC95EE678B /* PBXTargetDependency */,
+			);
+			name = PathTrioTests;
+			packageProductDependencies = (
+			);
+			productName = PathTrioTests;
+			productReference = B0BAB76ED3360C3111D9F92E /* PathTrioTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		88B2B17519363D76E32B9DD5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = F80BE44699E7EB6C2F830F1E /* Build configuration list for PBXProject "PathTrio" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CB093AC8BB8ED140FD5E9EBB;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A179A07F42815E43149DFBFE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3C08916CCF4BACA2E26A0283 /* PathTrio */,
+				8C1244173D2FB7DE43673E62 /* PathTrioTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3C20F2D032586811E27C3074 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A591D20C3CAB1F9DD4C2CA9C /* Assets.xcassets in Resources */,
+				CC3903836659B9681A842AE7 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5FC041E8E86CC8290E5A6267 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3D5457706F9664A71527730 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE41E59352E6C5E5F75C23FD /* AppModel.swift in Sources */,
+				472C0EA53D43947884E54BC3 /* HomeView.swift in Sources */,
+				0E727CFBBB5E5C75E797C408 /* PathTrioApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		51BF4E69476AC8CC95EE678B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C08916CCF4BACA2E26A0283 /* PathTrio */;
+			targetProxy = 48D28510F3606A8DF3F9B8A6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		255E332B8F0DC3F94BA7F9B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.phil.PathTrioTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PathTrio.app/PathTrio";
+			};
+			name = Debug;
+		};
+		2DFD421EC34D4AF94AA37B0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = PathTrio/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PathTrio uses background location only during an active workout so it can keep recording when your screen is locked.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.phil.PathTrio;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		386471C240E5D44DA3D198FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.phil.PathTrioTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PathTrio.app/PathTrio";
+			};
+			name = Release;
+		};
+		56861039C29A1BADDF8B6B13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		5860D2E3FD7ADEF44D782861 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		9A7945E3AA381F8B063C5095 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = PathTrio/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PathTrio uses background location only during an active workout so it can keep recording when your screen is locked.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.phil.PathTrio;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		06F23D468352BBD5E53F3DF3 /* Build configuration list for PBXNativeTarget "PathTrio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A7945E3AA381F8B063C5095 /* Debug */,
+				2DFD421EC34D4AF94AA37B0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		390C512AD80C348882EEA458 /* Build configuration list for PBXNativeTarget "PathTrioTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				255E332B8F0DC3F94BA7F9B8 /* Debug */,
+				386471C240E5D44DA3D198FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F80BE44699E7EB6C2F830F1E /* Build configuration list for PBXProject "PathTrio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56861039C29A1BADDF8B6B13 /* Debug */,
+				5860D2E3FD7ADEF44D782861 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 88B2B17519363D76E32B9DD5 /* Project object */;
+}
