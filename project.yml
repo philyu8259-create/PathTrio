@@ -24,6 +24,8 @@ targets:
         INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.
         INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription: PathTrio uses background location only during an active workout so it can keep recording when your screen is locked.
         INFOPLIST_KEY_NSMotionUsageDescription: PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.
+        INFOPLIST_KEY_NSHealthShareUsageDescription: PathTrio reads relevant Apple Health workout permissions only to show and manage your sync status.
+        INFOPLIST_KEY_NSHealthUpdateUsageDescription: PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.
     info:
       path: PathTrio/Info.plist
       properties:

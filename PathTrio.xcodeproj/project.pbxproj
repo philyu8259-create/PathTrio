@@ -28,6 +28,7 @@
 		7D19CA69AE95F26A93C26466 /* SettingsPersistenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60732EE5F86F6271CBB6D36 /* SettingsPersistenceStore.swift */; };
 		7F3647BA93B24B484F60AAB2 /* WorkoutStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40607E73B6AF2D3B0ED9992E /* WorkoutStoreTests.swift */; };
 		86DB49350BA9D7C57D0FC918 /* SmartAssistEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59374B9141A9114D8674E51 /* SmartAssistEngine.swift */; };
+		8C7F5D01D47C2A9C091E93FF /* HealthSyncPlanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0765AC35EB908C7C873461A0 /* HealthSyncPlanTests.swift */; };
 		8DFB9192FEB7847F1EF56660 /* LocationTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAACFBC490DC1A6E8D7E6315 /* LocationTrackingService.swift */; };
 		8E31314070B321A6E0CAF4DE /* WorkoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E6480F17FC72AE2210644F /* WorkoutSummaryView.swift */; };
 		94E1358713327A0EBF9B35F8 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0291FB241AA048D8CFF8DF4C /* WorkoutDetailView.swift */; };
@@ -39,6 +40,7 @@
 		AE41E59352E6C5E5F75C23FD /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36759D4C04E331C7015B5A6 /* AppModel.swift */; };
 		AEE56C617E913F430F36564C /* WorkoutCaloriesEstimatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6242B7D0FFA7EC52CAFE61 /* WorkoutCaloriesEstimatorTests.swift */; };
 		B287C1BFBAEC5DA1A14A2DB0 /* WorkoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDDCC0337ED48B9C70776BD /* WorkoutType.swift */; };
+		BA3999A4E206483E378A9536 /* HealthSyncPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1059A8AF445B1DFD7D0D97F /* HealthSyncPlan.swift */; };
 		D03866D78B00FEBAD3D7CB66 /* UserSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66584C3CFE297F5EB1FFBFBA /* UserSettingsModel.swift */; };
 		D97E40E12197C789D41FD4B0 /* WorkoutTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9F2F0137898AB33DB43FBC /* WorkoutTypePicker.swift */; };
 		E97B64BB961F466B6FC614E4 /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51964BF87B089D5C8E93AFA1 /* LocalizationTests.swift */; };
@@ -63,6 +65,7 @@
 /* Begin PBXFileReference section */
 		0291FB241AA048D8CFF8DF4C /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
 		0637146BB8A266FC54CFE55A /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
+		0765AC35EB908C7C873461A0 /* HealthSyncPlanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSyncPlanTests.swift; sourceTree = "<group>"; };
 		090E1F8956F327E47AC2C728 /* PathTrio.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PathTrio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B13A6619CB76C5F240357A4 /* WorkoutSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionModel.swift; sourceTree = "<group>"; };
 		0F40CE362C17DA2116BDC4D2 /* MetricTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricTile.swift; sourceTree = "<group>"; };
@@ -107,6 +110,7 @@
 		E1A00B331D64F9A2E00A20F3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E1E6480F17FC72AE2210644F /* WorkoutSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummaryView.swift; sourceTree = "<group>"; };
 		E2E6B99D1CB25F0F4D8A56EC /* RouteRecordingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRecordingStatus.swift; sourceTree = "<group>"; };
+		F1059A8AF445B1DFD7D0D97F /* HealthSyncPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSyncPlan.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -131,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				B0842326A31060730BF90DDB /* DistanceCalculatorTests.swift */,
+				0765AC35EB908C7C873461A0 /* HealthSyncPlanTests.swift */,
 				51964BF87B089D5C8E93AFA1 /* LocalizationTests.swift */,
 				592F59F917DD89C78751FC10 /* RouteRecordingStatusTests.swift */,
 				65CD7F014680DBC318FB4F10 /* SettingsPersistenceStoreTests.swift */,
@@ -156,6 +161,7 @@
 		6FC684FB44142CE62418AE78 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				F1059A8AF445B1DFD7D0D97F /* HealthSyncPlan.swift */,
 				E2E6B99D1CB25F0F4D8A56EC /* RouteRecordingStatus.swift */,
 				55988384BC0F9C0A02E70BED /* SmartAssistSuggestion.swift */,
 				79941B46609B218E384B129A /* WorkoutMetrics.swift */,
@@ -338,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BB60E18663FDFE45CF8F9C4 /* DistanceCalculatorTests.swift in Sources */,
+				8C7F5D01D47C2A9C091E93FF /* HealthSyncPlanTests.swift in Sources */,
 				E97B64BB961F466B6FC614E4 /* LocalizationTests.swift in Sources */,
 				FFF86F8560BF08E517FC9199 /* RouteRecordingStatusTests.swift in Sources */,
 				45CC687647D4DE8EA01DBCCD /* SettingsPersistenceStoreTests.swift in Sources */,
@@ -356,6 +363,7 @@
 				FE0AA8EF95AF9E5203D630ED /* ActiveWorkoutView.swift in Sources */,
 				AE41E59352E6C5E5F75C23FD /* AppModel.swift in Sources */,
 				43FF55FC03A77D0C9CFF2ABC /* DistanceCalculator.swift in Sources */,
+				BA3999A4E206483E378A9536 /* HealthSyncPlan.swift in Sources */,
 				9FD770C527CE9FF356347A23 /* HistoryView.swift in Sources */,
 				472C0EA53D43947884E54BC3 /* HomeView.swift in Sources */,
 				F7484A78E4C8398C64D50BC6 /* L10n.swift in Sources */,
@@ -441,6 +449,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PathTrio/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "PathTrio reads relevant Apple Health workout permissions only to show and manage your sync status.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PathTrio uses background location only during an active workout so it can keep recording when your screen is locked.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.";
@@ -602,6 +612,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PathTrio/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "PathTrio reads relevant Apple Health workout permissions only to show and manage your sync status.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PathTrio uses background location only during an active workout so it can keep recording when your screen is locked.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.";

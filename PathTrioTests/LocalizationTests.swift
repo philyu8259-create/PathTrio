@@ -12,6 +12,10 @@ final class LocalizationTests: XCTestCase {
             "action.done",
             "settings.title",
             "settings.recording.recordWhenLocked",
+            "settings.health",
+            "settings.health.syncToAppleHealth",
+            "health.status.permissionNeeded.title",
+            "health.data.workouts",
             "history.empty.title",
             "detail.started",
             "detail.ended",
@@ -34,7 +38,9 @@ final class LocalizationTests: XCTestCase {
             "CFBundleDisplayName",
             "NSLocationWhenInUseUsageDescription",
             "NSLocationAlwaysAndWhenInUseUsageDescription",
-            "NSMotionUsageDescription"
+            "NSMotionUsageDescription",
+            "NSHealthShareUsageDescription",
+            "NSHealthUpdateUsageDescription"
         ]
 
         try assertLocalized(keys: keys, table: "InfoPlist", locale: "en")

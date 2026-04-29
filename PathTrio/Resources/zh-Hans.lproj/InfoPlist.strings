@@ -2,3 +2,5 @@
 "NSLocationWhenInUseUsageDescription" = "三动迹会在你记录走路、跑步或骑行时使用定位，以保存路线、距离和速度。";
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "三动迹仅会在进行中的运动记录里使用后台定位，以便锁屏后继续记录。";
 "NSMotionUsageDescription" = "三动迹会使用运动活动数据，为暂停、运动类型变化和异常速度提供可选的智能辅助提醒。";
+"NSHealthShareUsageDescription" = "三动迹只会读取相关 Apple 健康运动权限，用于显示和管理同步状态。";
+"NSHealthUpdateUsageDescription" = "开启同步后，三动迹会将完成的走路、跑步、骑行、距离和活动能量写入 Apple 健康。";

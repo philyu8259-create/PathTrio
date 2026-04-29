@@ -50,8 +50,20 @@
 "settings.recording" = "记录";
 "settings.recording.recordWhenLocked" = "锁屏继续记录";
 "settings.recording.backgroundDescription" = "仅在运动记录中使用后台定位。锁屏后路线会更完整，但可能更耗电。";
+"settings.health" = "Apple 健康";
+"settings.health.syncToAppleHealth" = "同步到 Apple 健康";
+"settings.health.plannedData" = "三动迹计划写入";
 "settings.privacy" = "隐私";
 "settings.privacy.description" = "三动迹默认将运动记录保存在本机，只在记录运动时使用定位来保存路线、距离和速度。";
+
+"health.status.off.title" = "健康同步已关闭";
+"health.status.off.message" = "运动记录只保存在三动迹内。你可以之后再开启 Apple 健康同步。";
+"health.status.permissionNeeded.title" = "需要授权";
+"health.status.permissionNeeded.message" = "写入运动记录或活动数据到 Apple 健康前，三动迹会先请求你的许可。";
+"health.data.workouts" = "运动记录";
+"health.data.walkRunDistance" = "步行和跑步距离";
+"health.data.cyclingDistance" = "骑行距离";
+"health.data.activeEnergy" = "活动能量";
 
 "location.status.permissionNeeded.title" = "需要定位权限";
 "location.status.permissionNeeded.message" = "允许定位后，三动迹才能绘制路线并计算距离。";
