@@ -8,8 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0E727CFBBB5E5C75E797C408 /* PathTrioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */; };
+		43FF55FC03A77D0C9CFF2ABC /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637146BB8A266FC54CFE55A /* DistanceCalculator.swift */; };
+		457D0528B40DFA952389A5D2 /* WorkoutRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2B980491B9AE8E39548DD /* WorkoutRecorder.swift */; };
 		472C0EA53D43947884E54BC3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A00B331D64F9A2E00A20F3 /* HomeView.swift */; };
 		4D3D5ABE43A52AA03B837E4B /* SmartAssistSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55988384BC0F9C0A02E70BED /* SmartAssistSuggestion.swift */; };
+		6BB60E18663FDFE45CF8F9C4 /* DistanceCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842326A31060730BF90DDB /* DistanceCalculatorTests.swift */; };
+		9B49C7F92BE8BD19527BBD12 /* WorkoutRecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F070BBC2812DB452964D7 /* WorkoutRecorderTests.swift */; };
 		A591D20C3CAB1F9DD4C2CA9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9353AE134A91B7464D141657 /* Assets.xcassets */; };
 		AC00039D5FA4D590417D37C9 /* WorkoutMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79941B46609B218E384B129A /* WorkoutMetrics.swift */; };
 		AE41E59352E6C5E5F75C23FD /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36759D4C04E331C7015B5A6 /* AppModel.swift */; };
@@ -30,18 +34,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0637146BB8A266FC54CFE55A /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		090E1F8956F327E47AC2C728 /* PathTrio.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PathTrio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C66B1B3856873E72FD3D6F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4BD2B980491B9AE8E39548DD /* WorkoutRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecorder.swift; sourceTree = "<group>"; };
 		55988384BC0F9C0A02E70BED /* SmartAssistSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAssistSuggestion.swift; sourceTree = "<group>"; };
 		79941B46609B218E384B129A /* WorkoutMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutMetrics.swift; sourceTree = "<group>"; };
 		9353AE134A91B7464D141657 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B00DCD945D5A8CDE82CD657 /* WorkoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutState.swift; sourceTree = "<group>"; };
 		AC86B6D9B53B0ABCF16D9B4A /* WorkoutSessionDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionDraft.swift; sourceTree = "<group>"; };
 		AF5E95B2F02AF08C3CEBE7FB /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		B0842326A31060730BF90DDB /* DistanceCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculatorTests.swift; sourceTree = "<group>"; };
 		B0BAB76ED3360C3111D9F92E /* PathTrioTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PathTrioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36759D4C04E331C7015B5A6 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		BFDDCC0337ED48B9C70776BD /* WorkoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutType.swift; sourceTree = "<group>"; };
 		CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTrioApp.swift; sourceTree = "<group>"; };
+		D78F070BBC2812DB452964D7 /* WorkoutRecorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecorderTests.swift; sourceTree = "<group>"; };
 		E1A00B331D64F9A2E00A20F3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,6 +66,8 @@
 		592D8D59FBC971CCFAFFA91B /* PathTrioTests */ = {
 			isa = PBXGroup;
 			children = (
+				B0842326A31060730BF90DDB /* DistanceCalculatorTests.swift */,
+				D78F070BBC2812DB452964D7 /* WorkoutRecorderTests.swift */,
 			);
 			path = PathTrioTests;
 			sourceTree = "<group>";
@@ -83,6 +93,15 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		96462502C5C6CB533D81B984 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0637146BB8A266FC54CFE55A /* DistanceCalculator.swift */,
+				4BD2B980491B9AE8E39548DD /* WorkoutRecorder.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		A179A07F42815E43149DFBFE /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +118,7 @@
 				0A617547B917EF8C6D85F845 /* App */,
 				6FC684FB44142CE62418AE78 /* Domain */,
 				5B48613203CCFBFC5F450B82 /* Resources */,
+				96462502C5C6CB533D81B984 /* Services */,
 				E10209E5CF7A17E968724B94 /* Views */,
 			);
 			path = PathTrio;
@@ -208,6 +228,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BB60E18663FDFE45CF8F9C4 /* DistanceCalculatorTests.swift in Sources */,
+				9B49C7F92BE8BD19527BBD12 /* WorkoutRecorderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,10 +238,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE41E59352E6C5E5F75C23FD /* AppModel.swift in Sources */,
+				43FF55FC03A77D0C9CFF2ABC /* DistanceCalculator.swift in Sources */,
 				472C0EA53D43947884E54BC3 /* HomeView.swift in Sources */,
 				0E727CFBBB5E5C75E797C408 /* PathTrioApp.swift in Sources */,
 				4D3D5ABE43A52AA03B837E4B /* SmartAssistSuggestion.swift in Sources */,
 				AC00039D5FA4D590417D37C9 /* WorkoutMetrics.swift in Sources */,
+				457D0528B40DFA952389A5D2 /* WorkoutRecorder.swift in Sources */,
 				F872EEA715A44290819B1674 /* WorkoutSessionDraft.swift in Sources */,
 				EADED00F2661C4CEB598A2A2 /* WorkoutState.swift in Sources */,
 				B287C1BFBAEC5DA1A14A2DB0 /* WorkoutType.swift in Sources */,
@@ -241,6 +265,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -278,6 +303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

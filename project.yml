@@ -35,5 +35,8 @@ targets:
     platform: iOS
     sources:
       - PathTrioTests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
     dependencies:
       - target: PathTrio
