@@ -1,0 +1,35 @@
+import SwiftData
+import SwiftUI
+
+struct HistoryView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Query(sort: \WorkoutSessionModel.startedAt, order: .reverse) private var workouts: [WorkoutSessionModel]
+
+    var body: some View {
+        NavigationStack {
+            List(workouts) { workout in
+                NavigationLink {
+                    WorkoutDetailView(workout: workout)
+                } label: {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(workout.type.displayName)
+                            .font(.headline)
+                        Text("\(WorkoutMetricsFormatter.distance(workout.distanceMeters)) · \(WorkoutMetricsFormatter.duration(workout.duration))")
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+            .overlay {
+                if workouts.isEmpty {
+                    ContentUnavailableView("No Workouts", systemImage: "figure.walk", description: Text("Your saved walks, runs, and rides will appear here."))
+                }
+            }
+            .navigationTitle("History")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
+    }
+}
