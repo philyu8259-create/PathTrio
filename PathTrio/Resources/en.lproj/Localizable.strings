@@ -80,6 +80,9 @@
 
 "summary.title" = "Workout Saved";
 "summary.saveError" = "This workout could not be saved. Please try again.";
+"summary.health.synced" = "Synced to Apple Health.";
+"summary.health.unavailable" = "Apple Health is not available on this device. Your workout was saved in PathTrio.";
+"summary.health.failed" = "Apple Health sync did not finish. Your workout was saved in PathTrio.";
 
 "smartAssist.activityChange.title" = "Switch to %@?";
 "smartAssist.activityChange.message" = "PathTrio detected movement that looks more like %@ than %@.";

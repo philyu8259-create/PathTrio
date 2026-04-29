@@ -80,6 +80,9 @@
 
 "summary.title" = "运动已保存";
 "summary.saveError" = "本次运动无法保存，请重试。";
+"summary.health.synced" = "已同步到 Apple 健康。";
+"summary.health.unavailable" = "这台设备无法使用 Apple 健康。本次运动已保存在三动迹内。";
+"summary.health.failed" = "Apple 健康同步未完成。本次运动已保存在三动迹内。";
 
 "smartAssist.activityChange.title" = "切换为%@？";
 "smartAssist.activityChange.message" = "三动迹检测到当前移动更像%@，而不是%@。";

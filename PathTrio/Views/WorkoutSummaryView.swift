@@ -7,6 +7,7 @@ struct WorkoutSummaryView: View {
     let draft: WorkoutSessionDraft
     let done: () -> Void
     @State private var saveErrorMessage: String?
+    @State private var healthSyncResult: WorkoutHealthSyncResult?
     @State private var hasSaved = false
 
     var body: some View {
@@ -33,6 +34,13 @@ struct WorkoutSummaryView: View {
                         .foregroundStyle(.red)
                 }
 
+                if let healthSyncResult, let messageKey = healthSyncResult.messageKey {
+                    Label(L10n.string(messageKey), systemImage: healthSyncResult.isError ? "exclamationmark.triangle" : "heart.text.square")
+                        .font(.footnote)
+                        .foregroundStyle(healthSyncResult.isError ? .orange : .secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
                 Spacer()
             }
             .padding()
@@ -53,6 +61,11 @@ struct WorkoutSummaryView: View {
                         bodyWeightKilograms: appModel.settingsStore.bodyWeightKilograms
                     )
                     appModel.latestCompletedWorkoutID = saved.id
+                    healthSyncResult = await WorkoutHealthSyncCoordinator.syncIfNeeded(
+                        saved,
+                        syncEnabled: appModel.settingsStore.healthKitSyncEnabled,
+                        syncer: appModel.healthSyncer
+                    )
                 } catch {
                     saveErrorMessage = L10n.string("summary.saveError")
                 }

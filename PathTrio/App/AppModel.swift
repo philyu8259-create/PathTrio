@@ -13,19 +13,22 @@ final class AppModel {
     let smartAssistEngine: SmartAssistEngine
     let locationService: LocationTrackingService
     let motionService: MotionActivityService
+    let healthSyncer: any HealthSyncing
 
     init(
         recorder: WorkoutRecorder = WorkoutRecorder(distanceCalculator: DistanceCalculator()),
         settingsStore: SettingsStore = SettingsStore(),
         smartAssistEngine: SmartAssistEngine = SmartAssistEngine(),
         locationService: LocationTrackingService = LocationTrackingService(),
-        motionService: MotionActivityService = MotionActivityService()
+        motionService: MotionActivityService = MotionActivityService(),
+        healthSyncer: any HealthSyncing = HealthKitWorkoutSyncer()
     ) {
         self.recorder = recorder
         self.settingsStore = settingsStore
         self.smartAssistEngine = smartAssistEngine
         self.locationService = locationService
         self.motionService = motionService
+        self.healthSyncer = healthSyncer
     }
 
     var smartAssistSettings: SmartAssistSettings {

@@ -19,6 +19,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.phil.PathTrio
+        CODE_SIGN_ENTITLEMENTS: PathTrio/PathTrio.entitlements
         INFOPLIST_KEY_CFBundleDisplayName: PathTrio
         INFOPLIST_KEY_NSHumanReadableCopyright: ""
         INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.
