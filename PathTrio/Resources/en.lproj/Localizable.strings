@@ -49,8 +49,22 @@
 "settings.smartAssist.speedAnomalyAlerts" = "Speed Anomaly Alerts";
 "settings.recording" = "Recording";
 "settings.recording.recordWhenLocked" = "Record When Locked";
+"settings.recording.backgroundDescription" = "Uses background location only during an active workout. This keeps routes complete when the screen is locked, but may use more battery.";
 "settings.privacy" = "Privacy";
 "settings.privacy.description" = "PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.";
+
+"location.status.permissionNeeded.title" = "Location Permission Needed";
+"location.status.permissionNeeded.message" = "Allow location access so PathTrio can draw your route and measure distance.";
+"location.status.permissionBlocked.title" = "Location Access Off";
+"location.status.permissionBlocked.message" = "Turn on location access in Settings to record route, distance, and speed.";
+"location.status.weakSignal.title" = "GPS Signal Is Weak";
+"location.status.weakSignal.message" = "Move to an open area for a more accurate route and distance.";
+"location.status.background.title" = "Background Recording On";
+"location.status.background.message" = "PathTrio will keep GPS active while this workout is recording, which may use more battery.";
+"location.status.backgroundPermission.title" = "Allow Always Location";
+"location.status.backgroundPermission.message" = "Background recording needs Always location access to keep tracking when the screen is locked.";
+"location.status.error.title" = "Location Update Issue";
+"location.status.error.message" = "PathTrio is having trouble receiving location updates right now.";
 
 "summary.title" = "Workout Saved";
 "summary.saveError" = "This workout could not be saved. Please try again.";

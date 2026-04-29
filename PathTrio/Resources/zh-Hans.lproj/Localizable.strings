@@ -49,8 +49,22 @@
 "settings.smartAssist.speedAnomalyAlerts" = "异常速度提醒";
 "settings.recording" = "记录";
 "settings.recording.recordWhenLocked" = "锁屏继续记录";
+"settings.recording.backgroundDescription" = "仅在运动记录中使用后台定位。锁屏后路线会更完整，但可能更耗电。";
 "settings.privacy" = "隐私";
 "settings.privacy.description" = "三动迹默认将运动记录保存在本机，只在记录运动时使用定位来保存路线、距离和速度。";
+
+"location.status.permissionNeeded.title" = "需要定位权限";
+"location.status.permissionNeeded.message" = "允许定位后，三动迹才能绘制路线并计算距离。";
+"location.status.permissionBlocked.title" = "定位访问已关闭";
+"location.status.permissionBlocked.message" = "请在系统设置中开启定位权限，才能记录路线、距离和速度。";
+"location.status.weakSignal.title" = "GPS 信号较弱";
+"location.status.weakSignal.message" = "移动到开阔区域，可以获得更准确的路线和距离。";
+"location.status.background.title" = "后台记录已开启";
+"location.status.background.message" = "本次运动记录期间会持续使用 GPS，可能会增加耗电。";
+"location.status.backgroundPermission.title" = "需要始终允许定位";
+"location.status.backgroundPermission.message" = "锁屏继续记录需要“始终允许”定位权限，才能在屏幕锁定后继续追踪。";
+"location.status.error.title" = "定位更新异常";
+"location.status.error.message" = "三动迹暂时无法稳定接收定位更新。";
 
 "summary.title" = "运动已保存";
 "summary.saveError" = "本次运动无法保存，请重试。";

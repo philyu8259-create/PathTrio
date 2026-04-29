@@ -9,6 +9,10 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
     private(set) var latestLocations: [CLLocation] = []
     private(set) var latestErrorMessage: String?
 
+    var latestHorizontalAccuracy: CLLocationAccuracy? {
+        latestLocations.last?.horizontalAccuracy
+    }
+
     override init() {
         authorizationStatus = manager.authorizationStatus
         super.init()

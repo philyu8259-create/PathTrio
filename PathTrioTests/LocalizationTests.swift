@@ -16,6 +16,11 @@ final class LocalizationTests: XCTestCase {
             "detail.started",
             "detail.ended",
             "metric.calories",
+            "location.status.permissionBlocked.title",
+            "location.status.weakSignal.title",
+            "location.status.background.title",
+            "location.status.backgroundPermission.title",
+            "settings.recording.backgroundDescription",
             "summary.title",
             "smartAssist.autoPause.title"
         ]

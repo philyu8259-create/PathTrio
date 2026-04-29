@@ -25,6 +25,9 @@ struct SettingsView: View {
 
                 Section("settings.recording") {
                     Toggle("settings.recording.recordWhenLocked", isOn: $settings.backgroundRecordingEnabled)
+                    Text("settings.recording.backgroundDescription")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
 
                 Section("settings.privacy") {
