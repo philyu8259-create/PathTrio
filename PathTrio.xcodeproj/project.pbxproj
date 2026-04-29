@@ -10,6 +10,7 @@
 		043FB8978C962FDB8B86C0E1 /* WorkoutSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B13A6619CB76C5F240357A4 /* WorkoutSessionModel.swift */; };
 		06E06E0FC384E6EF5D55FFEF /* WorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB6B25B4B0765BABA83DD3 /* WorkoutStore.swift */; };
 		0E727CFBBB5E5C75E797C408 /* PathTrioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */; };
+		2DB6A2966614309BCB29B9BD /* MotionActivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13638CE2C437C63433EFAEBB /* MotionActivityService.swift */; };
 		43FF55FC03A77D0C9CFF2ABC /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637146BB8A266FC54CFE55A /* DistanceCalculator.swift */; };
 		457D0528B40DFA952389A5D2 /* WorkoutRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD2B980491B9AE8E39548DD /* WorkoutRecorder.swift */; };
 		472C0EA53D43947884E54BC3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A00B331D64F9A2E00A20F3 /* HomeView.swift */; };
@@ -17,6 +18,8 @@
 		66B58FD2AE168A7276C6E04E /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86F1B67E706CEA415D2A92A /* SettingsStore.swift */; };
 		6BB60E18663FDFE45CF8F9C4 /* DistanceCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842326A31060730BF90DDB /* DistanceCalculatorTests.swift */; };
 		6DA082AD1316ED17E6AC9374 /* LocationPointModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD810A2502CEFCE9D6336BA2 /* LocationPointModel.swift */; };
+		86DB49350BA9D7C57D0FC918 /* SmartAssistEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59374B9141A9114D8674E51 /* SmartAssistEngine.swift */; };
+		8DFB9192FEB7847F1EF56660 /* LocationTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAACFBC490DC1A6E8D7E6315 /* LocationTrackingService.swift */; };
 		9B49C7F92BE8BD19527BBD12 /* WorkoutRecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F070BBC2812DB452964D7 /* WorkoutRecorderTests.swift */; };
 		A591D20C3CAB1F9DD4C2CA9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9353AE134A91B7464D141657 /* Assets.xcassets */; };
 		AC00039D5FA4D590417D37C9 /* WorkoutMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79941B46609B218E384B129A /* WorkoutMetrics.swift */; };
@@ -25,6 +28,7 @@
 		CC3903836659B9681A842AE7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF5E95B2F02AF08C3CEBE7FB /* InfoPlist.strings */; };
 		D03866D78B00FEBAD3D7CB66 /* UserSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66584C3CFE297F5EB1FFBFBA /* UserSettingsModel.swift */; };
 		EADED00F2661C4CEB598A2A2 /* WorkoutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B00DCD945D5A8CDE82CD657 /* WorkoutState.swift */; };
+		F776FC4FDA7E45DB7F9125C2 /* SmartAssistEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7384D59F40D520C71AD50AB9 /* SmartAssistEngineTests.swift */; };
 		F872EEA715A44290819B1674 /* WorkoutSessionDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC86B6D9B53B0ABCF16D9B4A /* WorkoutSessionDraft.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,14 +46,17 @@
 		0637146BB8A266FC54CFE55A /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		090E1F8956F327E47AC2C728 /* PathTrio.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PathTrio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B13A6619CB76C5F240357A4 /* WorkoutSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionModel.swift; sourceTree = "<group>"; };
+		13638CE2C437C63433EFAEBB /* MotionActivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionActivityService.swift; sourceTree = "<group>"; };
 		27EB6B25B4B0765BABA83DD3 /* WorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStore.swift; sourceTree = "<group>"; };
 		2C66B1B3856873E72FD3D6F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4BD2B980491B9AE8E39548DD /* WorkoutRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecorder.swift; sourceTree = "<group>"; };
 		55988384BC0F9C0A02E70BED /* SmartAssistSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAssistSuggestion.swift; sourceTree = "<group>"; };
 		66584C3CFE297F5EB1FFBFBA /* UserSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsModel.swift; sourceTree = "<group>"; };
+		7384D59F40D520C71AD50AB9 /* SmartAssistEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAssistEngineTests.swift; sourceTree = "<group>"; };
 		79941B46609B218E384B129A /* WorkoutMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutMetrics.swift; sourceTree = "<group>"; };
 		9353AE134A91B7464D141657 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B00DCD945D5A8CDE82CD657 /* WorkoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutState.swift; sourceTree = "<group>"; };
+		A59374B9141A9114D8674E51 /* SmartAssistEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAssistEngine.swift; sourceTree = "<group>"; };
 		AC86B6D9B53B0ABCF16D9B4A /* WorkoutSessionDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionDraft.swift; sourceTree = "<group>"; };
 		AF5E95B2F02AF08C3CEBE7FB /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		B0842326A31060730BF90DDB /* DistanceCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculatorTests.swift; sourceTree = "<group>"; };
@@ -58,6 +65,7 @@
 		BD810A2502CEFCE9D6336BA2 /* LocationPointModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPointModel.swift; sourceTree = "<group>"; };
 		BFDDCC0337ED48B9C70776BD /* WorkoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutType.swift; sourceTree = "<group>"; };
 		C86F1B67E706CEA415D2A92A /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		CAACFBC490DC1A6E8D7E6315 /* LocationTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTrackingService.swift; sourceTree = "<group>"; };
 		CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTrioApp.swift; sourceTree = "<group>"; };
 		D78F070BBC2812DB452964D7 /* WorkoutRecorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecorderTests.swift; sourceTree = "<group>"; };
 		E1A00B331D64F9A2E00A20F3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -77,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				B0842326A31060730BF90DDB /* DistanceCalculatorTests.swift */,
+				7384D59F40D520C71AD50AB9 /* SmartAssistEngineTests.swift */,
 				D78F070BBC2812DB452964D7 /* WorkoutRecorderTests.swift */,
 			);
 			path = PathTrioTests;
@@ -107,6 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				0637146BB8A266FC54CFE55A /* DistanceCalculator.swift */,
+				CAACFBC490DC1A6E8D7E6315 /* LocationTrackingService.swift */,
+				13638CE2C437C63433EFAEBB /* MotionActivityService.swift */,
+				A59374B9141A9114D8674E51 /* SmartAssistEngine.swift */,
 				4BD2B980491B9AE8E39548DD /* WorkoutRecorder.swift */,
 			);
 			path = Services;
@@ -252,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BB60E18663FDFE45CF8F9C4 /* DistanceCalculatorTests.swift in Sources */,
+				F776FC4FDA7E45DB7F9125C2 /* SmartAssistEngineTests.swift in Sources */,
 				9B49C7F92BE8BD19527BBD12 /* WorkoutRecorderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,8 +277,11 @@
 				43FF55FC03A77D0C9CFF2ABC /* DistanceCalculator.swift in Sources */,
 				472C0EA53D43947884E54BC3 /* HomeView.swift in Sources */,
 				6DA082AD1316ED17E6AC9374 /* LocationPointModel.swift in Sources */,
+				8DFB9192FEB7847F1EF56660 /* LocationTrackingService.swift in Sources */,
+				2DB6A2966614309BCB29B9BD /* MotionActivityService.swift in Sources */,
 				0E727CFBBB5E5C75E797C408 /* PathTrioApp.swift in Sources */,
 				66B58FD2AE168A7276C6E04E /* SettingsStore.swift in Sources */,
+				86DB49350BA9D7C57D0FC918 /* SmartAssistEngine.swift in Sources */,
 				4D3D5ABE43A52AA03B837E4B /* SmartAssistSuggestion.swift in Sources */,
 				D03866D78B00FEBAD3D7CB66 /* UserSettingsModel.swift in Sources */,
 				AC00039D5FA4D590417D37C9 /* WorkoutMetrics.swift in Sources */,
