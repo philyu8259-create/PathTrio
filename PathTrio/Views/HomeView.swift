@@ -12,16 +12,16 @@ struct HomeView: View {
         NavigationStack {
             VStack(spacing: 24) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("PathTrio")
+                    Text("app.name")
                         .font(.largeTitle.bold())
-                    Text("Walk, Run & Ride Tracker")
+                    Text("app.subtitle")
                         .foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
                 HStack(spacing: 12) {
-                    MetricTile(title: "Today", value: "0.00 km", systemImage: "map")
-                    MetricTile(title: "Time", value: "00:00", systemImage: "timer")
+                    MetricTile(title: L10n.string("metric.today"), value: "0.00 km", systemImage: "map")
+                    MetricTile(title: L10n.string("metric.time"), value: "00:00", systemImage: "timer")
                 }
 
                 WorkoutTypePicker(selection: $appModel.selectedWorkoutType)
@@ -39,7 +39,7 @@ struct HomeView: View {
                     }
                     showingActiveWorkout = true
                 } label: {
-                    Label("Start", systemImage: "play.fill")
+                    Label("action.start", systemImage: "play.fill")
                         .font(.title3.weight(.semibold))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
@@ -53,7 +53,7 @@ struct HomeView: View {
                     Button {
                         showingHistory = true
                     } label: {
-                        Label("History", systemImage: "clock.arrow.circlepath")
+                        Label("history.title", systemImage: "clock.arrow.circlepath")
                     }
 
                     Spacer()
@@ -61,7 +61,7 @@ struct HomeView: View {
                     Button {
                         showingSettings = true
                     } label: {
-                        Label("Settings", systemImage: "gearshape")
+                        Label("settings.title", systemImage: "gearshape")
                     }
                 }
                 .buttonStyle(.bordered)

@@ -1,0 +1,59 @@
+"app.name" = "PathTrio";
+"app.subtitle" = "Walk, Run & Ride Tracker";
+
+"action.start" = "Start";
+"action.done" = "Done";
+"action.cancel" = "Cancel";
+"action.ok" = "OK";
+"action.pause" = "Pause";
+"action.resume" = "Resume";
+"action.end" = "End";
+
+"workout.walk" = "Walk";
+"workout.run" = "Run";
+"workout.ride" = "Ride";
+
+"workoutState.ready" = "Ready";
+"workoutState.recording" = "Recording";
+"workoutState.paused" = "Paused";
+"workoutState.autoPaused" = "Auto Paused";
+"workoutState.ended" = "Ended";
+
+"metric.today" = "Today";
+"metric.time" = "Time";
+"metric.distance" = "Distance";
+"metric.duration" = "Duration";
+"metric.pace" = "Pace";
+"metric.speed" = "Speed";
+"metric.averagePace" = "Average Pace";
+"metric.averageSpeed" = "Average Speed";
+"metric.status" = "Status";
+
+"active.endConfirmation.title" = "End workout?";
+"active.endConfirmation.endWorkout" = "End Workout";
+
+"history.title" = "History";
+"history.empty.title" = "No Workouts";
+"history.empty.description" = "Your saved walks, runs, and rides will appear here.";
+
+"settings.title" = "Settings";
+"settings.units" = "Units";
+"settings.units.metric" = "Metric";
+"settings.smartAssist" = "Smart Assist";
+"settings.smartAssist.activityAlerts" = "Smart Activity Alerts";
+"settings.smartAssist.autoPause" = "Auto Pause";
+"settings.smartAssist.speedAnomalyAlerts" = "Speed Anomaly Alerts";
+"settings.recording" = "Recording";
+"settings.recording.recordWhenLocked" = "Record When Locked";
+"settings.privacy" = "Privacy";
+"settings.privacy.description" = "PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.";
+
+"summary.title" = "Workout Saved";
+"summary.saveError" = "This workout could not be saved. Please try again.";
+
+"smartAssist.activityChange.title" = "Switch to %@?";
+"smartAssist.activityChange.message" = "PathTrio detected movement that looks more like %@ than %@.";
+"smartAssist.autoPause.title" = "Pause workout?";
+"smartAssist.autoPause.message" = "You appear to be still. PathTrio can pause this workout until movement resumes.";
+"smartAssist.speedAnomaly.title" = "Unusual speed detected";
+"smartAssist.speedAnomaly.message" = "Your speed is unusually high for this workout type. You may want to pause recording.";

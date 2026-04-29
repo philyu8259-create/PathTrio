@@ -1,0 +1,59 @@
+"app.name" = "三动迹";
+"app.subtitle" = "走路跑步骑行记录";
+
+"action.start" = "开始";
+"action.done" = "完成";
+"action.cancel" = "取消";
+"action.ok" = "好的";
+"action.pause" = "暂停";
+"action.resume" = "继续";
+"action.end" = "结束";
+
+"workout.walk" = "走路";
+"workout.run" = "跑步";
+"workout.ride" = "骑行";
+
+"workoutState.ready" = "准备";
+"workoutState.recording" = "记录中";
+"workoutState.paused" = "已暂停";
+"workoutState.autoPaused" = "自动暂停";
+"workoutState.ended" = "已结束";
+
+"metric.today" = "今日";
+"metric.time" = "时间";
+"metric.distance" = "距离";
+"metric.duration" = "时长";
+"metric.pace" = "配速";
+"metric.speed" = "速度";
+"metric.averagePace" = "平均配速";
+"metric.averageSpeed" = "平均速度";
+"metric.status" = "状态";
+
+"active.endConfirmation.title" = "结束本次运动？";
+"active.endConfirmation.endWorkout" = "结束运动";
+
+"history.title" = "历史";
+"history.empty.title" = "暂无运动记录";
+"history.empty.description" = "保存后的走路、跑步和骑行记录会显示在这里。";
+
+"settings.title" = "设置";
+"settings.units" = "单位";
+"settings.units.metric" = "公制";
+"settings.smartAssist" = "智能辅助";
+"settings.smartAssist.activityAlerts" = "运动类型提醒";
+"settings.smartAssist.autoPause" = "自动暂停";
+"settings.smartAssist.speedAnomalyAlerts" = "异常速度提醒";
+"settings.recording" = "记录";
+"settings.recording.recordWhenLocked" = "锁屏继续记录";
+"settings.privacy" = "隐私";
+"settings.privacy.description" = "三动迹默认将运动记录保存在本机，只在记录运动时使用定位来保存路线、距离和速度。";
+
+"summary.title" = "运动已保存";
+"summary.saveError" = "本次运动无法保存，请重试。";
+
+"smartAssist.activityChange.title" = "切换为%@？";
+"smartAssist.activityChange.message" = "三动迹检测到当前移动更像%@，而不是%@。";
+"smartAssist.autoPause.title" = "暂停运动？";
+"smartAssist.autoPause.message" = "你看起来暂时静止。三动迹可以暂停本次运动，等你继续移动后再恢复。";
+"smartAssist.speedAnomaly.title" = "检测到异常速度";
+"smartAssist.speedAnomaly.message" = "当前速度对这个运动类型来说偏高，你可能需要暂停记录。";

@@ -9,32 +9,32 @@ struct SettingsView: View {
 
         NavigationStack {
             Form {
-                Section("Units") {
-                    Picker("Units", selection: $settings.preferredUnits) {
-                        Text("Metric").tag("metric")
+                Section("settings.units") {
+                    Picker("settings.units", selection: $settings.preferredUnits) {
+                        Text("settings.units.metric").tag("metric")
                     }
                 }
 
-                Section("Smart Assist") {
-                    Toggle("Smart Activity Alerts", isOn: $settings.smartActivityAlertsEnabled)
-                    Toggle("Auto Pause", isOn: $settings.autoPauseEnabled)
-                    Toggle("Speed Anomaly Alerts", isOn: $settings.speedAnomalyAlertsEnabled)
+                Section("settings.smartAssist") {
+                    Toggle("settings.smartAssist.activityAlerts", isOn: $settings.smartActivityAlertsEnabled)
+                    Toggle("settings.smartAssist.autoPause", isOn: $settings.autoPauseEnabled)
+                    Toggle("settings.smartAssist.speedAnomalyAlerts", isOn: $settings.speedAnomalyAlertsEnabled)
                 }
 
-                Section("Recording") {
-                    Toggle("Record When Locked", isOn: $settings.backgroundRecordingEnabled)
+                Section("settings.recording") {
+                    Toggle("settings.recording.recordWhenLocked", isOn: $settings.backgroundRecordingEnabled)
                 }
 
-                Section("Privacy") {
-                    Text("PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.")
+                Section("settings.privacy") {
+                    Text("settings.privacy.description")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle("settings.title")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") { dismiss() }
+                    Button("action.done") { dismiss() }
                 }
             }
         }

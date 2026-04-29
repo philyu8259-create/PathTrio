@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "PathTrio";
+"NSLocationWhenInUseUsageDescription" = "PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "PathTrio uses background location only during an active workout so it can keep recording when your screen is locked.";
+"NSMotionUsageDescription" = "PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.";

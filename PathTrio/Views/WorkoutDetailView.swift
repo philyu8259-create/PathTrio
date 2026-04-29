@@ -28,12 +28,12 @@ struct WorkoutDetailView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 HStack(spacing: 12) {
-                    MetricTile(title: "Distance", value: WorkoutMetricsFormatter.distance(workout.distanceMeters), systemImage: "map")
-                    MetricTile(title: "Duration", value: WorkoutMetricsFormatter.duration(workout.duration), systemImage: "timer")
+                    MetricTile(title: L10n.string("metric.distance"), value: WorkoutMetricsFormatter.distance(workout.distanceMeters), systemImage: "map")
+                    MetricTile(title: L10n.string("metric.duration"), value: WorkoutMetricsFormatter.duration(workout.duration), systemImage: "timer")
                 }
 
                 MetricTile(
-                    title: workout.type.emphasizesPace ? "Pace" : "Speed",
+                    title: workout.type.emphasizesPace ? L10n.string("metric.pace") : L10n.string("metric.speed"),
                     value: workout.type.emphasizesPace ? WorkoutMetricsFormatter.pace(workout.distanceMeters > 0 ? workout.duration / (workout.distanceMeters / 1_000) : nil) : WorkoutMetricsFormatter.speed(workout.averageSpeedMetersPerSecond),
                     systemImage: "speedometer"
                 )

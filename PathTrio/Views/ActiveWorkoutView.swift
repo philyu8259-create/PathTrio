@@ -18,17 +18,17 @@ struct ActiveWorkoutView: View {
                 let type = draft?.type ?? appModel.selectedWorkoutType
 
                 HStack(spacing: 12) {
-                    MetricTile(title: "Time", value: WorkoutMetricsFormatter.duration(metrics.duration), systemImage: "timer")
-                    MetricTile(title: "Distance", value: WorkoutMetricsFormatter.distance(metrics.distanceMeters), systemImage: "map")
+                    MetricTile(title: L10n.string("metric.time"), value: WorkoutMetricsFormatter.duration(metrics.duration), systemImage: "timer")
+                    MetricTile(title: L10n.string("metric.distance"), value: WorkoutMetricsFormatter.distance(metrics.distanceMeters), systemImage: "map")
                 }
 
                 HStack(spacing: 12) {
                     MetricTile(
-                        title: type.emphasizesPace ? "Pace" : "Speed",
+                        title: type.emphasizesPace ? L10n.string("metric.pace") : L10n.string("metric.speed"),
                         value: type.emphasizesPace ? WorkoutMetricsFormatter.pace(metrics.paceSecondsPerKilometer) : WorkoutMetricsFormatter.speed(metrics.averageSpeedMetersPerSecond),
                         systemImage: type.emphasizesPace ? "speedometer" : "gauge.with.dots.needle.67percent"
                     )
-                    MetricTile(title: "Status", value: statusText(draft?.state), systemImage: "waveform.path.ecg")
+                    MetricTile(title: L10n.string("metric.status"), value: statusText(draft?.state), systemImage: "waveform.path.ecg")
                 }
 
                 HStack(spacing: 12) {
@@ -39,7 +39,7 @@ struct ActiveWorkoutView: View {
                             _ = appModel.recorder.resume()
                         }
                     } label: {
-                        Label(appModel.recorder.draft?.state == .recording ? "Pause" : "Resume", systemImage: appModel.recorder.draft?.state == .recording ? "pause.fill" : "play.fill")
+                        Label(appModel.recorder.draft?.state == .recording ? L10n.string("action.pause") : L10n.string("action.resume"), systemImage: appModel.recorder.draft?.state == .recording ? "pause.fill" : "play.fill")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
@@ -47,7 +47,7 @@ struct ActiveWorkoutView: View {
                     Button(role: .destructive) {
                         showingEndConfirmation = true
                     } label: {
-                        Label("End", systemImage: "stop.fill")
+                        Label("action.end", systemImage: "stop.fill")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
@@ -57,14 +57,14 @@ struct ActiveWorkoutView: View {
             .background(.regularMaterial)
         }
         .navigationBarBackButtonHidden()
-        .confirmationDialog("End workout?", isPresented: $showingEndConfirmation, titleVisibility: .visible) {
-            Button("End Workout", role: .destructive) {
+        .confirmationDialog("active.endConfirmation.title", isPresented: $showingEndConfirmation, titleVisibility: .visible) {
+            Button("active.endConfirmation.endWorkout", role: .destructive) {
                 appModel.locationService.stop()
                 appModel.motionService.stop()
                 completedDraft = appModel.recorder.end()
                 appModel.activeDraft = nil
             }
-            Button("Cancel", role: .cancel) {}
+            Button("action.cancel", role: .cancel) {}
         }
         .sheet(item: $completedDraft) { draft in
             WorkoutSummaryView(draft: draft) {
@@ -93,18 +93,18 @@ struct ActiveWorkoutView: View {
             Alert(
                 title: Text(suggestion.title),
                 message: Text(suggestion.message),
-                dismissButton: .default(Text("OK"))
+                dismissButton: .default(Text("action.ok"))
             )
         }
     }
 
     private func statusText(_ state: WorkoutState?) -> String {
         switch state {
-        case .recording: "Recording"
-        case .paused: "Paused"
-        case .autoPaused: "Auto Paused"
-        case .ended: "Ended"
-        case .idle, .none: "Ready"
+        case .recording: L10n.string("workoutState.recording")
+        case .paused: L10n.string("workoutState.paused")
+        case .autoPaused: L10n.string("workoutState.autoPaused")
+        case .ended: L10n.string("workoutState.ended")
+        case .idle, .none: L10n.string("workoutState.ready")
         }
     }
 }

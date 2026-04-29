@@ -17,12 +17,12 @@ struct WorkoutSummaryView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 HStack(spacing: 12) {
-                    MetricTile(title: "Distance", value: WorkoutMetricsFormatter.distance(draft.metrics.distanceMeters), systemImage: "map")
-                    MetricTile(title: "Duration", value: WorkoutMetricsFormatter.duration(draft.metrics.duration), systemImage: "timer")
+                    MetricTile(title: L10n.string("metric.distance"), value: WorkoutMetricsFormatter.distance(draft.metrics.distanceMeters), systemImage: "map")
+                    MetricTile(title: L10n.string("metric.duration"), value: WorkoutMetricsFormatter.duration(draft.metrics.duration), systemImage: "timer")
                 }
 
                 MetricTile(
-                    title: draft.type.emphasizesPace ? "Average Pace" : "Average Speed",
+                    title: draft.type.emphasizesPace ? L10n.string("metric.averagePace") : L10n.string("metric.averageSpeed"),
                     value: draft.type.emphasizesPace ? WorkoutMetricsFormatter.pace(draft.metrics.paceSecondsPerKilometer) : WorkoutMetricsFormatter.speed(draft.metrics.averageSpeedMetersPerSecond),
                     systemImage: "speedometer"
                 )
@@ -36,10 +36,10 @@ struct WorkoutSummaryView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle("Workout Saved")
+            .navigationTitle("summary.title")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done", action: done)
+                    Button("action.done", action: done)
                 }
             }
             .task {
@@ -53,7 +53,7 @@ struct WorkoutSummaryView: View {
                     )
                     appModel.latestCompletedWorkoutID = saved.id
                 } catch {
-                    saveErrorMessage = "This workout could not be saved. Please try again."
+                    saveErrorMessage = L10n.string("summary.saveError")
                 }
             }
         }

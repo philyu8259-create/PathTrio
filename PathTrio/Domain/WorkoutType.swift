@@ -9,9 +9,9 @@ enum WorkoutType: String, CaseIterable, Codable, Identifiable {
 
     var displayName: String {
         switch self {
-        case .walk: "Walk"
-        case .run: "Run"
-        case .ride: "Ride"
+        case .walk: L10n.string("workout.walk")
+        case .run: L10n.string("workout.run")
+        case .ride: L10n.string("workout.ride")
         }
     }
 

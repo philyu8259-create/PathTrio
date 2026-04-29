@@ -21,13 +21,13 @@ struct HistoryView: View {
             }
             .overlay {
                 if workouts.isEmpty {
-                    ContentUnavailableView("No Workouts", systemImage: "figure.walk", description: Text("Your saved walks, runs, and rides will appear here."))
+                    ContentUnavailableView("history.empty.title", systemImage: "figure.walk", description: Text("history.empty.description"))
                 }
             }
-            .navigationTitle("History")
+            .navigationTitle("history.title")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") { dismiss() }
+                    Button("action.done") { dismiss() }
                 }
             }
         }

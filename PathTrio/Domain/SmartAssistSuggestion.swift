@@ -19,22 +19,26 @@ enum SmartAssistSuggestion: Equatable, Identifiable {
     var title: String {
         switch self {
         case .activityChange(_, let to):
-            return "Switch to \(to.displayName)?"
+            return L10n.string("smartAssist.activityChange.title", to.displayName)
         case .autoPause:
-            return "Pause workout?"
+            return L10n.string("smartAssist.autoPause.title")
         case .speedAnomaly:
-            return "Unusual speed detected"
+            return L10n.string("smartAssist.speedAnomaly.title")
         }
     }
 
     var message: String {
         switch self {
         case .activityChange(let from, let to):
-            return "PathTrio detected movement that looks more like \(to.displayName.lowercased()) than \(from.displayName.lowercased())."
+            return L10n.string(
+                "smartAssist.activityChange.message",
+                to.displayName.localizedLowercase,
+                from.displayName.localizedLowercase
+            )
         case .autoPause:
-            return "You appear to be still. PathTrio can pause this workout until movement resumes."
+            return L10n.string("smartAssist.autoPause.message")
         case .speedAnomaly:
-            return "Your speed is unusually high for this workout type. You may want to pause recording."
+            return L10n.string("smartAssist.speedAnomaly.message")
         }
     }
 }
