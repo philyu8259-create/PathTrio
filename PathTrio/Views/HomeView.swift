@@ -27,7 +27,12 @@ struct HomeView: View {
                 WorkoutTypePicker(selection: $appModel.selectedWorkoutType)
 
                 Button {
+                    appModel.locationService.requestWhenInUsePermission()
                     appModel.activeDraft = appModel.recorder.start(type: appModel.selectedWorkoutType)
+                    appModel.locationService.start(backgroundAllowed: false)
+                    if appModel.settingsStore.isAnySmartAssistEnabled {
+                        appModel.motionService.start()
+                    }
                     showingActiveWorkout = true
                 } label: {
                     Label("Start", systemImage: "play.fill")

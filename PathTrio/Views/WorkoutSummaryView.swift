@@ -1,8 +1,13 @@
+import SwiftData
 import SwiftUI
 
 struct WorkoutSummaryView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(AppModel.self) private var appModel
     let draft: WorkoutSessionDraft
     let done: () -> Void
+    @State private var saveErrorMessage: String?
+    @State private var hasSaved = false
 
     var body: some View {
         NavigationStack {
@@ -22,6 +27,12 @@ struct WorkoutSummaryView: View {
                     systemImage: "speedometer"
                 )
 
+                if let saveErrorMessage {
+                    Text(saveErrorMessage)
+                        .font(.footnote)
+                        .foregroundStyle(.red)
+                }
+
                 Spacer()
             }
             .padding()
@@ -29,6 +40,20 @@ struct WorkoutSummaryView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done", action: done)
+                }
+            }
+            .task {
+                guard !hasSaved else { return }
+                hasSaved = true
+                do {
+                    let store = WorkoutStore(context: modelContext)
+                    let saved = try store.saveCompletedWorkout(
+                        draft,
+                        smartAssistEnabledAtStart: appModel.settingsStore.isAnySmartAssistEnabled
+                    )
+                    appModel.latestCompletedWorkoutID = saved.id
+                } catch {
+                    saveErrorMessage = "This workout could not be saved. Please try again."
                 }
             }
         }

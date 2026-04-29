@@ -5,6 +5,7 @@ struct ActiveWorkoutView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showingEndConfirmation = false
     @State private var completedDraft: WorkoutSessionDraft?
+    @State private var consumedLocationCount = 0
 
     var body: some View {
         VStack(spacing: 0) {
@@ -58,6 +59,8 @@ struct ActiveWorkoutView: View {
         .navigationBarBackButtonHidden()
         .confirmationDialog("End workout?", isPresented: $showingEndConfirmation, titleVisibility: .visible) {
             Button("End Workout", role: .destructive) {
+                appModel.locationService.stop()
+                appModel.motionService.stop()
                 completedDraft = appModel.recorder.end()
                 appModel.activeDraft = nil
             }
@@ -67,6 +70,31 @@ struct ActiveWorkoutView: View {
             WorkoutSummaryView(draft: draft) {
                 dismiss()
             }
+        }
+        .onChange(of: appModel.locationService.latestLocations.count) { _, count in
+            guard count > consumedLocationCount else { return }
+            let newLocations = Array(appModel.locationService.latestLocations[consumedLocationCount..<count])
+            consumedLocationCount = count
+            appModel.activeDraft = appModel.recorder.addLocations(newLocations)
+
+            if let draft = appModel.recorder.draft {
+                appModel.activeSuggestion = appModel.smartAssistEngine.evaluate(
+                    workoutType: draft.type,
+                    currentSpeedMetersPerSecond: draft.metrics.averageSpeedMetersPerSecond,
+                    detectedActivity: appModel.motionService.detectedActivity,
+                    settings: appModel.smartAssistSettings
+                )
+            }
+        }
+        .alert(item: Binding(
+            get: { appModel.activeSuggestion },
+            set: { appModel.activeSuggestion = $0 }
+        )) { suggestion in
+            Alert(
+                title: Text(suggestion.title),
+                message: Text(suggestion.message),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 
