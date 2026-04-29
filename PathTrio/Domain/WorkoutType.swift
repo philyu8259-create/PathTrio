@@ -26,4 +26,12 @@ enum WorkoutType: String, CaseIterable, Codable, Identifiable {
     var emphasizesPace: Bool {
         self == .walk || self == .run
     }
+
+    var metabolicEquivalent: Double {
+        switch self {
+        case .walk: 3.5
+        case .run: 9.8
+        case .ride: 7.5
+        }
+    }
 }

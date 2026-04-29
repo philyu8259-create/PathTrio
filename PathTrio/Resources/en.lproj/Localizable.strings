@@ -27,7 +27,11 @@
 "metric.speed" = "Speed";
 "metric.averagePace" = "Average Pace";
 "metric.averageSpeed" = "Average Speed";
+"metric.calories" = "Calories";
 "metric.status" = "Status";
+
+"detail.started" = "Started";
+"detail.ended" = "Ended";
 
 "active.endConfirmation.title" = "End workout?";
 "active.endConfirmation.endWorkout" = "End Workout";

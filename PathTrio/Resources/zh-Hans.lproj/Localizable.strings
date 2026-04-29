@@ -27,7 +27,11 @@
 "metric.speed" = "速度";
 "metric.averagePace" = "平均配速";
 "metric.averageSpeed" = "平均速度";
+"metric.calories" = "卡路里";
 "metric.status" = "状态";
+
+"detail.started" = "开始时间";
+"detail.ended" = "结束时间";
 
 "active.endConfirmation.title" = "结束本次运动？";
 "active.endConfirmation.endWorkout" = "结束运动";

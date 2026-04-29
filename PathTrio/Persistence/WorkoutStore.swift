@@ -27,7 +27,11 @@ struct WorkoutStore {
         }
     }
 
-    func saveCompletedWorkout(_ draft: WorkoutSessionDraft, smartAssistEnabledAtStart: Bool) throws -> WorkoutSessionModel {
+    func saveCompletedWorkout(
+        _ draft: WorkoutSessionDraft,
+        smartAssistEnabledAtStart: Bool,
+        bodyWeightKilograms: Double? = nil
+    ) throws -> WorkoutSessionModel {
         guard let endedAt = draft.endedAt else {
             throw WorkoutStoreError.missingEndDate
         }
@@ -52,7 +56,11 @@ struct WorkoutStore {
             duration: draft.metrics.duration,
             distanceMeters: draft.metrics.distanceMeters,
             averageSpeedMetersPerSecond: draft.metrics.averageSpeedMetersPerSecond,
-            estimatedCalories: nil,
+            estimatedCalories: WorkoutCaloriesEstimator.estimate(
+                type: draft.type,
+                duration: draft.metrics.duration,
+                bodyWeightKilograms: bodyWeightKilograms
+            ),
             smartAssistEnabledAtStart: smartAssistEnabledAtStart,
             locations: points
         )

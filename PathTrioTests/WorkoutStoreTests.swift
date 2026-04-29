@@ -39,6 +39,27 @@ final class WorkoutStoreTests: XCTestCase {
         XCTAssertEqual(totals.duration, 120)
     }
 
+    func testSaveCompletedWorkoutStoresEstimatedCalories() throws {
+        let context = try makeContext()
+        let store = WorkoutStore(context: context)
+        let draft = WorkoutSessionDraft(
+            type: .run,
+            startedAt: Date(timeIntervalSince1970: 100),
+            endedAt: Date(timeIntervalSince1970: 1_900),
+            state: .ended,
+            metrics: WorkoutMetrics(duration: 1_800, distanceMeters: 5_000, averageSpeedMetersPerSecond: 2.78)
+        )
+
+        let saved = try store.saveCompletedWorkout(
+            draft,
+            smartAssistEnabledAtStart: false,
+            bodyWeightKilograms: 70
+        )
+
+        let estimatedCalories = try XCTUnwrap(saved.estimatedCalories)
+        XCTAssertEqual(estimatedCalories, 343, accuracy: 0.1)
+    }
+
     private func makeContext() throws -> ModelContext {
         let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(

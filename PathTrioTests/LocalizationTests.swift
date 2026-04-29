@@ -13,6 +13,9 @@ final class LocalizationTests: XCTestCase {
             "settings.title",
             "settings.recording.recordWhenLocked",
             "history.empty.title",
+            "detail.started",
+            "detail.ended",
+            "metric.calories",
             "summary.title",
             "smartAssist.autoPause.title"
         ]

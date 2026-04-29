@@ -49,7 +49,8 @@ struct WorkoutSummaryView: View {
                     let store = WorkoutStore(context: modelContext)
                     let saved = try store.saveCompletedWorkout(
                         draft,
-                        smartAssistEnabledAtStart: appModel.settingsStore.isAnySmartAssistEnabled
+                        smartAssistEnabledAtStart: appModel.settingsStore.isAnySmartAssistEnabled,
+                        bodyWeightKilograms: appModel.settingsStore.bodyWeightKilograms
                     )
                     appModel.latestCompletedWorkoutID = saved.id
                 } catch {

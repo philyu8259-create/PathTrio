@@ -11,6 +11,18 @@ struct WorkoutMetrics: Equatable {
     }
 }
 
+enum WorkoutCaloriesEstimator {
+    static let defaultBodyWeightKilograms: Double = 70
+
+    static func estimate(type: WorkoutType, duration: TimeInterval, bodyWeightKilograms: Double?) -> Double? {
+        guard duration > 0 else { return nil }
+        let weight = bodyWeightKilograms ?? defaultBodyWeightKilograms
+        guard weight > 0 else { return nil }
+
+        return type.metabolicEquivalent * weight * (duration / 3_600)
+    }
+}
+
 enum WorkoutMetricsFormatter {
     static func distance(_ meters: Double) -> String {
         if meters < 1_000 {
@@ -42,5 +54,12 @@ enum WorkoutMetricsFormatter {
         let minutes = Int(secondsPerKilometer) / 60
         let seconds = Int(secondsPerKilometer) % 60
         return String(format: "%d:%02d /km", minutes, seconds)
+    }
+
+    static func calories(_ calories: Double?) -> String {
+        guard let calories, calories.isFinite, calories > 0 else {
+            return "-- kcal"
+        }
+        return "\(Int(calories.rounded())) kcal"
     }
 }
