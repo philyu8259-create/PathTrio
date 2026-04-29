@@ -12,6 +12,7 @@ final class WorkoutSessionModel {
     var averageSpeedMetersPerSecond: Double
     var estimatedCalories: Double?
     var smartAssistEnabledAtStart: Bool
+    var healthSyncResultRawValue: String?
     var createdAt: Date
     var updatedAt: Date
     @Relationship(deleteRule: .cascade, inverse: \LocationPointModel.workout) var locations: [LocationPointModel]
@@ -26,6 +27,7 @@ final class WorkoutSessionModel {
         averageSpeedMetersPerSecond: Double,
         estimatedCalories: Double? = nil,
         smartAssistEnabledAtStart: Bool,
+        healthSyncResult: WorkoutHealthSyncResult? = nil,
         locations: [LocationPointModel] = [],
         createdAt: Date = Date(),
         updatedAt: Date = Date()
@@ -39,6 +41,7 @@ final class WorkoutSessionModel {
         self.averageSpeedMetersPerSecond = averageSpeedMetersPerSecond
         self.estimatedCalories = estimatedCalories
         self.smartAssistEnabledAtStart = smartAssistEnabledAtStart
+        self.healthSyncResultRawValue = healthSyncResult?.rawValue
         self.locations = locations
         self.createdAt = createdAt
         self.updatedAt = updatedAt
@@ -46,5 +49,15 @@ final class WorkoutSessionModel {
 
     var type: WorkoutType {
         WorkoutType(rawValue: typeRawValue) ?? .walk
+    }
+
+    var healthSyncResult: WorkoutHealthSyncResult? {
+        get {
+            guard let healthSyncResultRawValue else { return nil }
+            return WorkoutHealthSyncResult(rawValue: healthSyncResultRawValue)
+        }
+        set {
+            healthSyncResultRawValue = newValue?.rawValue
+        }
     }
 }

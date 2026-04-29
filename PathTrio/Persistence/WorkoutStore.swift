@@ -69,6 +69,12 @@ struct WorkoutStore {
         try context.save()
         return session
     }
+
+    func updateHealthSyncResult(_ result: WorkoutHealthSyncResult, for session: WorkoutSessionModel) throws {
+        session.healthSyncResult = result
+        session.updatedAt = Date()
+        try context.save()
+    }
 }
 
 enum WorkoutStoreError: Error {

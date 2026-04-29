@@ -83,6 +83,10 @@
 "summary.health.synced" = "Synced to Apple Health.";
 "summary.health.unavailable" = "Apple Health is not available on this device. Your workout was saved in PathTrio.";
 "summary.health.failed" = "Apple Health sync did not finish. Your workout was saved in PathTrio.";
+"detail.healthSync.synced" = "Synced to Apple Health";
+"detail.healthSync.skipped" = "Apple Health sync was off";
+"detail.healthSync.unavailable" = "Apple Health was unavailable";
+"detail.healthSync.failed" = "Apple Health sync failed";
 
 "smartAssist.activityChange.title" = "Switch to %@?";
 "smartAssist.activityChange.message" = "PathTrio detected movement that looks more like %@ than %@.";

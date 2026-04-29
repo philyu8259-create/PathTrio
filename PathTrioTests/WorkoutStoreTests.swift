@@ -60,6 +60,40 @@ final class WorkoutStoreTests: XCTestCase {
         XCTAssertEqual(estimatedCalories, 343, accuracy: 0.1)
     }
 
+    func testSaveCompletedWorkoutStartsWithoutHealthSyncResult() throws {
+        let context = try makeContext()
+        let store = WorkoutStore(context: context)
+        let draft = WorkoutSessionDraft(
+            type: .run,
+            startedAt: Date(timeIntervalSince1970: 100),
+            endedAt: Date(timeIntervalSince1970: 1_900),
+            state: .ended,
+            metrics: WorkoutMetrics(duration: 1_800, distanceMeters: 5_000, averageSpeedMetersPerSecond: 2.78)
+        )
+
+        let saved = try store.saveCompletedWorkout(
+            draft,
+            smartAssistEnabledAtStart: false,
+            bodyWeightKilograms: 70
+        )
+
+        XCTAssertNil(saved.healthSyncResult)
+    }
+
+    func testUpdateHealthSyncResultPersistsSyncOutcome() throws {
+        let context = try makeContext()
+        let store = WorkoutStore(context: context)
+        let workout = makeWorkout(startedAt: Date(timeIntervalSince1970: 100), duration: 600, distanceMeters: 1_000)
+        context.insert(workout)
+        try context.save()
+
+        try store.updateHealthSyncResult(.synced, for: workout)
+
+        let descriptor = FetchDescriptor<WorkoutSessionModel>()
+        let saved = try XCTUnwrap(try context.fetch(descriptor).first)
+        XCTAssertEqual(saved.healthSyncResult, .synced)
+    }
+
     private func makeContext() throws -> ModelContext {
         let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(

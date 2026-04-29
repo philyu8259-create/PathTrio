@@ -7,7 +7,7 @@ protocol HealthSyncing: AnyObject {
     func save(workout: WorkoutSessionModel) async throws
 }
 
-enum WorkoutHealthSyncResult: Equatable {
+enum WorkoutHealthSyncResult: String, Equatable {
     case skipped
     case synced
     case unavailable
@@ -28,6 +28,19 @@ enum WorkoutHealthSyncResult: Equatable {
 
     var isError: Bool {
         self == .unavailable || self == .failed
+    }
+
+    var detailMessageKey: String {
+        switch self {
+        case .skipped:
+            return "detail.healthSync.skipped"
+        case .synced:
+            return "detail.healthSync.synced"
+        case .unavailable:
+            return "detail.healthSync.unavailable"
+        case .failed:
+            return "detail.healthSync.failed"
+        }
     }
 }
 

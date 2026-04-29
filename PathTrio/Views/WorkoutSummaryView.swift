@@ -66,6 +66,9 @@ struct WorkoutSummaryView: View {
                         syncEnabled: appModel.settingsStore.healthKitSyncEnabled,
                         syncer: appModel.healthSyncer
                     )
+                    if let healthSyncResult {
+                        try store.updateHealthSyncResult(healthSyncResult, for: saved)
+                    }
                 } catch {
                     saveErrorMessage = L10n.string("summary.saveError")
                 }

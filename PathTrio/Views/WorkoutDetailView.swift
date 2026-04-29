@@ -58,6 +58,12 @@ struct WorkoutDetailView: View {
                 }
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+
+                if let healthSyncResult = workout.healthSyncResult {
+                    Label(L10n.string(healthSyncResult.detailMessageKey), systemImage: healthSyncResult.isError ? "exclamationmark.triangle" : "heart.text.square")
+                        .font(.subheadline)
+                        .foregroundStyle(healthSyncResult.isError ? .orange : .secondary)
+                }
             }
             .padding()
         }
