@@ -1,10 +1,13 @@
+import SwiftData
 import SwiftUI
 
 struct HomeView: View {
     @Environment(AppModel.self) private var appModel
+    @Environment(\.modelContext) private var modelContext
     @State private var showingActiveWorkout = false
     @State private var showingHistory = false
     @State private var showingSettings = false
+    @State private var todayTotals = WorkoutTotals()
 
     var body: some View {
         @Bindable var appModel = appModel
@@ -20,8 +23,8 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
 
                 HStack(spacing: 12) {
-                    MetricTile(title: L10n.string("metric.today"), value: "0.00 km", systemImage: "map")
-                    MetricTile(title: L10n.string("metric.time"), value: "00:00", systemImage: "timer")
+                    MetricTile(title: L10n.string("metric.today"), value: WorkoutMetricsFormatter.distance(todayTotals.distanceMeters), systemImage: "map")
+                    MetricTile(title: L10n.string("metric.time"), value: WorkoutMetricsFormatter.duration(todayTotals.duration), systemImage: "timer")
                 }
 
                 WorkoutTypePicker(selection: $appModel.selectedWorkoutType)
@@ -76,6 +79,29 @@ struct HomeView: View {
             .sheet(isPresented: $showingSettings) {
                 SettingsView()
             }
+            .task {
+                loadSettings()
+                refreshTodayTotals()
+            }
+            .onChange(of: appModel.latestCompletedWorkoutID) { _, _ in
+                refreshTodayTotals()
+            }
+        }
+    }
+
+    private func loadSettings() {
+        do {
+            try SettingsPersistenceStore(context: modelContext).load(into: appModel.settingsStore)
+        } catch {
+            // Keep in-memory defaults if settings cannot be loaded.
+        }
+    }
+
+    private func refreshTodayTotals() {
+        do {
+            todayTotals = try WorkoutStore(context: modelContext).totals(forDayContaining: Date())
+        } catch {
+            todayTotals = WorkoutTotals()
         }
     }
 }
