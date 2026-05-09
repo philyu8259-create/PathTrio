@@ -12,51 +12,63 @@ struct SettingsView: View {
         @Bindable var settings = appModel.settingsStore
 
         NavigationStack {
-            Form {
-                Section("settings.units") {
-                    Picker("settings.units", selection: $settings.preferredUnits) {
-                        Text("settings.units.metric").tag("metric")
-                    }
-                }
+            ZStack {
+                PathTrioTheme.pageBackground
+                    .ignoresSafeArea()
 
-                Section("settings.smartAssist") {
-                    Toggle("settings.smartAssist.activityAlerts", isOn: $settings.smartActivityAlertsEnabled)
-                    Toggle("settings.smartAssist.autoPause", isOn: $settings.autoPauseEnabled)
-                    Toggle("settings.smartAssist.speedAnomalyAlerts", isOn: $settings.speedAnomalyAlertsEnabled)
-                }
-
-                Section("settings.recording") {
-                    Toggle("settings.recording.recordWhenLocked", isOn: backgroundRecordingBinding)
-                    Text("settings.recording.backgroundDescription")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
-
-                Section("settings.health") {
-                    Toggle("settings.health.syncToAppleHealth", isOn: healthSyncBinding)
-
-                    HealthSyncStatusRow(status: HealthSyncPlan.status(syncEnabled: settings.healthKitSyncEnabled))
-
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("settings.health.plannedData")
-                            .font(.footnote.weight(.semibold))
-
-                        ForEach(HealthSyncPlan.plannedWriteTypeKeys, id: \.self) { key in
-                            Label(L10n.string(key), systemImage: "checkmark.circle")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 18) {
+                        SettingsPanel(titleKey: "settings.units", systemImage: "ruler") {
+                            Picker("settings.units", selection: $settings.preferredUnits) {
+                                Text("settings.units.metric").tag("metric")
+                            }
+                            .pickerStyle(.menu)
+                            .tint(PathTrioTheme.action)
                         }
-                    }
-                    .padding(.top, 4)
-                }
 
-                Section("settings.privacy") {
-                    Text("settings.privacy.description")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        SettingsPanel(titleKey: "settings.smartAssist", systemImage: "sparkles") {
+                            SettingsToggleRow(titleKey: "settings.smartAssist.activityAlerts", systemImage: "figure.walk.motion", isOn: $settings.smartActivityAlertsEnabled)
+                            SettingsDivider()
+                            SettingsToggleRow(titleKey: "settings.smartAssist.autoPause", systemImage: "pause.circle", isOn: $settings.autoPauseEnabled)
+                            SettingsDivider()
+                            SettingsToggleRow(titleKey: "settings.smartAssist.speedAnomalyAlerts", systemImage: "speedometer", isOn: $settings.speedAnomalyAlertsEnabled)
+                        }
+
+                        SettingsPanel(titleKey: "settings.recording", systemImage: "location") {
+                            SettingsToggleRow(titleKey: "settings.recording.recordWhenLocked", systemImage: "lock.open", isOn: backgroundRecordingBinding)
+                            SettingsDescription(textKey: "settings.recording.backgroundDescription")
+                        }
+
+                        SettingsPanel(titleKey: "settings.health", systemImage: "heart.text.square") {
+                            SettingsToggleRow(titleKey: "settings.health.syncToAppleHealth", systemImage: "heart", isOn: healthSyncBinding)
+                            SettingsDivider()
+                            HealthSyncStatusRow(status: HealthSyncPlan.status(syncEnabled: settings.healthKitSyncEnabled))
+                            SettingsDivider()
+
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("settings.health.plannedData")
+                                    .font(.footnote.weight(.bold))
+                                    .foregroundStyle(PathTrioTheme.ink)
+
+                                ForEach(HealthSyncPlan.plannedWriteTypeKeys, id: \.self) { key in
+                                    Label(L10n.string(key), systemImage: "checkmark.circle.fill")
+                                        .font(.footnote.weight(.semibold))
+                                        .foregroundStyle(PathTrioTheme.muted)
+                                }
+                            }
+                        }
+
+                        SettingsPanel(titleKey: "settings.privacy", systemImage: "hand.raised") {
+                            SettingsDescription(textKey: "settings.privacy.description")
+                        }
+
+                        Spacer(minLength: 18)
+                    }
+                    .padding(16)
                 }
             }
             .navigationTitle("settings.title")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("action.done") {
@@ -153,15 +165,18 @@ private struct HealthSyncStatusRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
             Image(systemName: status.systemImage)
+                .font(.headline.weight(.semibold))
                 .foregroundStyle(tint)
-                .frame(width: 22)
+                .frame(width: 28, height: 28)
+                .background(tint.opacity(0.12), in: Circle())
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(L10n.string(status.titleKey))
-                    .font(.footnote.weight(.semibold))
+                    .font(.footnote.weight(.bold))
+                    .foregroundStyle(PathTrioTheme.ink)
                 Text(L10n.string(status.messageKey))
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(PathTrioTheme.muted)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
@@ -172,5 +187,62 @@ private struct HealthSyncStatusRow: View {
         case .disabled: .secondary
         case .permissionNeeded: .blue
         }
+    }
+}
+
+private struct SettingsPanel<Content: View>: View {
+    let titleKey: LocalizedStringKey
+    let systemImage: String
+    @ViewBuilder var content: Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Label(titleKey, systemImage: systemImage)
+                .font(.headline.weight(.bold))
+                .foregroundStyle(PathTrioTheme.ink)
+
+            VStack(alignment: .leading, spacing: 12) {
+                content
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(16)
+        .pathTrioCard()
+    }
+}
+
+private struct SettingsToggleRow: View {
+    let titleKey: LocalizedStringKey
+    let systemImage: String
+    @Binding var isOn: Bool
+
+    var body: some View {
+        Toggle(isOn: $isOn) {
+            Label(titleKey, systemImage: systemImage)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(PathTrioTheme.ink)
+                .labelStyle(.titleAndIcon)
+        }
+        .tint(PathTrioTheme.action)
+    }
+}
+
+private struct SettingsDescription: View {
+    let textKey: LocalizedStringKey
+
+    var body: some View {
+        Text(textKey)
+            .font(.footnote)
+            .foregroundStyle(PathTrioTheme.muted)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.top, 2)
+    }
+}
+
+private struct SettingsDivider: View {
+    var body: some View {
+        Rectangle()
+            .fill(PathTrioTheme.line)
+            .frame(height: 1)
     }
 }
