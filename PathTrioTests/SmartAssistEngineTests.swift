@@ -52,4 +52,21 @@ final class SmartAssistEngineTests: XCTestCase {
 
         XCTAssertEqual(suggestion, .speedAnomaly(currentSpeedMetersPerSecond: 14, workoutType: .walk))
     }
+
+    func testDoesNotSuggestSpeedAnomalyWhenMotionIsStationary() {
+        let engine = SmartAssistEngine()
+
+        let suggestion = engine.evaluate(
+            workoutType: .walk,
+            currentSpeedMetersPerSecond: 6,
+            detectedActivity: .stationary,
+            settings: SmartAssistSettings(
+                smartActivityAlertsEnabled: false,
+                autoPauseEnabled: false,
+                speedAnomalyAlertsEnabled: true
+            )
+        )
+
+        XCTAssertNil(suggestion)
+    }
 }

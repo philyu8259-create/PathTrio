@@ -45,7 +45,7 @@ final class WorkoutRecorder {
     @discardableResult
     func addLocations(_ locations: [CLLocation], now: Date = Date()) -> WorkoutSessionDraft? {
         guard var current = draft, current.state == .recording else { return draft }
-        current.locations.append(contentsOf: locations)
+        current.locations = distanceCalculator.cleanedLocations(from: current.locations + locations)
         current.metrics = metrics(for: current, now: now)
         draft = current
         return current

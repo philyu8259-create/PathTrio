@@ -32,4 +32,21 @@ final class WorkoutRecorderTests: XCTestCase {
         XCTAssertGreaterThan(draft?.metrics.distanceMeters ?? 0, 100)
         XCTAssertEqual(draft?.metrics.duration, 60)
     }
+
+    func testStationaryGpsJitterDoesNotIncreaseDistanceOrSpeed() {
+        let recorder = WorkoutRecorder(distanceCalculator: DistanceCalculator())
+        let start = Date(timeIntervalSince1970: 100)
+        _ = recorder.start(type: .walk, at: start)
+        let points = [
+            CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.774900, longitude: -122.419400), altitude: 0, horizontalAccuracy: 18, verticalAccuracy: 10, timestamp: start),
+            CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.774935, longitude: -122.419405), altitude: 0, horizontalAccuracy: 18, verticalAccuracy: 10, timestamp: start.addingTimeInterval(10)),
+            CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.774890, longitude: -122.419450), altitude: 0, horizontalAccuracy: 18, verticalAccuracy: 10, timestamp: start.addingTimeInterval(20))
+        ]
+
+        let draft = recorder.addLocations(points, now: start.addingTimeInterval(20))
+
+        XCTAssertEqual(draft?.metrics.distanceMeters ?? -1, 0, accuracy: 0.5)
+        XCTAssertEqual(draft?.metrics.averageSpeedMetersPerSecond ?? -1, 0, accuracy: 0.05)
+        XCTAssertEqual(draft?.locations.count, 1)
+    }
 }

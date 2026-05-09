@@ -31,12 +31,16 @@ struct SmartAssistEngine {
         detectedActivity: DetectedMotionActivity,
         settings: SmartAssistSettings
     ) -> SmartAssistSuggestion? {
-        if settings.speedAnomalyAlertsEnabled, isSpeedAnomalous(currentSpeedMetersPerSecond, for: workoutType) {
-            return .speedAnomaly(currentSpeedMetersPerSecond: currentSpeedMetersPerSecond, workoutType: workoutType)
-        }
-
         if settings.autoPauseEnabled, detectedActivity == .stationary, currentSpeedMetersPerSecond < 0.4 {
             return .autoPause
+        }
+
+        if detectedActivity == .stationary {
+            return nil
+        }
+
+        if settings.speedAnomalyAlertsEnabled, isSpeedAnomalous(currentSpeedMetersPerSecond, for: workoutType) {
+            return .speedAnomaly(currentSpeedMetersPerSecond: currentSpeedMetersPerSecond, workoutType: workoutType)
         }
 
         if settings.smartActivityAlertsEnabled,
