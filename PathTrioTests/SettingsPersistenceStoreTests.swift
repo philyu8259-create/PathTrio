@@ -13,6 +13,7 @@ final class SettingsPersistenceStoreTests: XCTestCase {
         settings.autoPauseEnabled = true
         settings.speedAnomalyAlertsEnabled = true
         settings.backgroundRecordingEnabled = true
+        settings.autoStartRemindersEnabled = true
         settings.healthKitSyncEnabled = true
 
         try persistenceStore.save(settings)
@@ -25,6 +26,7 @@ final class SettingsPersistenceStoreTests: XCTestCase {
         XCTAssertTrue(loaded.autoPauseEnabled)
         XCTAssertTrue(loaded.speedAnomalyAlertsEnabled)
         XCTAssertTrue(loaded.backgroundRecordingEnabled)
+        XCTAssertTrue(loaded.autoStartRemindersEnabled)
         XCTAssertTrue(loaded.healthKitSyncEnabled)
     }
 
@@ -38,6 +40,7 @@ final class SettingsPersistenceStoreTests: XCTestCase {
         XCTAssertEqual(settings.preferredUnits, "metric")
         XCTAssertFalse(settings.smartActivityAlertsEnabled)
         XCTAssertFalse(settings.backgroundRecordingEnabled)
+        XCTAssertFalse(settings.autoStartRemindersEnabled)
     }
 
     private func makeContext() throws -> ModelContext {

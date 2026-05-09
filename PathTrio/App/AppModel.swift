@@ -7,6 +7,8 @@ final class AppModel {
     var activeDraft: WorkoutSessionDraft?
     var latestCompletedWorkoutID: UUID?
     var activeSuggestion: SmartAssistSuggestion?
+    var autoStartReminder: AutoStartReminder?
+    var autoStartReminderEngine = AutoStartReminderEngine()
 
     let recorder: WorkoutRecorder
     let settingsStore: SettingsStore

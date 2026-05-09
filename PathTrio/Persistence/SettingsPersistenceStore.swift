@@ -12,6 +12,7 @@ struct SettingsPersistenceStore {
         settings.autoPauseEnabled = model.autoPauseEnabled
         settings.speedAnomalyAlertsEnabled = model.speedAnomalyAlertsEnabled
         settings.backgroundRecordingEnabled = model.backgroundRecordingEnabled
+        settings.autoStartRemindersEnabled = model.autoStartRemindersEnabled ?? false
         settings.bodyWeightKilograms = model.bodyWeightKilograms
         settings.healthKitSyncEnabled = model.healthKitSyncEnabled
     }
@@ -23,6 +24,7 @@ struct SettingsPersistenceStore {
         model.autoPauseEnabled = settings.autoPauseEnabled
         model.speedAnomalyAlertsEnabled = settings.speedAnomalyAlertsEnabled
         model.backgroundRecordingEnabled = settings.backgroundRecordingEnabled
+        model.autoStartRemindersEnabled = settings.autoStartRemindersEnabled
         model.bodyWeightKilograms = settings.bodyWeightKilograms
         model.healthKitSyncEnabled = settings.healthKitSyncEnabled
         try context.save()

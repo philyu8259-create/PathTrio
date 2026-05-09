@@ -39,6 +39,26 @@
 "history.title" = "历史";
 "history.empty.title" = "暂无运动记录";
 "history.empty.description" = "保存后的走路、跑步和骑行记录会显示在这里。";
+"history.empty.filtered" = "当前筛选下暂无运动记录。";
+"history.group.title" = "历史分组";
+"history.group.day" = "按天";
+"history.group.month" = "按月";
+"history.filter.all" = "全部";
+
+"insights.title" = "AI 分析";
+"insights.starter.title" = "准备生成你的运动趋势";
+"insights.starter.message" = "完成几次运动后，三动迹会在这里总结趋势和习惯。";
+"insights.weeklyProgress.title" = "本周趋势";
+"insights.weeklyProgress.up.message" = "相比上周，你最近记录的距离有所提升。";
+"insights.weeklyProgress.down.message" = "相比上周，你最近记录的距离有所下降。";
+"insights.weeklyProgress.new.message" = "本周已经有运动记录。继续记录后，趋势会更清晰。";
+"insights.dominantType.title" = "主要运动";
+"insights.dominantType.message" = "这是你按记录距离计算最多的运动类型。";
+"insights.consistency.title" = "活跃天数";
+"insights.consistency.message" = "最近 7 天内至少记录过一次运动的天数。";
+
+"autoStart.title" = "开始%@？";
+"autoStart.message" = "三动迹检测到你已持续运动。点播放即可开始记录。";
 
 "settings.title" = "设置";
 "settings.units" = "单位";
@@ -48,6 +68,8 @@
 "settings.smartAssist.autoPause" = "自动暂停";
 "settings.smartAssist.speedAnomalyAlerts" = "异常速度提醒";
 "settings.recording" = "记录";
+"settings.recording.autoStartReminders" = "自动开始提醒";
+"settings.recording.autoStartDescription" = "开启后，三动迹会观察运动状态，并在持续走路、跑步或骑行后提醒你开始记录。真正开始记录前仍需要你确认。";
 "settings.recording.recordWhenLocked" = "锁屏继续记录";
 "settings.recording.backgroundDescription" = "仅在运动记录中使用后台定位。锁屏后路线会更完整，但可能更耗电。";
 "settings.recording.backgroundConfirm.title" = "开启锁屏继续记录？";

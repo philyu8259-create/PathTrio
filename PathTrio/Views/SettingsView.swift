@@ -35,6 +35,9 @@ struct SettingsView: View {
                         }
 
                         SettingsPanel(titleKey: "settings.recording", systemImage: "location") {
+                            SettingsToggleRow(titleKey: "settings.recording.autoStartReminders", systemImage: "figure.walk.motion", isOn: $settings.autoStartRemindersEnabled)
+                            SettingsDescription(textKey: "settings.recording.autoStartDescription")
+                            SettingsDivider()
                             SettingsToggleRow(titleKey: "settings.recording.recordWhenLocked", systemImage: "lock.open", isOn: backgroundRecordingBinding)
                             SettingsDescription(textKey: "settings.recording.backgroundDescription")
                         }
@@ -84,6 +87,7 @@ struct SettingsView: View {
             .onChange(of: settings.smartActivityAlertsEnabled) { _, _ in saveSettings() }
             .onChange(of: settings.autoPauseEnabled) { _, _ in saveSettings() }
             .onChange(of: settings.speedAnomalyAlertsEnabled) { _, _ in saveSettings() }
+            .onChange(of: settings.autoStartRemindersEnabled) { _, _ in saveSettings() }
             .onDisappear {
                 saveSettings()
             }

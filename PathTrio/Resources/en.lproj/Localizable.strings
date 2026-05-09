@@ -39,6 +39,26 @@
 "history.title" = "History";
 "history.empty.title" = "No Workouts";
 "history.empty.description" = "Your saved walks, runs, and rides will appear here.";
+"history.empty.filtered" = "No workouts match this filter yet.";
+"history.group.title" = "History Grouping";
+"history.group.day" = "Day";
+"history.group.month" = "Month";
+"history.filter.all" = "All";
+
+"insights.title" = "AI Analysis";
+"insights.starter.title" = "Ready for your first pattern";
+"insights.starter.message" = "After a few workouts, PathTrio will summarize trends and habits here.";
+"insights.weeklyProgress.title" = "Weekly trend";
+"insights.weeklyProgress.up.message" = "Your recent distance is up compared with the previous week.";
+"insights.weeklyProgress.down.message" = "Your recent distance is lower than the previous week.";
+"insights.weeklyProgress.new.message" = "You have activity this week. Keep recording to build a clearer trend.";
+"insights.dominantType.title" = "Main activity";
+"insights.dominantType.message" = "This is your largest activity type by recorded distance.";
+"insights.consistency.title" = "Active days";
+"insights.consistency.message" = "Days with at least one recorded workout in the last 7 days.";
+
+"autoStart.title" = "Start %@?";
+"autoStart.message" = "PathTrio detected sustained movement. Tap play to start recording.";
 
 "settings.title" = "Settings";
 "settings.units" = "Units";
@@ -48,6 +68,8 @@
 "settings.smartAssist.autoPause" = "Auto Pause";
 "settings.smartAssist.speedAnomalyAlerts" = "Speed Anomaly Alerts";
 "settings.recording" = "Recording";
+"settings.recording.autoStartReminders" = "Automatic Start Reminders";
+"settings.recording.autoStartDescription" = "When enabled, PathTrio watches motion activity and suggests starting a workout after sustained walking, running, or riding. You still confirm before recording starts.";
 "settings.recording.recordWhenLocked" = "Record When Locked";
 "settings.recording.backgroundDescription" = "Uses background location only during an active workout. This keeps routes complete when the screen is locked, but may use more battery.";
 "settings.recording.backgroundConfirm.title" = "Record When Locked?";
