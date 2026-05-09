@@ -7,6 +7,7 @@ struct WorkoutDetailView: View {
     @Environment(AppModel.self) private var appModel
     let workout: WorkoutSessionModel
     @State private var isRetryingHealthSync = false
+    private let insightEngine = WorkoutDetailInsightEngine()
     private let metricColumns = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
@@ -41,12 +42,20 @@ struct WorkoutDetailView: View {
         )
     }
 
+    private var insights: [WorkoutDetailInsight] {
+        insightEngine.insights(for: workout)
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 RouteMapView(locations: locations)
                     .frame(height: 300)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(PathTrioTheme.line, lineWidth: 1)
+                    }
 
                 LazyVGrid(columns: metricColumns, spacing: 12) {
                     MetricTile(title: L10n.string("metric.distance"), value: WorkoutMetricsFormatter.distance(workout.distanceMeters), systemImage: "map")
@@ -56,12 +65,16 @@ struct WorkoutDetailView: View {
                     MetricTile(title: L10n.string("metric.calories"), value: WorkoutMetricsFormatter.calories(estimatedCalories), systemImage: "flame")
                 }
 
+                WorkoutDetailInsightsPanel(insights: insights)
+
                 VStack(alignment: .leading, spacing: 10) {
                     DetailDateRow(title: L10n.string("detail.started"), date: workout.startedAt)
                     DetailDateRow(title: L10n.string("detail.ended"), date: workout.endedAt)
                 }
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(PathTrioTheme.muted)
+                .padding(14)
+                .pathTrioCard()
 
                 if let healthSyncResult = workout.healthSyncResult {
                     Label(L10n.string(healthSyncResult.detailMessageKey), systemImage: healthSyncResult.isError ? "exclamationmark.triangle" : "heart.text.square")
@@ -86,6 +99,7 @@ struct WorkoutDetailView: View {
             }
             .padding()
         }
+        .background(PathTrioTheme.pageBackground.ignoresSafeArea())
         .navigationTitle(workout.type.displayName)
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -102,6 +116,46 @@ struct WorkoutDetailView: View {
         } catch {
             workout.healthSyncResult = .failed
         }
+    }
+}
+
+private struct WorkoutDetailInsightsPanel: View {
+    let insights: [WorkoutDetailInsight]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Label("detail.insights.title", systemImage: "sparkles")
+                .font(.headline.weight(.bold))
+                .foregroundStyle(PathTrioTheme.ink)
+
+            ForEach(insights) { insight in
+                HStack(alignment: .top, spacing: 10) {
+                    Image(systemName: insight.systemImage)
+                        .font(.body.weight(.bold))
+                        .foregroundStyle(PathTrioTheme.action)
+                        .frame(width: 28, height: 28)
+                        .background(PathTrioTheme.action.opacity(0.12), in: Circle())
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(alignment: .firstTextBaseline, spacing: 8) {
+                            Text(L10n.string(insight.titleKey))
+                                .font(.footnote.weight(.bold))
+                                .foregroundStyle(PathTrioTheme.ink)
+                            Text(insight.value)
+                                .font(.footnote.weight(.black))
+                                .foregroundStyle(PathTrioTheme.action)
+                        }
+
+                        Text(L10n.string(insight.messageKey))
+                            .font(.footnote)
+                            .foregroundStyle(PathTrioTheme.muted)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+            }
+        }
+        .padding(14)
+        .pathTrioCard()
     }
 }
 

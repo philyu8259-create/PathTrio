@@ -117,6 +117,16 @@
 "detail.healthSync.failed" = "Apple 健康同步失败";
 "detail.healthSync.retry" = "同步到 Apple 健康";
 "detail.healthSync.retrying" = "正在同步...";
+"detail.insights.title" = "AI 单次复盘";
+"detail.insights.effort.pace.title" = "配速解读";
+"detail.insights.effort.pace.message" = "可以把这个配速作为之后同类型运动的对比基准。";
+"detail.insights.effort.speed.title" = "速度解读";
+"detail.insights.effort.speed.message" = "可以把这个平均速度作为之后骑行记录的对比基准。";
+"detail.insights.route.title" = "路线可信度";
+"detail.insights.route.tracked.message" = "本次运动已保存路线点，可以在地图中复盘路线。";
+"detail.insights.route.empty.message" = "本次运动没有保存路线点，距离可能来自有限的定位数据。";
+"detail.insights.energy.title" = "能量估算";
+"detail.insights.energy.message" = "根据运动类型和持续时间估算活动能量。";
 
 "smartAssist.activityChange.title" = "切换为%@？";
 "smartAssist.activityChange.message" = "三动迹检测到当前移动更像%@，而不是%@。";
