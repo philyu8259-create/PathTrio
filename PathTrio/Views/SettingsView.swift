@@ -5,6 +5,8 @@ struct SettingsView: View {
     @Environment(AppModel.self) private var appModel
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @State private var isConfirmingBackgroundRecording = false
+    @State private var isConfirmingHealthSync = false
 
     var body: some View {
         @Bindable var settings = appModel.settingsStore
@@ -24,14 +26,14 @@ struct SettingsView: View {
                 }
 
                 Section("settings.recording") {
-                    Toggle("settings.recording.recordWhenLocked", isOn: $settings.backgroundRecordingEnabled)
+                    Toggle("settings.recording.recordWhenLocked", isOn: backgroundRecordingBinding)
                     Text("settings.recording.backgroundDescription")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
 
                 Section("settings.health") {
-                    Toggle("settings.health.syncToAppleHealth", isOn: $settings.healthKitSyncEnabled)
+                    Toggle("settings.health.syncToAppleHealth", isOn: healthSyncBinding)
 
                     HealthSyncStatusRow(status: HealthSyncPlan.status(syncEnabled: settings.healthKitSyncEnabled))
 
@@ -70,9 +72,59 @@ struct SettingsView: View {
             .onChange(of: settings.smartActivityAlertsEnabled) { _, _ in saveSettings() }
             .onChange(of: settings.autoPauseEnabled) { _, _ in saveSettings() }
             .onChange(of: settings.speedAnomalyAlertsEnabled) { _, _ in saveSettings() }
-            .onChange(of: settings.backgroundRecordingEnabled) { _, _ in saveSettings() }
-            .onChange(of: settings.healthKitSyncEnabled) { _, _ in saveSettings() }
             .onDisappear {
+                saveSettings()
+            }
+            .confirmationDialog(
+                "settings.recording.backgroundConfirm.title",
+                isPresented: $isConfirmingBackgroundRecording,
+                titleVisibility: .visible
+            ) {
+                Button("settings.recording.backgroundConfirm.enable") {
+                    appModel.settingsStore.backgroundRecordingEnabled = true
+                    saveSettings()
+                }
+                Button("action.cancel", role: .cancel) {}
+            } message: {
+                Text("settings.recording.backgroundConfirm.message")
+            }
+            .confirmationDialog(
+                "settings.health.confirm.title",
+                isPresented: $isConfirmingHealthSync,
+                titleVisibility: .visible
+            ) {
+                Button("settings.health.confirm.enable") {
+                    appModel.settingsStore.healthKitSyncEnabled = true
+                    saveSettings()
+                }
+                Button("action.cancel", role: .cancel) {}
+            } message: {
+                Text("settings.health.confirm.message")
+            }
+        }
+    }
+
+    private var backgroundRecordingBinding: Binding<Bool> {
+        Binding {
+            appModel.settingsStore.backgroundRecordingEnabled
+        } set: { isEnabled in
+            if isEnabled {
+                isConfirmingBackgroundRecording = true
+            } else {
+                appModel.settingsStore.backgroundRecordingEnabled = false
+                saveSettings()
+            }
+        }
+    }
+
+    private var healthSyncBinding: Binding<Bool> {
+        Binding {
+            appModel.settingsStore.healthKitSyncEnabled
+        } set: { isEnabled in
+            if isEnabled {
+                isConfirmingHealthSync = true
+            } else {
+                appModel.settingsStore.healthKitSyncEnabled = false
                 saveSettings()
             }
         }

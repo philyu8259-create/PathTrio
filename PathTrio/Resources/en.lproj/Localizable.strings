@@ -50,8 +50,14 @@
 "settings.recording" = "Recording";
 "settings.recording.recordWhenLocked" = "Record When Locked";
 "settings.recording.backgroundDescription" = "Uses background location only during an active workout. This keeps routes complete when the screen is locked, but may use more battery.";
+"settings.recording.backgroundConfirm.title" = "Record When Locked?";
+"settings.recording.backgroundConfirm.message" = "PathTrio will use GPS only while a workout is recording so the route can continue after the screen locks. This may use more battery and may require Always location permission.";
+"settings.recording.backgroundConfirm.enable" = "Enable Background Recording";
 "settings.health" = "Apple Health";
 "settings.health.syncToAppleHealth" = "Sync to Apple Health";
+"settings.health.confirm.title" = "Sync to Apple Health?";
+"settings.health.confirm.message" = "PathTrio will ask permission before writing completed walks, runs, rides, distance, and active energy to Apple Health. Your workout is saved in PathTrio even if sync fails.";
+"settings.health.confirm.enable" = "Enable Health Sync";
 "settings.health.plannedData" = "PathTrio plans to write";
 "settings.privacy" = "Privacy";
 "settings.privacy.description" = "PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.";

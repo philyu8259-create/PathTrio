@@ -14,6 +14,9 @@ final class LocalizationTests: XCTestCase {
             "settings.recording.recordWhenLocked",
             "settings.health",
             "settings.health.syncToAppleHealth",
+            "settings.health.confirm.title",
+            "settings.health.confirm.message",
+            "settings.health.confirm.enable",
             "health.status.permissionNeeded.title",
             "health.data.workouts",
             "summary.health.synced",
@@ -34,6 +37,9 @@ final class LocalizationTests: XCTestCase {
             "location.status.background.title",
             "location.status.backgroundPermission.title",
             "settings.recording.backgroundDescription",
+            "settings.recording.backgroundConfirm.title",
+            "settings.recording.backgroundConfirm.message",
+            "settings.recording.backgroundConfirm.enable",
             "summary.title",
             "smartAssist.autoPause.title"
         ]
