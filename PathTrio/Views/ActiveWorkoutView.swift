@@ -18,7 +18,7 @@ struct ActiveWorkoutView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            RouteMapView(locations: appModel.recorder.draft?.locations ?? [])
+            RouteMapView(locations: appModel.recorder.draft?.locations ?? [], followsLatestLocation: true)
                 .frame(maxHeight: .infinity)
 
             VStack(spacing: 16) {
