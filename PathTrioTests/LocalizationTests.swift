@@ -73,6 +73,23 @@ final class LocalizationTests: XCTestCase {
         )
     }
 
+    func testVisibleInsightTitlesDoNotUseAIWording() throws {
+        let keys = [
+            "insights.title",
+            "detail.insights.title"
+        ]
+
+        for locale in ["en", "zh-Hans"] {
+            let path = try XCTUnwrap(Bundle.main.path(forResource: locale, ofType: "lproj"))
+            let bundle = try XCTUnwrap(Bundle(path: path))
+
+            for key in keys {
+                let value = bundle.localizedString(forKey: key, value: nil, table: nil)
+                XCTAssertFalse(value.localizedCaseInsensitiveContains("AI"), "\(key) still contains AI wording in \(locale)")
+            }
+        }
+    }
+
     private func assertLocalized(keys: [String], table: String?, locale: String) throws {
         let path = try XCTUnwrap(Bundle.main.path(forResource: locale, ofType: "lproj"))
         let bundle = try XCTUnwrap(Bundle(path: path))

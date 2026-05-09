@@ -45,7 +45,7 @@
 "history.group.month" = "按月";
 "history.filter.all" = "全部";
 
-"insights.title" = "AI 分析";
+"insights.title" = "智能分析";
 "insights.starter.title" = "准备生成你的运动趋势";
 "insights.starter.message" = "完成几次运动后，三动迹会在这里总结趋势和习惯。";
 "insights.weeklyProgress.title" = "本周趋势";
@@ -117,7 +117,7 @@
 "detail.healthSync.failed" = "Apple 健康同步失败";
 "detail.healthSync.retry" = "同步到 Apple 健康";
 "detail.healthSync.retrying" = "正在同步...";
-"detail.insights.title" = "AI 单次复盘";
+"detail.insights.title" = "运动复盘";
 "detail.insights.effort.pace.title" = "配速解读";
 "detail.insights.effort.pace.message" = "可以把这个配速作为之后同类型运动的对比基准。";
 "detail.insights.effort.speed.title" = "速度解读";

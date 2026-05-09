@@ -45,7 +45,7 @@
 "history.group.month" = "Month";
 "history.filter.all" = "All";
 
-"insights.title" = "AI Analysis";
+"insights.title" = "Smart Analysis";
 "insights.starter.title" = "Ready for your first pattern";
 "insights.starter.message" = "After a few workouts, PathTrio will summarize trends and habits here.";
 "insights.weeklyProgress.title" = "Weekly trend";
@@ -117,7 +117,7 @@
 "detail.healthSync.failed" = "Apple Health sync failed";
 "detail.healthSync.retry" = "Sync to Apple Health";
 "detail.healthSync.retrying" = "Syncing...";
-"detail.insights.title" = "AI Workout Review";
+"detail.insights.title" = "Workout Review";
 "detail.insights.effort.pace.title" = "Pace read";
 "detail.insights.effort.pace.message" = "Use this pace as the baseline for comparing similar workouts later.";
 "detail.insights.effort.speed.title" = "Speed read";
