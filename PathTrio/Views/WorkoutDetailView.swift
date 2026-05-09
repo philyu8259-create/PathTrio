@@ -1,8 +1,12 @@
 import CoreLocation
+import SwiftData
 import SwiftUI
 
 struct WorkoutDetailView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(AppModel.self) private var appModel
     let workout: WorkoutSessionModel
+    @State private var isRetryingHealthSync = false
     private let metricColumns = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
@@ -64,11 +68,40 @@ struct WorkoutDetailView: View {
                         .font(.subheadline)
                         .foregroundStyle(healthSyncResult.isError ? .orange : .secondary)
                 }
+
+                if workout.healthSyncResult?.canRetry ?? true {
+                    Button {
+                        Task {
+                            await retryHealthSync()
+                        }
+                    } label: {
+                        Label(
+                            L10n.string(isRetryingHealthSync ? "detail.healthSync.retrying" : "detail.healthSync.retry"),
+                            systemImage: "arrow.clockwise"
+                        )
+                    }
+                    .buttonStyle(.bordered)
+                    .disabled(isRetryingHealthSync)
+                }
             }
             .padding()
         }
         .navigationTitle(workout.type.displayName)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    @MainActor
+    private func retryHealthSync() async {
+        guard !isRetryingHealthSync else { return }
+        isRetryingHealthSync = true
+        defer { isRetryingHealthSync = false }
+
+        let result = await WorkoutHealthSyncCoordinator.retry(workout, syncer: appModel.healthSyncer)
+        do {
+            try WorkoutStore(context: modelContext).updateHealthSyncResult(result, for: workout)
+        } catch {
+            workout.healthSyncResult = .failed
+        }
     }
 }
 

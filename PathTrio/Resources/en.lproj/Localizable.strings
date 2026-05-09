@@ -87,6 +87,8 @@
 "detail.healthSync.skipped" = "Apple Health sync was off";
 "detail.healthSync.unavailable" = "Apple Health was unavailable";
 "detail.healthSync.failed" = "Apple Health sync failed";
+"detail.healthSync.retry" = "Sync to Apple Health";
+"detail.healthSync.retrying" = "Syncing...";
 
 "smartAssist.activityChange.title" = "Switch to %@?";
 "smartAssist.activityChange.message" = "PathTrio detected movement that looks more like %@ than %@.";

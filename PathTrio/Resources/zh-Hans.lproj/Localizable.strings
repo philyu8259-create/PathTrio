@@ -87,6 +87,8 @@
 "detail.healthSync.skipped" = "Apple 健康同步未开启";
 "detail.healthSync.unavailable" = "Apple 健康不可用";
 "detail.healthSync.failed" = "Apple 健康同步失败";
+"detail.healthSync.retry" = "同步到 Apple 健康";
+"detail.healthSync.retrying" = "正在同步...";
 
 "smartAssist.activityChange.title" = "切换为%@？";
 "smartAssist.activityChange.message" = "三动迹检测到当前移动更像%@，而不是%@。";

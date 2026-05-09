@@ -30,6 +30,10 @@ enum WorkoutHealthSyncResult: String, Equatable {
         self == .unavailable || self == .failed
     }
 
+    var canRetry: Bool {
+        self != .synced
+    }
+
     var detailMessageKey: String {
         switch self {
         case .skipped:
@@ -65,5 +69,12 @@ enum WorkoutHealthSyncCoordinator {
         } catch {
             return .failed
         }
+    }
+
+    static func retry(
+        _ session: WorkoutSessionModel,
+        syncer: any HealthSyncing
+    ) async -> WorkoutHealthSyncResult {
+        await syncIfNeeded(session, syncEnabled: true, syncer: syncer)
     }
 }

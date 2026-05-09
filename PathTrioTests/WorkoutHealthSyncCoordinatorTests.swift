@@ -60,6 +60,24 @@ final class WorkoutHealthSyncCoordinatorTests: XCTestCase {
         XCTAssertEqual(result, .failed)
     }
 
+    func testRetryRequestsAuthorizationAndSavesWorkout() async {
+        let syncer = RecordingHealthSyncer()
+        let session = makeSession()
+
+        let result = await WorkoutHealthSyncCoordinator.retry(session, syncer: syncer)
+
+        XCTAssertEqual(result, .synced)
+        XCTAssertEqual(syncer.requestAuthorizationCallCount, 1)
+        XCTAssertEqual(syncer.savedWorkoutIDs, [session.id])
+    }
+
+    func testOnlySyncedResultDisablesRetry() {
+        XCTAssertFalse(WorkoutHealthSyncResult.synced.canRetry)
+        XCTAssertTrue(WorkoutHealthSyncResult.skipped.canRetry)
+        XCTAssertTrue(WorkoutHealthSyncResult.unavailable.canRetry)
+        XCTAssertTrue(WorkoutHealthSyncResult.failed.canRetry)
+    }
+
     private func makeSession() -> WorkoutSessionModel {
         WorkoutSessionModel(
             id: UUID(uuidString: "11111111-1111-1111-1111-111111111111")!,

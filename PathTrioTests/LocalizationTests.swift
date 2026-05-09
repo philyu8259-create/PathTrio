@@ -23,6 +23,8 @@ final class LocalizationTests: XCTestCase {
             "detail.healthSync.skipped",
             "detail.healthSync.unavailable",
             "detail.healthSync.failed",
+            "detail.healthSync.retry",
+            "detail.healthSync.retrying",
             "history.empty.title",
             "detail.started",
             "detail.ended",
