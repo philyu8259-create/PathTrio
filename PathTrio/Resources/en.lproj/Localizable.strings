@@ -1,6 +1,10 @@
 "app.name" = "PathTrio";
 "app.subtitle" = "Walk, Run & Ride Tracker";
 
+"tab.home" = "Home";
+"tab.history" = "History";
+"tab.settings" = "Settings";
+
 "action.start" = "Start";
 "action.done" = "Done";
 "action.cancel" = "Cancel";
@@ -30,9 +34,29 @@
 "metric.calories" = "Calories";
 "metric.status" = "Status";
 
+"home.status.ready" = "Ready";
+"home.status.gps" = "GPS Route";
+"home.status.smartAssistOn" = "Assist On";
+"home.status.smartAssistOff" = "Assist Off";
+"home.route.title" = "Route Preview";
+"home.route.subtitle" = "Outdoor tracking is ready for %@.";
+"home.today.title" = "Today";
+"home.today.sessions" = "Sessions";
+"home.recent.title" = "Recent";
+"home.recent.empty.title" = "No workouts yet";
+"home.recent.empty.message" = "Your next saved walk, run, or ride will appear here.";
+"home.openHistory" = "Open History";
+"home.openSettings" = "Open Settings";
+"home.quickStart" = "Quick Start";
+"home.mode.title" = "Activity";
+
 "detail.started" = "Started";
 "detail.ended" = "Ended";
 
+"active.title" = "Live Workout";
+"active.map.empty" = "Waiting for GPS route";
+"active.route.points" = "%d route points";
+"active.controls.title" = "Controls";
 "active.endConfirmation.title" = "End workout?";
 "active.endConfirmation.endWorkout" = "End Workout";
 
@@ -107,10 +131,17 @@
 "location.status.error.message" = "PathTrio is having trouble receiving location updates right now.";
 
 "summary.title" = "Workout Saved";
+"summary.subtitle" = "%@ complete";
+"summary.metrics.title" = "Workout Metrics";
+"summary.route.empty" = "No route points were saved for this workout.";
+"summary.route.saved" = "%d route points saved.";
+"summary.health.title" = "Health Sync";
+"summary.health.skipped" = "Apple Health sync is off. Your workout was saved in PathTrio.";
 "summary.saveError" = "This workout could not be saved. Please try again.";
 "summary.health.synced" = "Synced to Apple Health.";
 "summary.health.unavailable" = "Apple Health is not available on this device. Your workout was saved in PathTrio.";
 "summary.health.failed" = "Apple Health sync did not finish. Your workout was saved in PathTrio.";
+"summary.health.saving" = "Saving workout...";
 "detail.healthSync.synced" = "Synced to Apple Health";
 "detail.healthSync.skipped" = "Apple Health sync was off";
 "detail.healthSync.unavailable" = "Apple Health was unavailable";

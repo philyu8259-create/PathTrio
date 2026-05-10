@@ -17,96 +17,36 @@ struct ActiveWorkoutView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            RouteMapView(locations: appModel.recorder.draft?.locations ?? [], followsLatestLocation: true)
-                .frame(maxHeight: .infinity)
+        let draft = appModel.recorder.draft ?? appModel.activeDraft
+        let metrics = draft?.metrics ?? WorkoutMetrics(duration: 0, distanceMeters: 0, averageSpeedMetersPerSecond: 0)
+        let type = draft?.type ?? appModel.selectedWorkoutType
+        let locations = draft?.locations ?? []
 
-            VStack(spacing: 16) {
-                let draft = appModel.recorder.draft ?? appModel.activeDraft
-                let metrics = draft?.metrics ?? WorkoutMetrics(duration: 0, distanceMeters: 0, averageSpeedMetersPerSecond: 0)
-                let type = draft?.type ?? appModel.selectedWorkoutType
+        ZStack(alignment: .bottom) {
+            RouteMapView(locations: locations, followsLatestLocation: true)
+                .ignoresSafeArea()
 
-                if let routeRecordingStatus {
-                    RouteRecordingStatusBanner(status: routeRecordingStatus)
-                }
+            VStack(spacing: 0) {
+                activeHeader(type: type, state: draft?.state, routePointCount: locations.count)
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Label(type.displayName, systemImage: type.systemImage)
+                Spacer()
+
+                if locations.isEmpty {
+                    Label("active.map.empty", systemImage: "location.magnifyingglass")
                         .font(.subheadline.weight(.bold))
-                        .foregroundStyle(PathTrioTheme.tint(for: type))
-
-                    Text(statusText(draft?.state))
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(PathTrioTheme.muted)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                HStack(alignment: .top, spacing: 14) {
-                    LiveMetric(
-                        title: L10n.string("metric.time"),
-                        value: WorkoutMetricsFormatter.duration(metrics.duration),
-                        systemImage: "timer",
-                        tint: PathTrioTheme.action,
-                        isPrimary: true
-                    )
-                    LiveMetric(
-                        title: L10n.string("metric.distance"),
-                        value: WorkoutMetricsFormatter.distance(metrics.distanceMeters),
-                        systemImage: "map",
-                        tint: PathTrioTheme.teal,
-                        isPrimary: true
-                    )
+                        .foregroundStyle(PathTrioTheme.ink)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 10)
+                        .background(.regularMaterial, in: Capsule())
+                        .padding(.bottom, 12)
                 }
 
-                LiveMetric(
-                    title: type.emphasizesPace ? L10n.string("metric.pace") : L10n.string("metric.speed"),
-                    value: type.emphasizesPace ? WorkoutMetricsFormatter.pace(metrics.paceSecondsPerKilometer) : WorkoutMetricsFormatter.speed(metrics.averageSpeedMetersPerSecond),
-                    systemImage: type.emphasizesPace ? "speedometer" : "gauge.with.dots.needle.67percent",
-                    tint: PathTrioTheme.tint(for: type),
-                    isPrimary: false
-                )
-
-                HStack(spacing: 12) {
-                    Button {
-                        if appModel.recorder.draft?.state == .recording {
-                            _ = appModel.recorder.pause()
-                        } else {
-                            _ = appModel.recorder.resume()
-                        }
-                    } label: {
-                        Label(appModel.recorder.draft?.state == .recording ? L10n.string("action.pause") : L10n.string("action.resume"), systemImage: appModel.recorder.draft?.state == .recording ? "pause.fill" : "play.fill")
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                    }
-                    .buttonStyle(.plain)
-                    .foregroundStyle(PathTrioTheme.ink)
-                    .background(.white, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .stroke(PathTrioTheme.line, lineWidth: 1)
-                    }
-
-                    Button(role: .destructive) {
-                        showingEndConfirmation = true
-                    } label: {
-                        Label("action.end", systemImage: "stop.fill")
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                    }
-                    .buttonStyle(.plain)
-                    .foregroundStyle(.white)
-                    .background(.red, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                }
-            }
-            .padding()
-            .background(.ultraThinMaterial)
-            .overlay(alignment: .top) {
-                Rectangle()
-                    .fill(PathTrioTheme.line)
-                    .frame(height: 1)
+                recordingPanel(type: type, metrics: metrics)
             }
         }
+        .background(PathTrioTheme.pageBackground.ignoresSafeArea())
         .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .tabBar)
         .confirmationDialog("active.endConfirmation.title", isPresented: $showingEndConfirmation, titleVisibility: .visible) {
             Button("active.endConfirmation.endWorkout", role: .destructive) {
                 appModel.locationService.stop()
@@ -156,6 +96,128 @@ struct ActiveWorkoutView: View {
         case .ended: L10n.string("workoutState.ended")
         case .idle, .none: L10n.string("workoutState.ready")
         }
+    }
+
+    private func activeHeader(type: WorkoutType, state: WorkoutState?, routePointCount: Int) -> some View {
+        HStack(alignment: .center, spacing: 12) {
+            Image(systemName: type.systemImage)
+                .font(.headline.weight(.bold))
+                .foregroundStyle(.white)
+                .frame(width: 46, height: 46)
+                .background(PathTrioTheme.tint(for: type), in: Circle())
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("active.title")
+                    .font(.headline.weight(.black))
+                    .foregroundStyle(PathTrioTheme.ink)
+                HStack(spacing: 8) {
+                    Text(type.displayName)
+                    Text(statusText(state))
+                    Text(L10n.string("active.route.points", routePointCount))
+                }
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(PathTrioTheme.muted)
+                .lineLimit(1)
+                .minimumScaleFactor(0.72)
+            }
+
+            Spacer()
+        }
+        .padding(14)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .padding(.horizontal, 16)
+        .padding(.top, 12)
+    }
+
+    private func recordingPanel(type: WorkoutType, metrics: WorkoutMetrics) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            if let routeRecordingStatus {
+                RouteRecordingStatusBanner(status: routeRecordingStatus)
+            }
+
+            HStack(alignment: .top, spacing: 12) {
+                LiveMetric(
+                    title: L10n.string("metric.time"),
+                    value: WorkoutMetricsFormatter.duration(metrics.duration),
+                    systemImage: "timer",
+                    tint: PathTrioTheme.action,
+                    isPrimary: true
+                )
+                LiveMetric(
+                    title: L10n.string("metric.distance"),
+                    value: WorkoutMetricsFormatter.distance(metrics.distanceMeters),
+                    systemImage: "map",
+                    tint: PathTrioTheme.teal,
+                    isPrimary: true
+                )
+            }
+
+            LiveMetric(
+                title: type.emphasizesPace ? L10n.string("metric.pace") : L10n.string("metric.speed"),
+                value: type.emphasizesPace ? WorkoutMetricsFormatter.pace(metrics.paceSecondsPerKilometer) : WorkoutMetricsFormatter.speed(metrics.averageSpeedMetersPerSecond),
+                systemImage: type.emphasizesPace ? "speedometer" : "gauge.with.dots.needle.67percent",
+                tint: PathTrioTheme.tint(for: type),
+                isPrimary: false
+            )
+
+            VStack(alignment: .leading, spacing: 10) {
+                Text("active.controls.title")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(PathTrioTheme.muted)
+
+                HStack(spacing: 12) {
+                    pauseResumeButton
+                    endButton
+                }
+            }
+        }
+        .padding(16)
+        .padding(.bottom, 10)
+        .background(.ultraThinMaterial)
+        .overlay(alignment: .top) {
+            Rectangle()
+                .fill(PathTrioTheme.line)
+                .frame(height: 1)
+        }
+    }
+
+    private var pauseResumeButton: some View {
+        Button {
+            if appModel.recorder.draft?.state == .recording {
+                _ = appModel.recorder.pause()
+            } else {
+                _ = appModel.recorder.resume()
+            }
+        } label: {
+            Label(
+                appModel.recorder.draft?.state == .recording ? L10n.string("action.pause") : L10n.string("action.resume"),
+                systemImage: appModel.recorder.draft?.state == .recording ? "pause.fill" : "play.fill"
+            )
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 14)
+        }
+        .buttonStyle(.plain)
+        .font(.headline.weight(.bold))
+        .foregroundStyle(PathTrioTheme.ink)
+        .background(.white, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(PathTrioTheme.line, lineWidth: 1)
+        }
+    }
+
+    private var endButton: some View {
+        Button(role: .destructive) {
+            showingEndConfirmation = true
+        } label: {
+            Label("action.end", systemImage: "stop.fill")
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+        }
+        .buttonStyle(.plain)
+        .font(.headline.weight(.bold))
+        .foregroundStyle(.white)
+        .background(.red, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 }
 

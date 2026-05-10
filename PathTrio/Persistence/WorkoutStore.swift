@@ -22,8 +22,14 @@ struct WorkoutStore {
         )
         let workouts = try context.fetch(descriptor)
         return workouts.reduce(into: WorkoutTotals()) { totals, workout in
+            totals.workoutCount += 1
             totals.distanceMeters += workout.distanceMeters
             totals.duration += workout.duration
+            totals.estimatedCalories += workout.estimatedCalories ?? WorkoutCaloriesEstimator.estimate(
+                type: workout.type,
+                duration: workout.duration,
+                bodyWeightKilograms: nil
+            ) ?? 0
         }
     }
 
@@ -84,4 +90,6 @@ enum WorkoutStoreError: Error {
 struct WorkoutTotals: Equatable {
     var distanceMeters: Double = 0
     var duration: TimeInterval = 0
+    var workoutCount: Int = 0
+    var estimatedCalories: Double = 0
 }

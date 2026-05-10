@@ -20,6 +20,7 @@ final class WorkoutStoreTests: XCTestCase {
 
         XCTAssertEqual(totals.distanceMeters, 2_000)
         XCTAssertEqual(totals.duration, 900)
+        XCTAssertEqual(totals.workoutCount, 2)
     }
 
     func testTotalsForDayUsesCalendarDayBoundaries() throws {
@@ -37,6 +38,22 @@ final class WorkoutStoreTests: XCTestCase {
 
         XCTAssertEqual(totals.distanceMeters, 500)
         XCTAssertEqual(totals.duration, 120)
+        XCTAssertEqual(totals.workoutCount, 1)
+    }
+
+    func testTotalsIncludeEstimatedCalories() throws {
+        let context = try makeContext()
+        let store = WorkoutStore(context: context)
+        let start = Date(timeIntervalSince1970: 1_000)
+        let end = Date(timeIntervalSince1970: 2_000)
+
+        context.insert(makeWorkout(startedAt: Date(timeIntervalSince1970: 1_100), duration: 1_800, distanceMeters: 5_000, type: .run))
+        context.insert(makeWorkout(startedAt: Date(timeIntervalSince1970: 1_300), duration: 1_200, distanceMeters: 2_000, type: .walk))
+        try context.save()
+
+        let totals = try store.totals(from: start, to: end)
+
+        XCTAssertEqual(totals.estimatedCalories, 424.7, accuracy: 0.2)
     }
 
     func testSaveCompletedWorkoutStoresEstimatedCalories() throws {
@@ -105,9 +122,14 @@ final class WorkoutStoreTests: XCTestCase {
         return ModelContext(container)
     }
 
-    private func makeWorkout(startedAt: Date, duration: TimeInterval, distanceMeters: Double) -> WorkoutSessionModel {
+    private func makeWorkout(
+        startedAt: Date,
+        duration: TimeInterval,
+        distanceMeters: Double,
+        type: WorkoutType = .walk
+    ) -> WorkoutSessionModel {
         WorkoutSessionModel(
-            type: .walk,
+            type: type,
             startedAt: startedAt,
             endedAt: startedAt.addingTimeInterval(duration),
             duration: duration,

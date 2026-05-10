@@ -5,6 +5,9 @@ final class LocalizationTests: XCTestCase {
         let keys = [
             "app.name",
             "app.subtitle",
+            "tab.home",
+            "tab.history",
+            "tab.settings",
             "workout.walk",
             "workout.run",
             "workout.ride",
@@ -19,6 +22,7 @@ final class LocalizationTests: XCTestCase {
             "settings.health.confirm.enable",
             "health.status.permissionNeeded.title",
             "health.data.workouts",
+            "summary.health.skipped",
             "summary.health.synced",
             "summary.health.unavailable",
             "summary.health.failed",

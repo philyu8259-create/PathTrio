@@ -16,7 +16,7 @@ enum WorkoutHealthSyncResult: String, Equatable {
     var messageKey: String? {
         switch self {
         case .skipped:
-            return nil
+            return "summary.health.skipped"
         case .synced:
             return "summary.health.synced"
         case .unavailable:

@@ -1,6 +1,10 @@
 "app.name" = "三动迹";
 "app.subtitle" = "走路跑步骑行记录";
 
+"tab.home" = "首页";
+"tab.history" = "历史";
+"tab.settings" = "设置";
+
 "action.start" = "开始";
 "action.done" = "完成";
 "action.cancel" = "取消";
@@ -30,9 +34,29 @@
 "metric.calories" = "卡路里";
 "metric.status" = "状态";
 
+"home.status.ready" = "准备就绪";
+"home.status.gps" = "GPS 路线";
+"home.status.smartAssistOn" = "辅助开启";
+"home.status.smartAssistOff" = "辅助关闭";
+"home.route.title" = "路线预览";
+"home.route.subtitle" = "%@ 户外记录已准备好。";
+"home.today.title" = "今日";
+"home.today.sessions" = "次数";
+"home.recent.title" = "最近记录";
+"home.recent.empty.title" = "还没有运动记录";
+"home.recent.empty.message" = "下一次保存的走路、跑步或骑行会显示在这里。";
+"home.openHistory" = "打开历史";
+"home.openSettings" = "打开设置";
+"home.quickStart" = "快速开始";
+"home.mode.title" = "运动类型";
+
 "detail.started" = "开始时间";
 "detail.ended" = "结束时间";
 
+"active.title" = "运动记录中";
+"active.map.empty" = "正在等待 GPS 路线";
+"active.route.points" = "已记录 %d 个路线点";
+"active.controls.title" = "运动控制";
 "active.endConfirmation.title" = "结束本次运动？";
 "active.endConfirmation.endWorkout" = "结束运动";
 
@@ -107,10 +131,17 @@
 "location.status.error.message" = "三动迹暂时无法稳定接收定位更新。";
 
 "summary.title" = "运动已保存";
+"summary.subtitle" = "%@ 已完成";
+"summary.metrics.title" = "运动数据";
+"summary.route.empty" = "本次运动没有保存路线点。";
+"summary.route.saved" = "已保存 %d 个路线点。";
+"summary.health.title" = "健康同步";
+"summary.health.skipped" = "Apple 健康同步未开启。本次运动已保存在三动迹内。";
 "summary.saveError" = "本次运动无法保存，请重试。";
 "summary.health.synced" = "已同步到 Apple 健康。";
 "summary.health.unavailable" = "这台设备无法使用 Apple 健康。本次运动已保存在三动迹内。";
 "summary.health.failed" = "Apple 健康同步未完成。本次运动已保存在三动迹内。";
+"summary.health.saving" = "正在保存运动...";
 "detail.healthSync.synced" = "已同步到 Apple 健康";
 "detail.healthSync.skipped" = "Apple 健康同步未开启";
 "detail.healthSync.unavailable" = "Apple 健康不可用";

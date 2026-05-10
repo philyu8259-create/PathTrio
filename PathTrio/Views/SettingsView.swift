@@ -7,6 +7,7 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var isConfirmingBackgroundRecording = false
     @State private var isConfirmingHealthSync = false
+    let showsDoneButton: Bool
 
     var body: some View {
         @Bindable var settings = appModel.settingsStore
@@ -73,10 +74,12 @@ struct SettingsView: View {
             .navigationTitle("settings.title")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("action.done") {
-                        saveSettings()
-                        dismiss()
+                if showsDoneButton {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("action.done") {
+                            saveSettings()
+                            dismiss()
+                        }
                     }
                 }
             }

@@ -6,6 +6,7 @@ struct HistoryView: View {
     @Query(sort: \WorkoutSessionModel.startedAt, order: .reverse) private var workouts: [WorkoutSessionModel]
     @State private var grouping: WorkoutHistoryGrouping = .day
     @State private var typeFilter: WorkoutTypeFilter = .all
+    let showsDoneButton: Bool
 
     private let organizer = WorkoutHistoryOrganizer()
     private let insightEngine = WorkoutInsightEngine()
@@ -43,8 +44,10 @@ struct HistoryView: View {
             }
             .navigationTitle("history.title")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("action.done") { dismiss() }
+                if showsDoneButton {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("action.done") { dismiss() }
+                    }
                 }
             }
         }

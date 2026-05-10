@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02B64B46E1FBC4074962F4EE /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3841CDE5329461C5FC03C4ED /* AppRootView.swift */; };
 		043FB8978C962FDB8B86C0E1 /* WorkoutSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B13A6619CB76C5F240357A4 /* WorkoutSessionModel.swift */; };
 		06E06E0FC384E6EF5D55FFEF /* WorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB6B25B4B0765BABA83DD3 /* WorkoutStore.swift */; };
 		0E727CFBBB5E5C75E797C408 /* PathTrioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */; };
@@ -93,6 +94,7 @@
 		2B83112238048A2DBE9783A7 /* WorkoutInsightEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInsightEngine.swift; sourceTree = "<group>"; };
 		2C66B1B3856873E72FD3D6F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2F8CE1C5B7F0EB254D58EB10 /* WorkoutDetailInsightEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailInsightEngine.swift; sourceTree = "<group>"; };
+		3841CDE5329461C5FC03C4ED /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		40607E73B6AF2D3B0ED9992E /* WorkoutStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStoreTests.swift; sourceTree = "<group>"; };
 		4BD2B980491B9AE8E39548DD /* WorkoutRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecorder.swift; sourceTree = "<group>"; };
 		51964BF87B089D5C8E93AFA1 /* LocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTests.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				B36759D4C04E331C7015B5A6 /* AppModel.swift */,
+				3841CDE5329461C5FC03C4ED /* AppRootView.swift */,
 				CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */,
 			);
 			path = App;
@@ -416,6 +419,7 @@
 			files = (
 				FE0AA8EF95AF9E5203D630ED /* ActiveWorkoutView.swift in Sources */,
 				AE41E59352E6C5E5F75C23FD /* AppModel.swift in Sources */,
+				02B64B46E1FBC4074962F4EE /* AppRootView.swift in Sources */,
 				F35A8F150B5BA1E3A8C0034B /* AutoStartReminderEngine.swift in Sources */,
 				43FF55FC03A77D0C9CFF2ABC /* DistanceCalculator.swift in Sources */,
 				71AF0D7DADF9814213BC25BF /* HealthKitWorkoutBuilder.swift in Sources */,

@@ -7,7 +7,7 @@ struct PathTrioApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            AppRootView()
                 .environment(appModel)
         }
         .modelContainer(for: [
