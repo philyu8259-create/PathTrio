@@ -7,6 +7,9 @@ struct WorkoutDetailView: View {
     @Environment(AppModel.self) private var appModel
     let workout: WorkoutSessionModel
     @State private var isRetryingHealthSync = false
+    @State private var shareItem: ExportShareItem?
+    @State private var lockedProFeature: ProFeature?
+    @State private var exportErrorMessage: String?
     private let insightEngine = WorkoutDetailInsightEngine()
     private let metricColumns = [
         GridItem(.flexible(), spacing: 12),
@@ -46,10 +49,14 @@ struct WorkoutDetailView: View {
         insightEngine.insights(for: workout)
     }
 
+    private var activeMapStyle: PathTrioMapStyle {
+        appModel.entitlementStore.canUse(.mapStyles) ? appModel.settingsStore.preferredMapStyle : .standard
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                RouteMapView(locations: locations)
+                RouteMapView(locations: locations, style: activeMapStyle)
                     .frame(height: 300)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay {
@@ -66,6 +73,18 @@ struct WorkoutDetailView: View {
                 }
 
                 WorkoutDetailInsightsPanel(insights: insights)
+
+                Button {
+                    exportWorkout()
+                } label: {
+                    Label("export.workout", systemImage: "square.and.arrow.up")
+                        .font(.subheadline.weight(.bold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(PathTrioTheme.action)
+                .pathTrioCard()
 
                 VStack(alignment: .leading, spacing: 10) {
                     DetailDateRow(title: L10n.string("detail.started"), date: workout.startedAt)
@@ -102,11 +121,80 @@ struct WorkoutDetailView: View {
         .background(PathTrioTheme.pageBackground.ignoresSafeArea())
         .navigationTitle(workout.type.displayName)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    exportWorkout()
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                }
+                .accessibilityLabel(Text("export.workout"))
+            }
+        }
+        .sheet(item: $shareItem) { item in
+            ShareSheet(activityItems: [item.url])
+        }
+        .alert("pro.locked.title", isPresented: lockedProFeatureAlertBinding) {
+            Button("action.ok") {
+                lockedProFeature = nil
+            }
+        } message: {
+            if let lockedProFeature {
+                Text(L10n.string("pro.locked.message", L10n.string(lockedProFeature.titleKey)))
+            }
+        }
+        .alert("export.error.title", isPresented: exportErrorAlertBinding) {
+            Button("action.ok") {
+                exportErrorMessage = nil
+            }
+        } message: {
+            Text(exportErrorMessage ?? "")
+        }
+    }
+
+    private var lockedProFeatureAlertBinding: Binding<Bool> {
+        Binding {
+            lockedProFeature != nil
+        } set: { isPresented in
+            if !isPresented {
+                lockedProFeature = nil
+            }
+        }
+    }
+
+    private var exportErrorAlertBinding: Binding<Bool> {
+        Binding {
+            exportErrorMessage != nil
+        } set: { isPresented in
+            if !isPresented {
+                exportErrorMessage = nil
+            }
+        }
+    }
+
+    private func exportWorkout() {
+        guard appModel.entitlementStore.canUse(.dataExport) else {
+            lockedProFeature = .dataExport
+            return
+        }
+
+        do {
+            let builder = WorkoutExportBuilder()
+            let filename = "PathTrio-\(workout.type.rawValue)-\(workout.id.uuidString.prefix(8)).gpx"
+            let url = try builder.writeTemporaryFile(contents: builder.gpx(for: workout), filename: filename)
+            shareItem = ExportShareItem(url: url)
+        } catch {
+            exportErrorMessage = L10n.string("export.error.message")
+        }
     }
 
     @MainActor
     private func retryHealthSync() async {
         guard !isRetryingHealthSync else { return }
+        guard appModel.entitlementStore.canUse(.advancedHealthSync) else {
+            lockedProFeature = .advancedHealthSync
+            return
+        }
         isRetryingHealthSync = true
         defer { isRetryingHealthSync = false }
 

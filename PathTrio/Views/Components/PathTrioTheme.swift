@@ -74,3 +74,43 @@ extension View {
         modifier(PathTrioCardBackground())
     }
 }
+
+struct PathTrioPageHeader: View {
+    let titleKey: LocalizedStringKey
+    let subtitleKey: LocalizedStringKey
+    let systemImage: String
+    let tint: Color
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 12) {
+            Image(systemName: systemImage)
+                .font(.title3.weight(.black))
+                .foregroundStyle(.white)
+                .frame(width: 46, height: 46)
+                .background(tint, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(.white.opacity(0.78), lineWidth: 1)
+                }
+                .shadow(color: tint.opacity(0.18), radius: 12, x: 0, y: 6)
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(titleKey)
+                    .font(.system(size: 28, weight: .heavy, design: .rounded))
+                    .foregroundStyle(PathTrioTheme.ink.opacity(0.94))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.82)
+
+                Text(subtitleKey)
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.76)
+            }
+
+            Spacer(minLength: 0)
+        }
+        .padding(.top, 8)
+    }
+}

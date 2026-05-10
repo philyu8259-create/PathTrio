@@ -31,6 +31,8 @@ final class MotionActivityService {
     }
 
     private static func map(_ activity: CMMotionActivity) -> DetectedMotionActivity {
+        guard activity.confidence != .low else { return .unknown }
+
         if activity.automotive { return .automotive }
         if activity.cycling { return .cycling }
         if activity.running { return .running }

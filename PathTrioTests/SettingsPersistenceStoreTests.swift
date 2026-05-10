@@ -15,6 +15,9 @@ final class SettingsPersistenceStoreTests: XCTestCase {
         settings.backgroundRecordingEnabled = true
         settings.autoStartRemindersEnabled = true
         settings.healthKitSyncEnabled = true
+        settings.weeklyDistanceGoalMeters = 21_000
+        settings.monthlyWorkoutGoalCount = 16
+        settings.preferredMapStyle = .hybrid
 
         try persistenceStore.save(settings)
 
@@ -28,6 +31,9 @@ final class SettingsPersistenceStoreTests: XCTestCase {
         XCTAssertTrue(loaded.backgroundRecordingEnabled)
         XCTAssertTrue(loaded.autoStartRemindersEnabled)
         XCTAssertTrue(loaded.healthKitSyncEnabled)
+        XCTAssertEqual(loaded.weeklyDistanceGoalMeters, 21_000)
+        XCTAssertEqual(loaded.monthlyWorkoutGoalCount, 16)
+        XCTAssertEqual(loaded.preferredMapStyle, .hybrid)
     }
 
     func testLoadCreatesDefaultSettingsWhenMissing() throws {
@@ -41,6 +47,36 @@ final class SettingsPersistenceStoreTests: XCTestCase {
         XCTAssertFalse(settings.smartActivityAlertsEnabled)
         XCTAssertFalse(settings.backgroundRecordingEnabled)
         XCTAssertFalse(settings.autoStartRemindersEnabled)
+        XCTAssertEqual(settings.weeklyDistanceGoalMeters, 10_000)
+        XCTAssertEqual(settings.monthlyWorkoutGoalCount, 12)
+        XCTAssertEqual(settings.preferredMapStyle, .standard)
+    }
+
+    func testReconcileLockedProSettingsPersistsSanitizedValues() throws {
+        let context = try makeContext()
+        let persistenceStore = SettingsPersistenceStore(context: context)
+        let savedSettings = SettingsStore()
+        savedSettings.backgroundRecordingEnabled = true
+        savedSettings.autoStartRemindersEnabled = true
+        savedSettings.healthKitSyncEnabled = true
+        savedSettings.preferredMapStyle = .imagery
+        try persistenceStore.save(savedSettings)
+
+        let appModel = AppModel(
+            settingsStore: SettingsStore(),
+            entitlementStore: EntitlementStore(isProUnlocked: false)
+        )
+
+        appModel.loadSettings(from: context)
+        appModel.reconcileLockedProSettings(in: context)
+
+        let reloaded = SettingsStore()
+        try persistenceStore.load(into: reloaded)
+
+        XCTAssertTrue(reloaded.backgroundRecordingEnabled)
+        XCTAssertFalse(reloaded.autoStartRemindersEnabled)
+        XCTAssertFalse(reloaded.healthKitSyncEnabled)
+        XCTAssertEqual(reloaded.preferredMapStyle, .standard)
     }
 
     private func makeContext() throws -> ModelContext {

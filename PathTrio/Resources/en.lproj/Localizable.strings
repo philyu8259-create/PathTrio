@@ -12,6 +12,10 @@
 "action.pause" = "Pause";
 "action.resume" = "Resume";
 "action.end" = "End";
+"export.history" = "Export history";
+"export.workout" = "Export workout";
+"export.error.title" = "Export Failed";
+"export.error.message" = "PathTrio could not create the export file. Please try again.";
 
 "workout.walk" = "Walk";
 "workout.run" = "Run";
@@ -38,7 +42,7 @@
 "home.status.gps" = "GPS Route";
 "home.status.smartAssistOn" = "Assist On";
 "home.status.smartAssistOff" = "Assist Off";
-"home.route.title" = "Route Preview";
+"home.route.title" = "Current Location";
 "home.route.subtitle" = "Outdoor tracking is ready for %@.";
 "home.today.title" = "Today";
 "home.today.sessions" = "Sessions";
@@ -57,10 +61,12 @@
 "active.map.empty" = "Waiting for GPS route";
 "active.route.points" = "%d route points";
 "active.controls.title" = "Controls";
+"active.keepRecording" = "Keep Recording";
 "active.endConfirmation.title" = "End workout?";
 "active.endConfirmation.endWorkout" = "End Workout";
 
 "history.title" = "History";
+"history.subtitle" = "Review workouts by day and month";
 "history.empty.title" = "No Workouts";
 "history.empty.description" = "Your saved walks, runs, and rides will appear here.";
 "history.empty.filtered" = "No workouts match this filter yet.";
@@ -85,8 +91,7 @@
 "autoStart.message" = "PathTrio detected sustained movement. Tap play to start recording.";
 
 "settings.title" = "Settings";
-"settings.units" = "Units";
-"settings.units.metric" = "Metric";
+"settings.subtitle" = "Recording, assist, and Pro controls";
 "settings.smartAssist" = "Smart Assist";
 "settings.smartAssist.activityAlerts" = "Smart Activity Alerts";
 "settings.smartAssist.autoPause" = "Auto Pause";
@@ -107,6 +112,65 @@
 "settings.health.plannedData" = "PathTrio plans to write";
 "settings.privacy" = "Privacy";
 "settings.privacy.description" = "PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.";
+
+"pro.title" = "PathTrio Pro";
+"pro.badge" = "PRO";
+"pro.status.free.title" = "Free Plan";
+"pro.status.free.message" = "Core tracking stays free. Pro unlocks automation, deeper review, export, and Apple Watch support.";
+"pro.status.unlocked.title" = "Pro Active";
+"pro.status.unlocked.message" = "All Pro features are available on this device.";
+"pro.settings.entry.message" = "Manage purchase options, Pro controls, and premium features.";
+"pro.products.title" = "One-Time Purchase";
+"pro.products.loading" = "Loading purchase options...";
+"pro.products.unavailable" = "The lifetime Pro purchase will appear after the App Store Connect product is approved for testing.";
+"pro.product.lifetime.title" = "Lifetime Pro";
+"pro.product.lifetime.description" = "Pay once and keep Pro features unlocked.";
+"pro.locked.title" = "PathTrio Pro Feature";
+"pro.locked.message" = "%@ is included with PathTrio Pro. Choose a purchase option to unlock it.";
+"pro.locked.preview" = "%@ Unlock Pro to use this feature.";
+"pro.controls.title" = "Pro Controls";
+"pro.features.title" = "Pro Features";
+"pro.feature.autoRecording.title" = "Automatic Recording";
+"pro.feature.autoRecording.message" = "Detect sustained movement and remind you to start recording.";
+"pro.feature.advancedStats.title" = "Monthly and Yearly Stats";
+"pro.feature.advancedStats.message" = "Review longer-term distance, time, calories, and workout patterns.";
+"pro.feature.trendReview.title" = "Trend Review";
+"pro.feature.trendReview.message" = "Compare this week with previous weeks and see consistency changes.";
+"pro.feature.dataExport.title" = "Data Export";
+"pro.feature.dataExport.message" = "Export workouts as CSV or GPX for backup and analysis.";
+"pro.feature.goals.title" = "Goals";
+"pro.feature.goals.message" = "Track weekly distance, monthly sessions, and personal targets.";
+"pro.feature.mapStyles.title" = "More Map Styles";
+"pro.feature.mapStyles.message" = "Switch between additional route map looks for review and sharing.";
+"pro.feature.advancedHealthSync.title" = "Advanced Health Sync";
+"pro.feature.advancedHealthSync.message" = "Sync richer workout data with Apple Health when enabled.";
+"pro.feature.appleWatch.title" = "Apple Watch Support";
+"pro.feature.appleWatch.message" = "Apple Watch companion support is included with Pro and requires a paired Apple Watch.";
+
+"goals.title" = "Goals";
+"goals.weeklyDistance" = "Weekly distance";
+"goals.monthlyWorkouts" = "Monthly workouts";
+"goals.progress" = "%@ of %@";
+
+"map.style.title" = "Route Map Style";
+"map.style.standard" = "Standard";
+"map.style.hybrid" = "Hybrid";
+"map.style.imagery" = "Imagery";
+
+"stats.title" = "Pro Stats";
+"stats.thisMonth" = "This month";
+"stats.thisYear" = "This year";
+"stats.allTime" = "All time";
+"stats.workouts" = "%d workouts";
+
+"watch.status.unsupported.title" = "Apple Watch Unavailable";
+"watch.status.unsupported.message" = "This device does not support Apple Watch connectivity.";
+"watch.status.notPaired.title" = "No Apple Watch Paired";
+"watch.status.notPaired.message" = "Pair an Apple Watch with this iPhone to use Watch support. PathTrio still works normally on iPhone without a watch.";
+"watch.status.missing.title" = "Watch App Not Installed";
+"watch.status.missing.message" = "Install the PathTrio Watch companion to see live workout metrics and saved workout summaries.";
+"watch.status.ready.title" = "Apple Watch Ready";
+"watch.status.ready.message" = "PathTrio can publish live workout metrics and saved workout summaries to Apple Watch.";
 
 "health.status.off.title" = "Health Sync Off";
 "health.status.off.message" = "Workouts stay in PathTrio only. You can turn on Apple Health sync later.";
@@ -161,6 +225,7 @@
 
 "smartAssist.activityChange.title" = "Switch to %@?";
 "smartAssist.activityChange.message" = "PathTrio detected movement that looks more like %@ than %@.";
+"smartAssist.activityChange.confirm" = "Switch";
 "smartAssist.autoPause.title" = "Pause workout?";
 "smartAssist.autoPause.message" = "You appear to be still. PathTrio can pause this workout until movement resumes.";
 "smartAssist.speedAnomaly.title" = "Unusual speed detected";

@@ -2,14 +2,19 @@ import SwiftData
 import SwiftUI
 
 struct HistoryView: View {
+    @Environment(AppModel.self) private var appModel
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \WorkoutSessionModel.startedAt, order: .reverse) private var workouts: [WorkoutSessionModel]
     @State private var grouping: WorkoutHistoryGrouping = .day
     @State private var typeFilter: WorkoutTypeFilter = .all
+    @State private var shareItem: ExportShareItem?
+    @State private var lockedProFeature: ProFeature?
+    @State private var exportErrorMessage: String?
     let showsDoneButton: Bool
 
     private let organizer = WorkoutHistoryOrganizer()
     private let insightEngine = WorkoutInsightEngine()
+    private let statsBuilder = WorkoutStatsSummaryBuilder()
 
     private var sections: [WorkoutHistorySection] {
         organizer.sections(for: workouts, grouping: grouping, filter: typeFilter)
@@ -21,14 +26,45 @@ struct HistoryView: View {
                 PathTrioTheme.pageBackground
                     .ignoresSafeArea()
 
-                if workouts.isEmpty {
-                    HistoryEmptyState()
-                } else {
-                    ScrollView {
-                        LazyVStack(alignment: .leading, spacing: 16) {
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 16) {
+                        PathTrioPageHeader(
+                            titleKey: "history.title",
+                            subtitleKey: "history.subtitle",
+                            systemImage: "clock.arrow.circlepath",
+                            tint: PathTrioTheme.action
+                        )
+
+                        if workouts.isEmpty {
+                            HistoryEmptyState()
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, 34)
+                        } else {
                             HistoryControls(grouping: $grouping, typeFilter: $typeFilter)
 
-                            HistoryInsightsPanel(insights: insightEngine.insights(for: workouts))
+                            Button {
+                                exportHistory()
+                            } label: {
+                                Label("export.history", systemImage: "square.and.arrow.up")
+                                    .font(.subheadline.weight(.bold))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                            }
+                            .buttonStyle(.plain)
+                            .foregroundStyle(PathTrioTheme.action)
+                            .pathTrioCard()
+
+                            if appModel.entitlementStore.canUse(.advancedStats) {
+                                HistoryStatsPanel(summaries: statsBuilder.summaries(for: workouts))
+                            } else {
+                                HistoryLockedProPanel(feature: .advancedStats)
+                            }
+
+                            if appModel.entitlementStore.canUse(.trendReview) {
+                                HistoryInsightsPanel(insights: insightEngine.insights(for: workouts))
+                            } else {
+                                HistoryLockedProPanel(feature: .trendReview)
+                            }
 
                             if sections.isEmpty {
                                 HistoryFilteredEmptyState()
@@ -38,11 +74,10 @@ struct HistoryView: View {
                                 }
                             }
                         }
-                        .padding(16)
                     }
+                    .padding(16)
                 }
             }
-            .navigationTitle("history.title")
             .toolbar {
                 if showsDoneButton {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -50,6 +85,64 @@ struct HistoryView: View {
                     }
                 }
             }
+            .toolbar(showsDoneButton ? .visible : .hidden, for: .navigationBar)
+            .sheet(item: $shareItem) { item in
+                ShareSheet(activityItems: [item.url])
+            }
+            .alert("pro.locked.title", isPresented: lockedProFeatureAlertBinding) {
+                Button("action.ok") {
+                    lockedProFeature = nil
+                }
+            } message: {
+                if let lockedProFeature {
+                    Text(L10n.string("pro.locked.message", L10n.string(lockedProFeature.titleKey)))
+                }
+            }
+            .alert("export.error.title", isPresented: exportErrorAlertBinding) {
+                Button("action.ok") {
+                    exportErrorMessage = nil
+                }
+            } message: {
+                Text(exportErrorMessage ?? "")
+            }
+        }
+    }
+
+    private var lockedProFeatureAlertBinding: Binding<Bool> {
+        Binding {
+            lockedProFeature != nil
+        } set: { isPresented in
+            if !isPresented {
+                lockedProFeature = nil
+            }
+        }
+    }
+
+    private var exportErrorAlertBinding: Binding<Bool> {
+        Binding {
+            exportErrorMessage != nil
+        } set: { isPresented in
+            if !isPresented {
+                exportErrorMessage = nil
+            }
+        }
+    }
+
+    private func exportHistory() {
+        guard appModel.entitlementStore.canUse(.dataExport) else {
+            lockedProFeature = .dataExport
+            return
+        }
+
+        do {
+            let builder = WorkoutExportBuilder()
+            let url = try builder.writeTemporaryFile(
+                contents: builder.csv(for: workouts),
+                filename: "PathTrio-Workouts.csv"
+            )
+            shareItem = ExportShareItem(url: url)
+        } catch {
+            exportErrorMessage = L10n.string("export.error.message")
         }
     }
 }
@@ -127,6 +220,82 @@ private struct HistoryInsightsPanel: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
+            }
+        }
+        .padding(14)
+        .pathTrioCard()
+    }
+}
+
+private struct HistoryStatsPanel: View {
+    let summaries: [WorkoutStatsSummary]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Label("stats.title", systemImage: "chart.bar.xaxis")
+                .font(.headline.weight(.bold))
+                .foregroundStyle(PathTrioTheme.ink)
+
+            ForEach(summaries, id: \.periodKey) { summary in
+                HStack(spacing: 10) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(L10n.string(summary.periodKey))
+                            .font(.footnote.weight(.bold))
+                            .foregroundStyle(PathTrioTheme.ink)
+                        Text(L10n.string("stats.workouts", summary.workoutCount))
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(PathTrioTheme.muted)
+                    }
+
+                    Spacer()
+
+                    VStack(alignment: .trailing, spacing: 3) {
+                        Text(WorkoutMetricsFormatter.distance(summary.distanceMeters))
+                            .font(.footnote.weight(.black))
+                            .foregroundStyle(PathTrioTheme.action)
+                        Text(WorkoutMetricsFormatter.calories(summary.estimatedCalories))
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(PathTrioTheme.muted)
+                    }
+                }
+
+                if summary.periodKey != summaries.last?.periodKey {
+                    Rectangle()
+                        .fill(PathTrioTheme.line)
+                        .frame(height: 1)
+                }
+            }
+        }
+        .padding(14)
+        .pathTrioCard()
+    }
+}
+
+private struct HistoryLockedProPanel: View {
+    let feature: ProFeature
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: "lock.fill")
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(PathTrioTheme.warm)
+                .frame(width: 30, height: 30)
+                .background(PathTrioTheme.warm.opacity(0.12), in: Circle())
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 8) {
+                    Text(L10n.string(feature.titleKey))
+                        .font(.footnote.weight(.bold))
+                        .foregroundStyle(PathTrioTheme.ink)
+                    Text("pro.badge")
+                        .font(.caption2.weight(.black))
+                        .foregroundStyle(PathTrioTheme.warm)
+                }
+
+                Text(L10n.string(feature.messageKey))
+                    .font(.footnote)
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(14)

@@ -1,4 +1,5 @@
 import SwiftData
+import StoreKit
 import SwiftUI
 
 struct SettingsView: View {
@@ -7,6 +8,7 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var isConfirmingBackgroundRecording = false
     @State private var isConfirmingHealthSync = false
+    @State private var lockedProFeature: ProFeature?
     let showsDoneButton: Bool
 
     var body: some View {
@@ -19,12 +21,28 @@ struct SettingsView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 18) {
-                        SettingsPanel(titleKey: "settings.units", systemImage: "ruler") {
-                            Picker("settings.units", selection: $settings.preferredUnits) {
-                                Text("settings.units.metric").tag("metric")
+                        PathTrioPageHeader(
+                            titleKey: "settings.title",
+                            subtitleKey: "settings.subtitle",
+                            systemImage: "gearshape.fill",
+                            tint: PathTrioTheme.ink.opacity(0.86)
+                        )
+
+                        SettingsPanel(titleKey: "pro.title", systemImage: "crown") {
+                            NavigationLink {
+                                ProSettingsView(
+                                    weeklyDistanceGoalMeters: weeklyDistanceGoalBinding,
+                                    monthlyWorkoutGoalCount: monthlyWorkoutGoalBinding,
+                                    mapStyle: mapStyleBinding
+                                ) { product in
+                                    Task {
+                                        await appModel.entitlementStore.purchase(product)
+                                    }
+                                }
+                            } label: {
+                                ProSettingsNavigationRow(isUnlocked: appModel.entitlementStore.isProUnlocked)
                             }
-                            .pickerStyle(.menu)
-                            .tint(PathTrioTheme.action)
+                            .buttonStyle(.plain)
                         }
 
                         SettingsPanel(titleKey: "settings.smartAssist", systemImage: "sparkles") {
@@ -36,7 +54,7 @@ struct SettingsView: View {
                         }
 
                         SettingsPanel(titleKey: "settings.recording", systemImage: "location") {
-                            SettingsToggleRow(titleKey: "settings.recording.autoStartReminders", systemImage: "figure.walk.motion", isOn: $settings.autoStartRemindersEnabled)
+                            SettingsToggleRow(titleKey: "settings.recording.autoStartReminders", systemImage: "figure.walk.motion", accessoryKey: "pro.badge", isOn: autoStartRemindersBinding)
                             SettingsDescription(textKey: "settings.recording.autoStartDescription")
                             SettingsDivider()
                             SettingsToggleRow(titleKey: "settings.recording.recordWhenLocked", systemImage: "lock.open", isOn: backgroundRecordingBinding)
@@ -44,9 +62,9 @@ struct SettingsView: View {
                         }
 
                         SettingsPanel(titleKey: "settings.health", systemImage: "heart.text.square") {
-                            SettingsToggleRow(titleKey: "settings.health.syncToAppleHealth", systemImage: "heart", isOn: healthSyncBinding)
+                            SettingsToggleRow(titleKey: "settings.health.syncToAppleHealth", systemImage: "heart", accessoryKey: "pro.badge", isOn: healthSyncBinding)
                             SettingsDivider()
-                            HealthSyncStatusRow(status: HealthSyncPlan.status(syncEnabled: settings.healthKitSyncEnabled))
+                            HealthSyncStatusRow(status: HealthSyncPlan.status(syncEnabled: settings.healthKitSyncEnabled && appModel.entitlementStore.canUse(.advancedHealthSync)))
                             SettingsDivider()
 
                             VStack(alignment: .leading, spacing: 10) {
@@ -71,28 +89,39 @@ struct SettingsView: View {
                     .padding(16)
                 }
             }
-            .navigationTitle("settings.title")
-            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 if showsDoneButton {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("action.done") {
-                            saveSettings()
+                            appModel.saveSettings(to: modelContext)
                             dismiss()
                         }
                     }
                 }
             }
+            .toolbar(showsDoneButton ? .visible : .hidden, for: .navigationBar)
             .task {
-                loadSettings()
+                appModel.loadSettings(from: modelContext)
+                await appModel.entitlementStore.refreshPurchasedEntitlements()
+                await appModel.entitlementStore.loadProducts()
+                appModel.reconcileLockedProSettings(in: modelContext)
+                if appModel.entitlementStore.canUse(.appleWatch) {
+                    appModel.appleWatchSupportService.activate()
+                }
+                appModel.appleWatchSupportService.publishProStatus(isUnlocked: appModel.entitlementStore.canUse(.appleWatch))
             }
-            .onChange(of: settings.preferredUnits) { _, _ in saveSettings() }
-            .onChange(of: settings.smartActivityAlertsEnabled) { _, _ in saveSettings() }
-            .onChange(of: settings.autoPauseEnabled) { _, _ in saveSettings() }
-            .onChange(of: settings.speedAnomalyAlertsEnabled) { _, _ in saveSettings() }
-            .onChange(of: settings.autoStartRemindersEnabled) { _, _ in saveSettings() }
+            .onChange(of: settings.smartActivityAlertsEnabled) { _, _ in appModel.saveSettings(to: modelContext) }
+            .onChange(of: settings.autoPauseEnabled) { _, _ in appModel.saveSettings(to: modelContext) }
+            .onChange(of: settings.speedAnomalyAlertsEnabled) { _, _ in appModel.saveSettings(to: modelContext) }
+            .onChange(of: settings.autoStartRemindersEnabled) { _, _ in appModel.saveSettings(to: modelContext) }
+            .onChange(of: settings.weeklyDistanceGoalMeters) { _, _ in appModel.saveSettings(to: modelContext) }
+            .onChange(of: settings.monthlyWorkoutGoalCount) { _, _ in appModel.saveSettings(to: modelContext) }
+            .onChange(of: settings.preferredMapStyleRawValue) { _, _ in appModel.saveSettings(to: modelContext) }
+            .onChange(of: appModel.entitlementStore.isProUnlocked) { _, _ in
+                appModel.reconcileLockedProSettings(in: modelContext)
+            }
             .onDisappear {
-                saveSettings()
+                appModel.saveSettings(to: modelContext)
             }
             .confirmationDialog(
                 "settings.recording.backgroundConfirm.title",
@@ -101,7 +130,7 @@ struct SettingsView: View {
             ) {
                 Button("settings.recording.backgroundConfirm.enable") {
                     appModel.settingsStore.backgroundRecordingEnabled = true
-                    saveSettings()
+                    appModel.saveSettings(to: modelContext)
                 }
                 Button("action.cancel", role: .cancel) {}
             } message: {
@@ -113,12 +142,51 @@ struct SettingsView: View {
                 titleVisibility: .visible
             ) {
                 Button("settings.health.confirm.enable") {
+                    guard appModel.entitlementStore.canUse(.advancedHealthSync) else {
+                        appModel.settingsStore.healthKitSyncEnabled = false
+                        lockedProFeature = .advancedHealthSync
+                        appModel.saveSettings(to: modelContext)
+                        return
+                    }
                     appModel.settingsStore.healthKitSyncEnabled = true
-                    saveSettings()
+                    appModel.saveSettings(to: modelContext)
                 }
                 Button("action.cancel", role: .cancel) {}
             } message: {
                 Text("settings.health.confirm.message")
+            }
+            .alert("pro.locked.title", isPresented: lockedProFeatureAlertBinding) {
+                Button("action.ok") {
+                    lockedProFeature = nil
+                }
+            } message: {
+                if let lockedProFeature {
+                    Text(L10n.string("pro.locked.message", L10n.string(lockedProFeature.titleKey)))
+                }
+            }
+        }
+    }
+
+    private var lockedProFeatureAlertBinding: Binding<Bool> {
+        Binding {
+            lockedProFeature != nil
+        } set: { isPresented in
+            if !isPresented {
+                lockedProFeature = nil
+            }
+        }
+    }
+
+    private var autoStartRemindersBinding: Binding<Bool> {
+        Binding {
+            appModel.settingsStore.autoStartRemindersEnabled
+        } set: { isEnabled in
+            if isEnabled && !appModel.entitlementStore.canUse(.autoRecording) {
+                appModel.settingsStore.autoStartRemindersEnabled = false
+                lockedProFeature = .autoRecording
+            } else {
+                appModel.settingsStore.autoStartRemindersEnabled = isEnabled
+                appModel.saveSettings(to: modelContext)
             }
         }
     }
@@ -131,8 +199,48 @@ struct SettingsView: View {
                 isConfirmingBackgroundRecording = true
             } else {
                 appModel.settingsStore.backgroundRecordingEnabled = false
-                saveSettings()
+                appModel.saveSettings(to: modelContext)
             }
+        }
+    }
+
+    private var weeklyDistanceGoalBinding: Binding<Double> {
+        Binding {
+            appModel.settingsStore.weeklyDistanceGoalMeters
+        } set: { value in
+            guard appModel.entitlementStore.canUse(.goals) else {
+                lockedProFeature = .goals
+                return
+            }
+            appModel.settingsStore.weeklyDistanceGoalMeters = min(max(value, 1_000), 200_000)
+            appModel.saveSettings(to: modelContext)
+        }
+    }
+
+    private var monthlyWorkoutGoalBinding: Binding<Int> {
+        Binding {
+            appModel.settingsStore.monthlyWorkoutGoalCount
+        } set: { value in
+            guard appModel.entitlementStore.canUse(.goals) else {
+                lockedProFeature = .goals
+                return
+            }
+            appModel.settingsStore.monthlyWorkoutGoalCount = min(max(value, 1), 100)
+            appModel.saveSettings(to: modelContext)
+        }
+    }
+
+    private var mapStyleBinding: Binding<PathTrioMapStyle> {
+        Binding {
+            appModel.settingsStore.preferredMapStyle
+        } set: { style in
+            if style != .standard && !appModel.entitlementStore.canUse(.mapStyles) {
+                appModel.settingsStore.preferredMapStyle = .standard
+                lockedProFeature = .mapStyles
+            } else {
+                appModel.settingsStore.preferredMapStyle = style
+            }
+            appModel.saveSettings(to: modelContext)
         }
     }
 
@@ -141,27 +249,252 @@ struct SettingsView: View {
             appModel.settingsStore.healthKitSyncEnabled
         } set: { isEnabled in
             if isEnabled {
+                guard appModel.entitlementStore.canUse(.advancedHealthSync) else {
+                    appModel.settingsStore.healthKitSyncEnabled = false
+                    lockedProFeature = .advancedHealthSync
+                    appModel.saveSettings(to: modelContext)
+                    return
+                }
                 isConfirmingHealthSync = true
             } else {
                 appModel.settingsStore.healthKitSyncEnabled = false
-                saveSettings()
+                appModel.saveSettings(to: modelContext)
+            }
+        }
+    }
+}
+
+private struct GoalSettingsRows: View {
+    @Binding var weeklyDistanceGoalMeters: Double
+    @Binding var monthlyWorkoutGoalCount: Int
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Stepper(value: $weeklyDistanceGoalMeters, in: 1_000...200_000, step: 1_000) {
+                SettingsValueRow(
+                    titleKey: "goals.weeklyDistance",
+                    value: WorkoutMetricsFormatter.distance(weeklyDistanceGoalMeters),
+                    systemImage: "target"
+                )
+            }
+
+            SettingsDivider()
+
+            Stepper(value: $monthlyWorkoutGoalCount, in: 1...100, step: 1) {
+                SettingsValueRow(
+                    titleKey: "goals.monthlyWorkouts",
+                    value: "\(monthlyWorkoutGoalCount)",
+                    systemImage: "calendar.badge.checkmark"
+                )
+            }
+        }
+    }
+}
+
+private struct ProSettingsView: View {
+    @Environment(AppModel.self) private var appModel
+    @Binding var weeklyDistanceGoalMeters: Double
+    @Binding var monthlyWorkoutGoalCount: Int
+    @Binding var mapStyle: PathTrioMapStyle
+    let purchase: (Product) -> Void
+
+    var body: some View {
+        ZStack {
+            PathTrioTheme.pageBackground
+                .ignoresSafeArea()
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    SettingsPanel(titleKey: "pro.title", systemImage: "crown") {
+                        ProStatusCard(isUnlocked: appModel.entitlementStore.isProUnlocked)
+
+                        if !appModel.entitlementStore.isProUnlocked {
+                            SettingsDivider()
+                            ProPurchaseOptions(
+                                products: appModel.entitlementStore.availableProducts,
+                                state: appModel.entitlementStore.purchaseState,
+                                purchase: purchase
+                            )
+                        }
+                    }
+
+                    SettingsPanel(titleKey: "pro.controls.title", systemImage: "slider.horizontal.3") {
+                        if appModel.entitlementStore.isProUnlocked {
+                            GoalSettingsRows(
+                                weeklyDistanceGoalMeters: $weeklyDistanceGoalMeters,
+                                monthlyWorkoutGoalCount: $monthlyWorkoutGoalCount
+                            )
+                            SettingsDivider()
+                            MapStylePicker(selection: $mapStyle)
+                            SettingsDivider()
+                            AppleWatchSupportStatusRow(status: appModel.appleWatchSupportService.status)
+                        } else {
+                            ProControlsLockedRows()
+                        }
+                    }
+
+                    SettingsPanel(titleKey: "pro.features.title", systemImage: "sparkles") {
+                        ForEach(ProFeature.allCases) { feature in
+                            ProFeatureRow(feature: feature, isUnlocked: appModel.entitlementStore.canUse(feature))
+                            if feature != ProFeature.allCases.last {
+                                SettingsDivider()
+                            }
+                        }
+                    }
+                }
+                .padding(16)
+            }
+        }
+        .navigationTitle("pro.title")
+        .navigationBarTitleDisplayMode(.large)
+        .task {
+            if appModel.entitlementStore.canUse(.appleWatch) {
+                appModel.appleWatchSupportService.activate()
+            }
+            appModel.appleWatchSupportService.publishProStatus(isUnlocked: appModel.entitlementStore.canUse(.appleWatch))
+        }
+    }
+}
+
+private struct ProSettingsNavigationRow: View {
+    let isUnlocked: Bool
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 12) {
+            Image(systemName: isUnlocked ? "crown.fill" : "crown")
+                .font(.title3.weight(.bold))
+                .foregroundStyle(PathTrioTheme.warm)
+                .frame(width: 42, height: 42)
+                .background(PathTrioTheme.warm.opacity(0.14), in: Circle())
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 8) {
+                    Text(isUnlocked ? "pro.status.unlocked.title" : "pro.status.free.title")
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(PathTrioTheme.ink)
+                    if !isUnlocked {
+                        Text("pro.badge")
+                            .font(.caption2.weight(.black))
+                            .foregroundStyle(PathTrioTheme.warm)
+                    }
+                }
+
+                Text("pro.settings.entry.message")
+                    .font(.footnote)
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 0)
+
+            Image(systemName: "chevron.right")
+                .font(.footnote.weight(.bold))
+                .foregroundStyle(PathTrioTheme.muted)
+        }
+        .contentShape(Rectangle())
+    }
+}
+
+private struct MapStylePicker: View {
+    @Binding var selection: PathTrioMapStyle
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Label("map.style.title", systemImage: "map")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(PathTrioTheme.ink)
+
+            Picker("map.style.title", selection: $selection) {
+                ForEach(PathTrioMapStyle.allCases) { style in
+                    Text(L10n.string(style.titleKey)).tag(style)
+                }
+            }
+            .pickerStyle(.segmented)
+        }
+    }
+}
+
+private struct SettingsValueRow: View {
+    let titleKey: LocalizedStringKey
+    let value: String
+    let systemImage: String
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Label(titleKey, systemImage: systemImage)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(PathTrioTheme.ink)
+            Spacer()
+            Text(value)
+                .font(.subheadline.weight(.black))
+                .foregroundStyle(PathTrioTheme.action)
+                .monospacedDigit()
+        }
+    }
+}
+
+private struct ProControlsLockedRows: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            LockedControlRow(feature: .goals)
+            SettingsDivider()
+            LockedControlRow(feature: .mapStyles)
+            SettingsDivider()
+            LockedControlRow(feature: .dataExport)
+            SettingsDivider()
+            LockedControlRow(feature: .appleWatch)
+        }
+    }
+}
+
+private struct AppleWatchSupportStatusRow: View {
+    let status: AppleWatchSupportStatus
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: status.systemImage)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(tint)
+                .frame(width: 30, height: 30)
+                .background(tint.opacity(0.12), in: Circle())
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(L10n.string(status.titleKey))
+                    .font(.footnote.weight(.bold))
+                    .foregroundStyle(PathTrioTheme.ink)
+                Text(L10n.string(status.messageKey))
+                    .font(.footnote)
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
 
-    private func loadSettings() {
-        do {
-            try SettingsPersistenceStore(context: modelContext).load(into: appModel.settingsStore)
-        } catch {
-            // Settings remain editable with in-memory defaults if loading fails.
-        }
+    private var tint: Color {
+        status == .ready ? PathTrioTheme.teal : PathTrioTheme.warm
     }
+}
 
-    private func saveSettings() {
-        do {
-            try SettingsPersistenceStore(context: modelContext).save(appModel.settingsStore)
-        } catch {
-            // The next app launch will fall back to defaults if saving fails.
+private struct LockedControlRow: View {
+    let feature: ProFeature
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: feature.systemImage)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(PathTrioTheme.warm)
+                .frame(width: 30, height: 30)
+                .background(PathTrioTheme.warm.opacity(0.12), in: Circle())
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(L10n.string(feature.titleKey))
+                    .font(.footnote.weight(.bold))
+                    .foregroundStyle(PathTrioTheme.ink)
+                Text(L10n.string(feature.messageKey))
+                    .font(.footnote)
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
     }
 }
@@ -221,16 +554,168 @@ private struct SettingsPanel<Content: View>: View {
 private struct SettingsToggleRow: View {
     let titleKey: LocalizedStringKey
     let systemImage: String
+    var accessoryKey: LocalizedStringKey? = nil
     @Binding var isOn: Bool
 
     var body: some View {
         Toggle(isOn: $isOn) {
-            Label(titleKey, systemImage: systemImage)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(PathTrioTheme.ink)
-                .labelStyle(.titleAndIcon)
+            HStack(spacing: 8) {
+                Label(titleKey, systemImage: systemImage)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(PathTrioTheme.ink)
+                    .labelStyle(.titleAndIcon)
+
+                if let accessoryKey {
+                    Text(accessoryKey)
+                        .font(.caption2.weight(.black))
+                        .foregroundStyle(PathTrioTheme.warm)
+                        .padding(.horizontal, 7)
+                        .padding(.vertical, 4)
+                        .background(PathTrioTheme.warm.opacity(0.12), in: Capsule())
+                }
+            }
         }
         .tint(PathTrioTheme.action)
+    }
+}
+
+private struct ProStatusCard: View {
+    let isUnlocked: Bool
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 12) {
+            Image(systemName: isUnlocked ? "crown.fill" : "crown")
+                .font(.title3.weight(.bold))
+                .foregroundStyle(PathTrioTheme.warm)
+                .frame(width: 42, height: 42)
+                .background(PathTrioTheme.warm.opacity(0.14), in: Circle())
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(isUnlocked ? "pro.status.unlocked.title" : "pro.status.free.title")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(PathTrioTheme.ink)
+                Text(isUnlocked ? "pro.status.unlocked.message" : "pro.status.free.message")
+                    .font(.footnote)
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 0)
+        }
+    }
+}
+
+private struct ProPurchaseOptions: View {
+    let products: [Product]
+    let state: ProPurchaseState
+    let purchase: (Product) -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("pro.products.title")
+                .font(.footnote.weight(.bold))
+                .foregroundStyle(PathTrioTheme.ink)
+
+            if products.isEmpty {
+                Text(state == .loading ? "pro.products.loading" : "pro.products.unavailable")
+                    .font(.footnote)
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                ForEach(products) { product in
+                    Button {
+                        purchase(product)
+                    } label: {
+                        HStack(spacing: 10) {
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(product.localizedPathTrioName)
+                                    .font(.footnote.weight(.bold))
+                                    .foregroundStyle(PathTrioTheme.ink)
+                                Text(product.localizedPathTrioDescription)
+                                    .font(.caption)
+                                    .foregroundStyle(PathTrioTheme.muted)
+                                    .lineLimit(2)
+                            }
+
+                            Spacer()
+
+                            Text(product.displayPrice)
+                                .font(.footnote.weight(.black))
+                                .foregroundStyle(PathTrioTheme.action)
+                        }
+                        .padding(12)
+                        .background(.white.opacity(0.58), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(state == .purchasing)
+                }
+            }
+        }
+    }
+}
+
+private extension Product {
+    var localizedPathTrioName: String {
+        guard let product = ProProduct(rawValue: id) else {
+            return displayName
+        }
+        return L10n.string(product.titleKey)
+    }
+
+    var localizedPathTrioDescription: String {
+        guard let product = ProProduct(rawValue: id) else {
+            return description
+        }
+        return L10n.string(product.descriptionKey)
+    }
+}
+
+private extension ProProduct {
+    var titleKey: String {
+        switch self {
+        case .lifetime: "pro.product.lifetime.title"
+        }
+    }
+
+    var descriptionKey: String {
+        switch self {
+        case .lifetime: "pro.product.lifetime.description"
+        }
+    }
+}
+
+private struct ProFeatureRow: View {
+    let feature: ProFeature
+    let isUnlocked: Bool
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: feature.systemImage)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(isUnlocked ? PathTrioTheme.teal : PathTrioTheme.warm)
+                .frame(width: 30, height: 30)
+                .background((isUnlocked ? PathTrioTheme.teal : PathTrioTheme.warm).opacity(0.12), in: Circle())
+
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 8) {
+                    Text(L10n.string(feature.titleKey))
+                        .font(.footnote.weight(.bold))
+                        .foregroundStyle(PathTrioTheme.ink)
+                    if !isUnlocked {
+                        Text("pro.badge")
+                            .font(.caption2.weight(.black))
+                            .foregroundStyle(PathTrioTheme.warm)
+                    }
+                }
+
+                Text(L10n.string(feature.messageKey))
+                    .font(.footnote)
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 0)
+        }
     }
 }
 

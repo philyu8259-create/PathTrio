@@ -5,22 +5,24 @@ import SwiftUI
 struct RouteMapView: View {
     let locations: [CLLocation]
     var followsLatestLocation = false
+    var style: PathTrioMapStyle = .standard
 
     @State private var cameraPosition: MapCameraPosition = .automatic
 
+    private var defaultCameraPosition: MapCameraPosition {
+        .region(MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 37.3349, longitude: -122.0090),
+            span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+        ))
+    }
+
     private var targetCameraPosition: MapCameraPosition {
-        guard let first = locations.first else {
-            return .region(MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: 37.3349, longitude: -122.0090),
-                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-            ))
+        if followsLatestLocation {
+            return .userLocation(followsHeading: false, fallback: defaultCameraPosition)
         }
 
-        if followsLatestLocation, let latest = locations.last {
-            return .region(MKCoordinateRegion(
-                center: latest.coordinate,
-                span: MKCoordinateSpan(latitudeDelta: 0.008, longitudeDelta: 0.008)
-            ))
+        guard let first = locations.first else {
+            return defaultCameraPosition
         }
 
         guard locations.count > 1 else {
@@ -50,12 +52,16 @@ struct RouteMapView: View {
 
     var body: some View {
         Map(position: $cameraPosition) {
+            if followsLatestLocation {
+                UserAnnotation()
+            }
+
             if locations.count > 1 {
                 MapPolyline(coordinates: locations.map(\.coordinate))
                     .stroke(Color.accentColor, lineWidth: 5)
             }
 
-            if let latest = locations.last {
+            if !followsLatestLocation, let latest = locations.last {
                 Annotation("", coordinate: latest.coordinate, anchor: .center) {
                     ZStack {
                         Circle()
@@ -73,6 +79,7 @@ struct RouteMapView: View {
                 }
             }
         }
+        .pathTrioMapStyle(style)
         .mapControls {
             MapCompass()
             MapScaleView()
@@ -84,6 +91,21 @@ struct RouteMapView: View {
             withAnimation(.easeInOut(duration: 0.35)) {
                 cameraPosition = targetCameraPosition
             }
+        }
+    }
+
+}
+
+private extension View {
+    @ViewBuilder
+    func pathTrioMapStyle(_ style: PathTrioMapStyle) -> some View {
+        switch style {
+        case .standard:
+            mapStyle(.standard)
+        case .hybrid:
+            mapStyle(.hybrid(elevation: .realistic))
+        case .imagery:
+            mapStyle(.imagery(elevation: .realistic))
         }
     }
 }

@@ -6,6 +6,7 @@ struct ActiveWorkoutView: View {
     @State private var showingEndConfirmation = false
     @State private var completedDraft: WorkoutSessionDraft?
     @State private var consumedLocationCount = 0
+    private let metricsTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     private var routeRecordingStatus: RouteRecordingStatus? {
         RouteRecordingStatus.evaluate(
@@ -16,6 +17,10 @@ struct ActiveWorkoutView: View {
         )
     }
 
+    private var activeMapStyle: PathTrioMapStyle {
+        appModel.entitlementStore.canUse(.mapStyles) ? appModel.settingsStore.preferredMapStyle : .standard
+    }
+
     var body: some View {
         let draft = appModel.recorder.draft ?? appModel.activeDraft
         let metrics = draft?.metrics ?? WorkoutMetrics(duration: 0, distanceMeters: 0, averageSpeedMetersPerSecond: 0)
@@ -23,7 +28,11 @@ struct ActiveWorkoutView: View {
         let locations = draft?.locations ?? []
 
         ZStack(alignment: .bottom) {
-            RouteMapView(locations: locations, followsLatestLocation: true)
+            RouteMapView(
+                locations: locations,
+                followsLatestLocation: true,
+                style: activeMapStyle
+            )
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
@@ -52,7 +61,9 @@ struct ActiveWorkoutView: View {
                 appModel.locationService.stop()
                 appModel.motionService.stop()
                 completedDraft = appModel.recorder.end()
+                appModel.appleWatchSupportService.publishActiveWorkout(nil, isProUnlocked: appModel.entitlementStore.canUse(.appleWatch))
                 appModel.activeDraft = nil
+                appModel.smartAssistEngine.reset()
             }
             Button("action.cancel", role: .cancel) {}
         }
@@ -61,31 +72,114 @@ struct ActiveWorkoutView: View {
                 dismiss()
             }
         }
+        .onAppear {
+            publishActiveWorkoutToWatch()
+        }
         .onChange(of: appModel.locationService.latestLocations.count) { _, count in
             guard count > consumedLocationCount else { return }
             let newLocations = Array(appModel.locationService.latestLocations[consumedLocationCount..<count])
             consumedLocationCount = count
             appModel.activeDraft = appModel.recorder.addLocations(newLocations)
-
-            if let draft = appModel.recorder.draft {
-                appModel.activeSuggestion = appModel.smartAssistEngine.evaluate(
-                    workoutType: draft.type,
-                    currentSpeedMetersPerSecond: draft.metrics.averageSpeedMetersPerSecond,
-                    detectedActivity: appModel.motionService.detectedActivity,
-                    settings: appModel.smartAssistSettings
-                )
+            publishActiveWorkoutToWatch()
+            updateSmartAssist(now: Date())
+        }
+        .onChange(of: appModel.motionService.detectedActivity) { _, _ in
+            updateSmartAssist(now: Date())
+        }
+        .onReceive(metricsTimer) { date in
+            appModel.activeDraft = appModel.recorder.refresh(now: date)
+            updateSmartAssist(now: date)
+            publishActiveWorkoutToWatch()
+        }
+        .alert(
+            appModel.activeSuggestion?.title ?? "",
+            isPresented: activeSuggestionAlertIsPresented,
+            presenting: appModel.activeSuggestion
+        ) { suggestion in
+            switch suggestion {
+            case .activityChange(_, let suggestedType):
+                Button("smartAssist.activityChange.confirm") {
+                    appModel.selectedWorkoutType = suggestedType
+                    appModel.activeDraft = appModel.recorder.changeType(to: suggestedType)
+                    appModel.activeSuggestion = nil
+                    publishActiveWorkoutToWatch()
+                }
+                Button("action.cancel", role: .cancel) {
+                    appModel.activeSuggestion = nil
+                }
+            case .autoPause:
+                Button("action.pause") {
+                    _ = appModel.recorder.autoPause()
+                    appModel.activeDraft = appModel.recorder.draft
+                    appModel.activeSuggestion = nil
+                    appModel.smartAssistEngine.reset()
+                    publishActiveWorkoutToWatch()
+                }
+                Button("action.cancel", role: .cancel) {
+                    appModel.activeSuggestion = nil
+                }
+            case .speedAnomaly:
+                Button("action.pause") {
+                    _ = appModel.recorder.pause()
+                    appModel.activeDraft = appModel.recorder.draft
+                    appModel.activeSuggestion = nil
+                    appModel.smartAssistEngine.reset()
+                    publishActiveWorkoutToWatch()
+                }
+                Button("active.keepRecording", role: .cancel) {
+                    appModel.activeSuggestion = nil
+                }
             }
+        } message: { suggestion in
+            Text(suggestion.message)
         }
-        .alert(item: Binding(
-            get: { appModel.activeSuggestion },
-            set: { appModel.activeSuggestion = $0 }
-        )) { suggestion in
-            Alert(
-                title: Text(suggestion.title),
-                message: Text(suggestion.message),
-                dismissButton: .default(Text("action.ok"))
-            )
+    }
+
+    private var activeSuggestionAlertIsPresented: Binding<Bool> {
+        Binding(
+            get: { appModel.activeSuggestion != nil },
+            set: { isPresented in
+                if !isPresented {
+                    appModel.activeSuggestion = nil
+                }
+            }
+        )
+    }
+
+    private func updateSmartAssist(now: Date) {
+        guard appModel.activeSuggestion == nil else { return }
+        guard let draft = appModel.recorder.draft else { return }
+
+        if draft.state == .autoPaused {
+            if appModel.smartAssistEngine.shouldResumeAutoPaused(
+                workoutType: draft.type,
+                currentSpeedMetersPerSecond: currentMotionSpeed(fallback: draft.metrics.averageSpeedMetersPerSecond),
+                detectedActivity: appModel.motionService.detectedActivity,
+                now: now
+            ) {
+                _ = appModel.recorder.resume(at: now)
+                appModel.activeDraft = appModel.recorder.draft
+                publishActiveWorkoutToWatch()
+            }
+            return
         }
+
+        appModel.activeSuggestion = appModel.smartAssistEngine.evaluate(
+            workoutType: draft.type,
+            workoutStartedAt: draft.startedAt,
+            workoutState: draft.state,
+            currentSpeedMetersPerSecond: currentMotionSpeed(fallback: draft.metrics.averageSpeedMetersPerSecond),
+            detectedActivity: appModel.motionService.detectedActivity,
+            settings: appModel.smartAssistSettings,
+            now: now
+        )
+    }
+
+    private func currentMotionSpeed(fallback: Double) -> Double {
+        guard let speed = appModel.locationService.latestLocations.last?.speed, speed >= 0 else {
+            return fallback
+        }
+        return speed
     }
 
     private func statusText(_ state: WorkoutState?) -> String {
@@ -188,6 +282,8 @@ struct ActiveWorkoutView: View {
             } else {
                 _ = appModel.recorder.resume()
             }
+            appModel.activeDraft = appModel.recorder.draft
+            publishActiveWorkoutToWatch()
         } label: {
             Label(
                 appModel.recorder.draft?.state == .recording ? L10n.string("action.pause") : L10n.string("action.resume"),
@@ -218,6 +314,15 @@ struct ActiveWorkoutView: View {
         .font(.headline.weight(.bold))
         .foregroundStyle(.white)
         .background(.red, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+    }
+
+    private func publishActiveWorkoutToWatch() {
+        guard appModel.entitlementStore.canUse(.appleWatch) else { return }
+        appModel.appleWatchSupportService.activate()
+        appModel.appleWatchSupportService.publishActiveWorkout(
+            appModel.recorder.draft ?? appModel.activeDraft,
+            isProUnlocked: true
+        )
     }
 }
 

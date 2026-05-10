@@ -7,6 +7,8 @@ struct WorkoutSessionDraft: Identifiable {
     let startedAt: Date
     var endedAt: Date?
     var state: WorkoutState
+    var pausedStartedAt: Date?
+    var accumulatedPausedDuration: TimeInterval
     var locations: [CLLocation]
     var metrics: WorkoutMetrics
 
@@ -16,6 +18,8 @@ struct WorkoutSessionDraft: Identifiable {
         startedAt: Date = Date(),
         endedAt: Date? = nil,
         state: WorkoutState = .recording,
+        pausedStartedAt: Date? = nil,
+        accumulatedPausedDuration: TimeInterval = 0,
         locations: [CLLocation] = [],
         metrics: WorkoutMetrics = WorkoutMetrics(duration: 0, distanceMeters: 0, averageSpeedMetersPerSecond: 0)
     ) {
@@ -24,6 +28,8 @@ struct WorkoutSessionDraft: Identifiable {
         self.startedAt = startedAt
         self.endedAt = endedAt
         self.state = state
+        self.pausedStartedAt = pausedStartedAt
+        self.accumulatedPausedDuration = accumulatedPausedDuration
         self.locations = locations
         self.metrics = metrics
     }

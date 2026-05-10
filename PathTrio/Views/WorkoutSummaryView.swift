@@ -22,6 +22,10 @@ struct WorkoutSummaryView: View {
         )
     }
 
+    private var activeMapStyle: PathTrioMapStyle {
+        appModel.entitlementStore.canUse(.mapStyles) ? appModel.settingsStore.preferredMapStyle : .standard
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -61,9 +65,13 @@ struct WorkoutSummaryView: View {
                         bodyWeightKilograms: appModel.settingsStore.bodyWeightKilograms
                     )
                     appModel.latestCompletedWorkoutID = saved.id
+                    if appModel.entitlementStore.canUse(.appleWatch) {
+                        appModel.appleWatchSupportService.activate()
+                        appModel.appleWatchSupportService.publishLatestWorkout(saved)
+                    }
                     healthSyncResult = await WorkoutHealthSyncCoordinator.syncIfNeeded(
                         saved,
-                        syncEnabled: appModel.settingsStore.healthKitSyncEnabled,
+                        syncEnabled: appModel.settingsStore.healthKitSyncEnabled && appModel.entitlementStore.canUse(.advancedHealthSync),
                         syncer: appModel.healthSyncer
                     )
                     if let healthSyncResult {
@@ -100,7 +108,7 @@ struct WorkoutSummaryView: View {
     }
 
     private var routeCard: some View {
-        RouteMapView(locations: draft.locations)
+        RouteMapView(locations: draft.locations, style: activeMapStyle)
             .frame(height: 240)
             .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
             .overlay {

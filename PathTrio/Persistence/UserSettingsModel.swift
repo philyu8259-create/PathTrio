@@ -12,6 +12,9 @@ final class UserSettingsModel {
     var autoStartRemindersEnabled: Bool?
     var bodyWeightKilograms: Double?
     var healthKitSyncEnabled: Bool
+    var weeklyDistanceGoalMeters: Double?
+    var monthlyWorkoutGoalCount: Int?
+    var preferredMapStyleRawValue: String?
 
     init(
         id: UUID = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,
@@ -22,7 +25,10 @@ final class UserSettingsModel {
         backgroundRecordingEnabled: Bool = false,
         autoStartRemindersEnabled: Bool? = false,
         bodyWeightKilograms: Double? = nil,
-        healthKitSyncEnabled: Bool = false
+        healthKitSyncEnabled: Bool = false,
+        weeklyDistanceGoalMeters: Double? = 10_000,
+        monthlyWorkoutGoalCount: Int? = 12,
+        preferredMapStyleRawValue: String? = PathTrioMapStyle.standard.rawValue
     ) {
         self.id = id
         self.preferredUnits = preferredUnits
@@ -33,5 +39,8 @@ final class UserSettingsModel {
         self.autoStartRemindersEnabled = autoStartRemindersEnabled
         self.bodyWeightKilograms = bodyWeightKilograms
         self.healthKitSyncEnabled = healthKitSyncEnabled
+        self.weeklyDistanceGoalMeters = weeklyDistanceGoalMeters
+        self.monthlyWorkoutGoalCount = monthlyWorkoutGoalCount
+        self.preferredMapStyleRawValue = preferredMapStyleRawValue
     }
 }

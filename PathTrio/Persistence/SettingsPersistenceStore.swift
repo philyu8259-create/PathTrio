@@ -15,6 +15,9 @@ struct SettingsPersistenceStore {
         settings.autoStartRemindersEnabled = model.autoStartRemindersEnabled ?? false
         settings.bodyWeightKilograms = model.bodyWeightKilograms
         settings.healthKitSyncEnabled = model.healthKitSyncEnabled
+        settings.weeklyDistanceGoalMeters = model.weeklyDistanceGoalMeters ?? 10_000
+        settings.monthlyWorkoutGoalCount = model.monthlyWorkoutGoalCount ?? 12
+        settings.preferredMapStyleRawValue = model.preferredMapStyleRawValue ?? PathTrioMapStyle.standard.rawValue
     }
 
     func save(_ settings: SettingsStore) throws {
@@ -27,6 +30,9 @@ struct SettingsPersistenceStore {
         model.autoStartRemindersEnabled = settings.autoStartRemindersEnabled
         model.bodyWeightKilograms = settings.bodyWeightKilograms
         model.healthKitSyncEnabled = settings.healthKitSyncEnabled
+        model.weeklyDistanceGoalMeters = settings.weeklyDistanceGoalMeters
+        model.monthlyWorkoutGoalCount = settings.monthlyWorkoutGoalCount
+        model.preferredMapStyleRawValue = settings.preferredMapStyle.rawValue
         try context.save()
     }
 

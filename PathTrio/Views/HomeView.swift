@@ -15,6 +15,23 @@ struct HomeView: View {
         Array(workouts.prefix(2))
     }
 
+    private var activeMapStyle: PathTrioMapStyle {
+        appModel.entitlementStore.canUse(.mapStyles) ? appModel.settingsStore.preferredMapStyle : .standard
+    }
+
+    private var goalProgress: [WorkoutGoalProgress] {
+        WorkoutGoalProgressCalculator().progress(
+            for: workouts,
+            weeklyDistanceGoalMeters: appModel.settingsStore.weeklyDistanceGoalMeters,
+            monthlyWorkoutGoalCount: appModel.settingsStore.monthlyWorkoutGoalCount
+        )
+    }
+
+    private var currentPreviewLocations: [CLLocation] {
+        guard let latestLocation = appModel.locationService.latestLocations.last else { return [] }
+        return [latestLocation]
+    }
+
     private var dashboardColumns: [GridItem] {
         [
             GridItem(.flexible(), spacing: 10),
@@ -56,6 +73,7 @@ struct HomeView: View {
 
                         startButton
                         todayDashboard
+                        goalsSection
                         recentSection
                     }
                     .padding(.horizontal, 16)
@@ -69,8 +87,11 @@ struct HomeView: View {
             .navigationDestination(isPresented: $showingActiveWorkout) {
                 ActiveWorkoutView()
             }
+            .toolbar(.hidden, for: .navigationBar)
             .task {
-                loadSettings()
+                appModel.loadSettings(from: modelContext)
+                appModel.reconcileLockedProSettings(in: modelContext)
+                appModel.locationService.preparePreviewLocation()
                 updateAutoStartMonitoring()
                 refreshTodayTotals()
             }
@@ -90,27 +111,57 @@ struct HomeView: View {
     }
 
     private var header: some View {
-        HStack(alignment: .center, spacing: 14) {
-            VStack(alignment: .leading, spacing: 7) {
-                Text("app.name")
-                    .font(.system(.largeTitle, design: .rounded, weight: .black))
-                    .foregroundStyle(PathTrioTheme.ink)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.72)
+        HStack(alignment: .center, spacing: 12) {
+            Image("AppLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 52, height: 52)
+                .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 13, style: .continuous)
+                        .stroke(.white.opacity(0.82), lineWidth: 1)
+                }
+                .shadow(color: PathTrioTheme.action.opacity(0.18), radius: 12, x: 0, y: 6)
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text("app.name")
+                        .font(.system(size: 31, weight: .heavy, design: .rounded))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [
+                                    PathTrioTheme.ink.opacity(0.94),
+                                    PathTrioTheme.action.opacity(0.86)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.80)
+
+                    Text("PathTrio")
+                        .font(.caption.weight(.black))
+                        .foregroundStyle(PathTrioTheme.action)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(PathTrioTheme.action.opacity(0.10), in: Capsule())
+                        .overlay {
+                            Capsule()
+                                .stroke(PathTrioTheme.action.opacity(0.14), lineWidth: 1)
+                        }
+                        .lineLimit(1)
+                }
+
                 Text("app.subtitle")
-                    .font(.subheadline.weight(.semibold))
+                    .font(.footnote.weight(.semibold))
                     .foregroundStyle(PathTrioTheme.muted)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.76)
             }
 
             Spacer()
-
-            Image(systemName: "location.north.line.fill")
-                .font(.title3.weight(.bold))
-                .foregroundStyle(.white)
-                .frame(width: 48, height: 48)
-                .background(PathTrioTheme.actionGradient, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .shadow(color: PathTrioTheme.action.opacity(0.20), radius: 12, x: 0, y: 6)
-                .accessibilityHidden(true)
         }
         .padding(.top, 8)
     }
@@ -129,7 +180,7 @@ struct HomeView: View {
 
     private func routePreviewCard(for selectedType: WorkoutType) -> some View {
         ZStack(alignment: .bottomLeading) {
-            RouteMapView(locations: routePreviewLocations(for: selectedType))
+            RouteMapView(locations: currentPreviewLocations, followsLatestLocation: true, style: activeMapStyle)
                 .frame(height: 210)
                 .allowsHitTesting(false)
 
@@ -231,6 +282,37 @@ struct HomeView: View {
         }
     }
 
+    private var goalsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("goals.title")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(PathTrioTheme.muted)
+
+                Spacer()
+
+                Text("pro.badge")
+                    .font(.caption2.weight(.black))
+                    .foregroundStyle(PathTrioTheme.warm)
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 4)
+                    .background(PathTrioTheme.warm.opacity(0.12), in: Capsule())
+            }
+
+            if appModel.entitlementStore.canUse(.goals) {
+                VStack(spacing: 10) {
+                    ForEach(goalProgress, id: \.titleKey) { progress in
+                        GoalProgressRow(progress: progress)
+                    }
+                }
+                .padding(14)
+                .pathTrioCard()
+            } else {
+                ProLockedPreviewCard(feature: .goals)
+            }
+        }
+    }
+
     private var recentSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -262,36 +344,6 @@ struct HomeView: View {
         }
     }
 
-    private func routePreviewLocations(for type: WorkoutType) -> [CLLocation] {
-        let base: [(Double, Double)] = [
-            (37.3349, -122.0090),
-            (37.3372, -122.0068),
-            (37.3401, -122.0079),
-            (37.3420, -122.0045),
-            (37.3448, -122.0057)
-        ]
-        let run: [(Double, Double)] = [
-            (37.3318, -122.0312),
-            (37.3332, -122.0275),
-            (37.3368, -122.0257),
-            (37.3389, -122.0218),
-            (37.3407, -122.0186)
-        ]
-        let ride: [(Double, Double)] = [
-            (37.3228, -122.0325),
-            (37.3284, -122.0260),
-            (37.3350, -122.0198),
-            (37.3423, -122.0125),
-            (37.3495, -122.0060)
-        ]
-        let coordinates = switch type {
-        case .walk: base
-        case .run: run
-        case .ride: ride
-        }
-        return coordinates.map { CLLocation(latitude: $0.0, longitude: $0.1) }
-    }
-
     private func startWorkout() {
         if appModel.settingsStore.backgroundRecordingEnabled {
             appModel.locationService.requestAlwaysPermission()
@@ -301,6 +353,7 @@ struct HomeView: View {
         appModel.activeDraft = appModel.recorder.start(type: appModel.selectedWorkoutType)
         appModel.autoStartReminder = nil
         appModel.autoStartReminderEngine.reset()
+        appModel.smartAssistEngine.reset()
         appModel.locationService.start(backgroundAllowed: appModel.settingsStore.backgroundRecordingEnabled)
         if appModel.settingsStore.isAnySmartAssistEnabled {
             appModel.motionService.start()
@@ -308,14 +361,6 @@ struct HomeView: View {
             appModel.motionService.stop()
         }
         showingActiveWorkout = true
-    }
-
-    private func loadSettings() {
-        do {
-            try SettingsPersistenceStore(context: modelContext).load(into: appModel.settingsStore)
-        } catch {
-            // Keep in-memory defaults if settings cannot be loaded.
-        }
     }
 
     private func updateAutoStartMonitoring() {
@@ -352,6 +397,67 @@ struct HomeView: View {
         } catch {
             todayTotals = WorkoutTotals()
         }
+    }
+}
+
+private struct GoalProgressRow: View {
+    let progress: WorkoutGoalProgress
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 10) {
+                Image(systemName: progress.systemImage)
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(PathTrioTheme.action)
+                    .frame(width: 28, height: 28)
+                    .background(PathTrioTheme.action.opacity(0.12), in: Circle())
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(L10n.string(progress.titleKey))
+                        .font(.footnote.weight(.bold))
+                        .foregroundStyle(PathTrioTheme.ink)
+                    Text(L10n.string("goals.progress", progress.value, progress.target))
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(PathTrioTheme.muted)
+                }
+
+                Spacer(minLength: 0)
+
+                Text("\(Int((progress.progress * 100).rounded()))%")
+                    .font(.footnote.weight(.black))
+                    .foregroundStyle(PathTrioTheme.action)
+                    .monospacedDigit()
+            }
+
+            ProgressView(value: progress.progress)
+                .tint(PathTrioTheme.action)
+        }
+    }
+}
+
+private struct ProLockedPreviewCard: View {
+    let feature: ProFeature
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: "lock.fill")
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(PathTrioTheme.warm)
+                .frame(width: 30, height: 30)
+                .background(PathTrioTheme.warm.opacity(0.12), in: Circle())
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(L10n.string(feature.titleKey))
+                    .font(.footnote.weight(.bold))
+                    .foregroundStyle(PathTrioTheme.ink)
+                Text(L10n.string("pro.locked.preview", L10n.string(feature.messageKey)))
+                    .font(.footnote)
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .padding(14)
+        .pathTrioCard()
     }
 }
 

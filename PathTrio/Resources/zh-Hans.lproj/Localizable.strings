@@ -12,6 +12,10 @@
 "action.pause" = "暂停";
 "action.resume" = "继续";
 "action.end" = "结束";
+"export.history" = "导出历史";
+"export.workout" = "导出运动";
+"export.error.title" = "导出失败";
+"export.error.message" = "三动迹暂时无法创建导出文件，请稍后再试。";
 
 "workout.walk" = "走路";
 "workout.run" = "跑步";
@@ -38,7 +42,7 @@
 "home.status.gps" = "GPS 路线";
 "home.status.smartAssistOn" = "辅助开启";
 "home.status.smartAssistOff" = "辅助关闭";
-"home.route.title" = "路线预览";
+"home.route.title" = "当前位置";
 "home.route.subtitle" = "%@ 户外记录已准备好。";
 "home.today.title" = "今日";
 "home.today.sessions" = "次数";
@@ -57,10 +61,12 @@
 "active.map.empty" = "正在等待 GPS 路线";
 "active.route.points" = "已记录 %d 个路线点";
 "active.controls.title" = "运动控制";
+"active.keepRecording" = "继续记录";
 "active.endConfirmation.title" = "结束本次运动？";
 "active.endConfirmation.endWorkout" = "结束运动";
 
 "history.title" = "历史";
+"history.subtitle" = "按天和月份查看运动记录";
 "history.empty.title" = "暂无运动记录";
 "history.empty.description" = "保存后的走路、跑步和骑行记录会显示在这里。";
 "history.empty.filtered" = "当前筛选下暂无运动记录。";
@@ -85,8 +91,7 @@
 "autoStart.message" = "三动迹检测到你已持续运动。点播放即可开始记录。";
 
 "settings.title" = "设置";
-"settings.units" = "单位";
-"settings.units.metric" = "公制";
+"settings.subtitle" = "记录、辅助和 Pro 功能管理";
 "settings.smartAssist" = "智能辅助";
 "settings.smartAssist.activityAlerts" = "运动类型提醒";
 "settings.smartAssist.autoPause" = "自动暂停";
@@ -107,6 +112,65 @@
 "settings.health.plannedData" = "三动迹计划写入";
 "settings.privacy" = "隐私";
 "settings.privacy.description" = "三动迹默认将运动记录保存在本机，只在记录运动时使用定位来保存路线、距离和速度。";
+
+"pro.title" = "三动迹 Pro";
+"pro.badge" = "PRO";
+"pro.status.free.title" = "免费版";
+"pro.status.free.message" = "核心记录功能保持免费。Pro 解锁自动化、更深入复盘、数据导出和 Apple Watch 支持。";
+"pro.status.unlocked.title" = "Pro 已激活";
+"pro.status.unlocked.message" = "这台设备已可使用全部 Pro 功能。";
+"pro.settings.entry.message" = "管理购买选项、Pro 控制和高级功能。";
+"pro.products.title" = "一次购买";
+"pro.products.loading" = "正在加载购买选项...";
+"pro.products.unavailable" = "App Store Connect 永久 Pro 商品通过测试配置后会显示在这里。";
+"pro.product.lifetime.title" = "永久 Pro";
+"pro.product.lifetime.description" = "一次购买，长期解锁 Pro 功能。";
+"pro.locked.title" = "三动迹 Pro 功能";
+"pro.locked.message" = "%@ 属于三动迹 Pro。选择一个购买选项即可解锁。";
+"pro.locked.preview" = "%@ 解锁 Pro 后即可使用。";
+"pro.controls.title" = "Pro 控制";
+"pro.features.title" = "Pro 功能";
+"pro.feature.autoRecording.title" = "自动记录";
+"pro.feature.autoRecording.message" = "检测持续运动，并提醒你开始记录。";
+"pro.feature.advancedStats.title" = "月度和年度统计";
+"pro.feature.advancedStats.message" = "复盘更长期的距离、时长、卡路里和运动规律。";
+"pro.feature.trendReview.title" = "趋势复盘";
+"pro.feature.trendReview.message" = "对比本周和过往周的数据，查看规律变化。";
+"pro.feature.dataExport.title" = "数据导出";
+"pro.feature.dataExport.message" = "将运动记录导出为 CSV 或 GPX，方便备份和分析。";
+"pro.feature.goals.title" = "目标管理";
+"pro.feature.goals.message" = "追踪每周里程、月度次数和个人运动目标。";
+"pro.feature.mapStyles.title" = "更多地图样式";
+"pro.feature.mapStyles.message" = "切换更多路线地图外观，用于复盘和分享。";
+"pro.feature.advancedHealthSync.title" = "高级健康同步";
+"pro.feature.advancedHealthSync.message" = "开启后可向 Apple 健康同步更完整的运动数据。";
+"pro.feature.appleWatch.title" = "Apple Watch 支持";
+"pro.feature.appleWatch.message" = "Apple Watch 配套支持包含在 Pro 中，需要已配对的 Apple Watch。";
+
+"goals.title" = "目标";
+"goals.weeklyDistance" = "每周里程";
+"goals.monthlyWorkouts" = "每月运动次数";
+"goals.progress" = "%@ / %@";
+
+"map.style.title" = "路线地图样式";
+"map.style.standard" = "标准";
+"map.style.hybrid" = "混合";
+"map.style.imagery" = "影像";
+
+"stats.title" = "Pro 统计";
+"stats.thisMonth" = "本月";
+"stats.thisYear" = "今年";
+"stats.allTime" = "全部";
+"stats.workouts" = "%d 次运动";
+
+"watch.status.unsupported.title" = "Apple Watch 不可用";
+"watch.status.unsupported.message" = "这台设备不支持 Apple Watch 连接。";
+"watch.status.notPaired.title" = "未配对 Apple Watch";
+"watch.status.notPaired.message" = "将 Apple Watch 与这台 iPhone 配对后即可使用 Watch 支持。没有手表时，三动迹 iPhone 端仍可正常使用。";
+"watch.status.missing.title" = "未安装 Watch App";
+"watch.status.missing.message" = "安装三动迹 Watch 配套 App 后，可查看实时运动数据和已保存的运动摘要。";
+"watch.status.ready.title" = "Apple Watch 已就绪";
+"watch.status.ready.message" = "三动迹可以将实时运动数据和已保存的运动摘要发送到 Apple Watch。";
 
 "health.status.off.title" = "健康同步已关闭";
 "health.status.off.message" = "运动记录只保存在三动迹内。你可以之后再开启 Apple 健康同步。";
@@ -161,6 +225,7 @@
 
 "smartAssist.activityChange.title" = "切换为%@？";
 "smartAssist.activityChange.message" = "三动迹检测到当前移动更像%@，而不是%@。";
+"smartAssist.activityChange.confirm" = "切换";
 "smartAssist.autoPause.title" = "暂停运动？";
 "smartAssist.autoPause.message" = "你看起来暂时静止。三动迹可以暂停本次运动，等你继续移动后再恢复。";
 "smartAssist.speedAnomaly.title" = "检测到异常速度";

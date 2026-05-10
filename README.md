@@ -50,4 +50,11 @@ xcodebuild -scheme PathTrio -destination 'platform=iOS Simulator,name=iPhone 16 
 
 - Background location is declared so the app can continue recording during an active workout after the screen locks.
 - Background location remains user-controlled and is only requested when the background recording setting is enabled.
-- HealthKit sync is intentionally deferred until the core recording and history flow is stable.
+- HealthKit sync is optional and controlled by the user's Pro/settings choices.
+
+## Public Pages
+
+- Support: https://philyu8259-create.github.io/PathTrio/support-en.html
+- Privacy Policy: https://philyu8259-create.github.io/PathTrio/privacy-policy-en.html
+- 中文支持: https://philyu8259-create.github.io/PathTrio/support-zh-Hans.html
+- 中文隐私政策: https://philyu8259-create.github.io/PathTrio/privacy-policy-zh-Hans.html
