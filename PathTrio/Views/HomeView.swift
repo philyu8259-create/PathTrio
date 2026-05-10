@@ -108,7 +108,8 @@ struct HomeView: View {
                 .font(.title3.weight(.bold))
                 .foregroundStyle(.white)
                 .frame(width: 48, height: 48)
-                .background(PathTrioTheme.action, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .background(PathTrioTheme.actionGradient, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .shadow(color: PathTrioTheme.action.opacity(0.20), radius: 12, x: 0, y: 6)
                 .accessibilityHidden(true)
         }
         .padding(.top, 8)
@@ -167,8 +168,10 @@ struct HomeView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .stroke(PathTrioTheme.line, lineWidth: 1)
+                .stroke(.white.opacity(0.72), lineWidth: 1)
+                .blendMode(.overlay)
         }
+        .shadow(color: .black.opacity(0.035), radius: 12, x: 0, y: 5)
     }
 
     private var startButton: some View {
@@ -187,10 +190,10 @@ struct HomeView: View {
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 17)
-            .background(PathTrioTheme.action, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .background(PathTrioTheme.actionGradient, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
         }
         .buttonStyle(.plain)
-        .shadow(color: PathTrioTheme.action.opacity(0.25), radius: 12, x: 0, y: 8)
+        .shadow(color: PathTrioTheme.action.opacity(0.32), radius: 15, x: 0, y: 8)
     }
 
     private var todayDashboard: some View {
@@ -366,11 +369,13 @@ private struct HomeStatusPill: View {
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 8)
             .padding(.vertical, 9)
-            .background(.white, in: Capsule())
+            .background(tint.opacity(0.12), in: Capsule())
+            .background(.ultraThickMaterial, in: Capsule())
             .overlay {
                 Capsule()
-                    .stroke(tint.opacity(0.18), lineWidth: 1)
+                    .stroke(tint.opacity(0.24), lineWidth: 1)
             }
+            .shadow(color: tint.opacity(0.08), radius: 8, x: 0, y: 4)
     }
 }
 

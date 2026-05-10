@@ -27,11 +27,19 @@ struct WorkoutTypePicker: View {
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 112)
-                    .background(isSelected ? tint.opacity(0.10) : .white, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .stroke(isSelected ? tint : PathTrioTheme.line, lineWidth: isSelected ? 2 : 1)
+                    .background {
+                        RoundedRectangle(cornerRadius: PathTrioTheme.cardCornerRadius, style: .continuous)
+                            .fill(.ultraThickMaterial)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: PathTrioTheme.cardCornerRadius, style: .continuous)
+                                    .fill(isSelected ? tint.opacity(0.16) : .white.opacity(0.56))
+                            }
                     }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: PathTrioTheme.cardCornerRadius, style: .continuous)
+                            .stroke(isSelected ? tint : .white.opacity(0.82), lineWidth: isSelected ? 2 : 1)
+                    }
+                    .shadow(color: .black.opacity(isSelected ? 0.045 : 0.025), radius: 9, x: 0, y: 4)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(type.displayName)
