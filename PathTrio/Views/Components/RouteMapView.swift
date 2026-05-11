@@ -9,6 +9,10 @@ struct RouteMapView: View {
 
     @State private var cameraPosition: MapCameraPosition = .automatic
 
+    private var displayCoordinates: [CLLocationCoordinate2D] {
+        locations.map { MapDisplayCoordinateTransformer.displayCoordinate(for: $0.coordinate) }
+    }
+
     private var defaultCameraPosition: MapCameraPosition {
         .region(MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 37.3349, longitude: -122.0090),
@@ -25,19 +29,22 @@ struct RouteMapView: View {
             return defaultCameraPosition
         }
 
+        let firstDisplayCoordinate = MapDisplayCoordinateTransformer.displayCoordinate(for: first.coordinate)
+
         guard locations.count > 1 else {
             return .region(MKCoordinateRegion(
-                center: first.coordinate,
+                center: firstDisplayCoordinate,
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             ))
         }
 
-        let latitudes = locations.map(\.coordinate.latitude)
-        let longitudes = locations.map(\.coordinate.longitude)
-        let minLatitude = latitudes.min() ?? first.coordinate.latitude
-        let maxLatitude = latitudes.max() ?? first.coordinate.latitude
-        let minLongitude = longitudes.min() ?? first.coordinate.longitude
-        let maxLongitude = longitudes.max() ?? first.coordinate.longitude
+        let coordinates = displayCoordinates
+        let latitudes = coordinates.map(\.latitude)
+        let longitudes = coordinates.map(\.longitude)
+        let minLatitude = latitudes.min() ?? firstDisplayCoordinate.latitude
+        let maxLatitude = latitudes.max() ?? firstDisplayCoordinate.latitude
+        let minLongitude = longitudes.min() ?? firstDisplayCoordinate.longitude
+        let maxLongitude = longitudes.max() ?? firstDisplayCoordinate.longitude
         let latitudeDelta = max((maxLatitude - minLatitude) * 1.4, 0.01)
         let longitudeDelta = max((maxLongitude - minLongitude) * 1.4, 0.01)
 
@@ -56,13 +63,13 @@ struct RouteMapView: View {
                 UserAnnotation()
             }
 
-            if locations.count > 1 {
-                MapPolyline(coordinates: locations.map(\.coordinate))
+            if displayCoordinates.count > 1 {
+                MapPolyline(coordinates: displayCoordinates)
                     .stroke(Color.accentColor, lineWidth: 5)
             }
 
-            if !followsLatestLocation, let latest = locations.last {
-                Annotation("", coordinate: latest.coordinate, anchor: .center) {
+            if !followsLatestLocation, let latest = displayCoordinates.last {
+                Annotation("", coordinate: latest, anchor: .center) {
                     ZStack {
                         Circle()
                             .fill(Color.accentColor.opacity(0.18))
