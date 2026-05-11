@@ -3,7 +3,7 @@ import Foundation
 
 struct DistanceCalculator {
     var maximumHorizontalAccuracy: CLLocationAccuracy = 65
-    var minimumMovementDistance: CLLocationDistance = 8
+    var minimumMovementDistance: CLLocationDistance = 5
     var maximumSegmentDistance: CLLocationDistance = 500
     var maximumSegmentSpeedMetersPerSecond: CLLocationSpeed = 22
 
@@ -58,26 +58,26 @@ struct DistanceCalculator {
 
     private func movementThreshold(from previous: CLLocation, to location: CLLocation, type: WorkoutType) -> CLLocationDistance {
         let combinedAccuracyThreshold = (previous.horizontalAccuracy + location.horizontalAccuracy) * movementAccuracyMultiplier(for: type)
-        return max(minimumMovementDistance(for: type), min(45, combinedAccuracyThreshold))
+        return max(minimumMovementDistance(for: type), min(35, combinedAccuracyThreshold))
     }
 
     private func minimumMovementDistance(for type: WorkoutType) -> CLLocationDistance {
         switch type {
         case .walk:
-            max(minimumMovementDistance, 10)
+            max(minimumMovementDistance, 6)
         case .run:
-            max(minimumMovementDistance, 12)
+            max(minimumMovementDistance, 8)
         case .ride:
-            max(minimumMovementDistance, 16)
+            max(minimumMovementDistance, 10)
         }
     }
 
     private func movementAccuracyMultiplier(for type: WorkoutType) -> Double {
         switch type {
         case .walk, .run:
-            1.1
+            0.85
         case .ride:
-            0.9
+            0.7
         }
     }
 

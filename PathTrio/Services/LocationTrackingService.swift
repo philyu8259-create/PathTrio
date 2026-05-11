@@ -6,6 +6,8 @@ import Observation
 final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     private let locationAcceptancePolicy = LocationAcceptancePolicy()
+    private let idleDistanceFilter: CLLocationDistance = 5
+    private let activeDistanceFilter: CLLocationDistance = 3
     private var isTrackingRequested = false
     private var isBackgroundTrackingAllowed = false
     private var isPreviewLocationRequested = false
@@ -21,7 +23,7 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.activityType = .fitness
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.distanceFilter = 5
+        manager.distanceFilter = idleDistanceFilter
         manager.pausesLocationUpdatesAutomatically = true
         manager.allowsBackgroundLocationUpdates = false
         manager.showsBackgroundLocationIndicator = true
@@ -70,7 +72,7 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
         isTrackingRequested = false
         trackingStartedAt = nil
         manager.stopUpdatingLocation()
-        manager.distanceFilter = 5
+        manager.distanceFilter = idleDistanceFilter
         manager.allowsBackgroundLocationUpdates = false
     }
 
@@ -103,7 +105,7 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
         guard !acceptedLocations.isEmpty else { return }
 
         latestLocations.append(contentsOf: acceptedLocations)
-        manager.distanceFilter = 5
+        manager.distanceFilter = activeDistanceFilter
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

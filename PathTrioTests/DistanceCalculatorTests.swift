@@ -100,6 +100,31 @@ final class DistanceCalculatorTests: XCTestCase {
         }
     }
 
+    func testCountsShortAccurateMovementMoreResponsivelyForAllWorkoutTypes() {
+        let calculator = DistanceCalculator()
+        let start = Date(timeIntervalSince1970: 100)
+
+        let scenarios: [(WorkoutType, CLLocationDistance, CLLocationSpeed, TimeInterval)] = [
+            (.walk, 8, 1.0, 8),
+            (.run, 10, 2.0, 5),
+            (.ride, 13, 4.0, 4)
+        ]
+
+        for (type, distanceMeters, speed, duration) in scenarios {
+            let endLatitude = 31.184000 + distanceMeters / 111_000
+            let points = [
+                movingLocation(latitude: 31.184000, longitude: 121.603000, accuracy: 4, speed: speed, timestamp: start),
+                movingLocation(latitude: endLatitude, longitude: 121.603000, accuracy: 4, speed: speed, timestamp: start.addingTimeInterval(duration))
+            ]
+
+            XCTAssertGreaterThan(
+                calculator.totalDistanceMeters(for: points, type: type),
+                distanceMeters * 0.85,
+                "\(type) should count short accurate movement without waiting for a larger GPS jump"
+            )
+        }
+    }
+
     func testRejectsInvalidHorizontalAccuracy() {
         let calculator = DistanceCalculator()
         let start = Date(timeIntervalSince1970: 100)
