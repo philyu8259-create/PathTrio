@@ -111,6 +111,22 @@ final class WorkoutStoreTests: XCTestCase {
         XCTAssertEqual(saved.healthSyncResult, .synced)
     }
 
+    func testDeleteWorkoutsRemovesFromStorage() throws {
+        let context = try makeContext()
+        let store = WorkoutStore(context: context)
+        let first = makeWorkout(startedAt: Date(timeIntervalSince1970: 100), duration: 600, distanceMeters: 1_000)
+        let second = makeWorkout(startedAt: Date(timeIntervalSince1970: 2_000), duration: 900, distanceMeters: 2_000)
+        context.insert(first)
+        context.insert(second)
+        try context.save()
+
+        try store.delete([first])
+
+        let descriptor = FetchDescriptor<WorkoutSessionModel>(sortBy: [SortDescriptor(\.startedAt, order: .forward)])
+        let remaining = try context.fetch(descriptor)
+        XCTAssertEqual(remaining.map(\.distanceMeters), [2_000])
+    }
+
     private func makeContext() throws -> ModelContext {
         let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(

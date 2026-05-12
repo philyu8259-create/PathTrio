@@ -76,6 +76,11 @@ struct RouteRecordingStatus: Equatable {
             )
         }
 
-        return nil
+        return RouteRecordingStatus(
+            kind: .info,
+            titleKey: "location.status.foregroundOnly.title",
+            messageKey: "location.status.foregroundOnly.message",
+            systemImage: "lock.slash"
+        )
     }
 }

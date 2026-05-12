@@ -60,6 +60,8 @@
 		A5D916C36C598666F3EF3318 /* WorkoutHealthSyncCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE6690B4A6FE16F9801168 /* WorkoutHealthSyncCoordinatorTests.swift */; };
 		A5DD81E80A77467F702953C4 /* PathTrioTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C904E8B4553BCA9EA82BC /* PathTrioTheme.swift */; };
 		A6D037CBC2F79C46063934BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8ED01019528BCCF8D9A90BB3 /* Localizable.strings */; };
+		E0A1C2B3D4E5F60718293A4B /* terms-en.html in Resources */ = {isa = PBXBuildFile; fileRef = E0A1C2B3D4E5F60718293A4C /* terms-en.html */; };
+		E0A1C2B3D4E5F60718293A4D /* terms-zh-Hans.html in Resources */ = {isa = PBXBuildFile; fileRef = E0A1C2B3D4E5F60718293A4E /* terms-zh-Hans.html */; };
 		AC00039D5FA4D590417D37C9 /* WorkoutMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79941B46609B218E384B129A /* WorkoutMetrics.swift */; };
 		AE41E59352E6C5E5F75C23FD /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36759D4C04E331C7015B5A6 /* AppModel.swift */; };
 		AEE56C617E913F430F36564C /* WorkoutCaloriesEstimatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6242B7D0FFA7EC52CAFE61 /* WorkoutCaloriesEstimatorTests.swift */; };
@@ -174,6 +176,8 @@
 		8F2A5F426CDA5179EC48A4D4 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		8F57C52E5908EE2A0335969D /* WorkoutHistoryOrganizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryOrganizerTests.swift; sourceTree = "<group>"; };
 		9353AE134A91B7464D141657 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E0A1C2B3D4E5F60718293A4C /* terms-en.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = terms-en.html; sourceTree = "<group>"; };
+		E0A1C2B3D4E5F60718293A4E /* terms-zh-Hans.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = terms-zh-Hans.html; sourceTree = "<group>"; };
 		9407164D118B976C695D9CA5 /* PathTrio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PathTrio.entitlements; sourceTree = "<group>"; };
 		94CE6690B4A6FE16F9801168 /* WorkoutHealthSyncCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHealthSyncCoordinatorTests.swift; sourceTree = "<group>"; };
 		94E4675397471E8D7F3A70F4 /* WorkoutHistoryOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryOrganizer.swift; sourceTree = "<group>"; };
@@ -267,6 +271,8 @@
 			isa = PBXGroup;
 			children = (
 				9353AE134A91B7464D141657 /* Assets.xcassets */,
+				E0A1C2B3D4E5F60718293A4C /* terms-en.html */,
+				E0A1C2B3D4E5F60718293A4E /* terms-zh-Hans.html */,
 				692C5F0B4D17593943AD6C18 /* InfoPlist.strings */,
 				8ED01019528BCCF8D9A90BB3 /* Localizable.strings */,
 			);
@@ -528,6 +534,8 @@
 				A591D20C3CAB1F9DD4C2CA9C /* Assets.xcassets in Resources */,
 				6F2622D001DBFC205E4A6749 /* InfoPlist.strings in Resources */,
 				A6D037CBC2F79C46063934BC /* Localizable.strings in Resources */,
+				E0A1C2B3D4E5F60718293A4B /* terms-en.html in Resources */,
+				E0A1C2B3D4E5F60718293A4D /* terms-zh-Hans.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,7 +780,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 7;
+			CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -837,7 +845,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 7;
+			CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

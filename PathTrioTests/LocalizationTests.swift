@@ -21,7 +21,6 @@ final class LocalizationTests: XCTestCase {
             "settings.health.confirm.message",
             "settings.health.confirm.enable",
             "health.status.permissionNeeded.title",
-            "health.data.workouts",
             "summary.health.skipped",
             "summary.health.synced",
             "summary.health.unavailable",

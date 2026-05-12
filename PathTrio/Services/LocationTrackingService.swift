@@ -11,6 +11,7 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
     private var isTrackingRequested = false
     private var isBackgroundTrackingAllowed = false
     private var isPreviewLocationRequested = false
+    private var shouldRequestAlwaysAfterWhenInUse = false
     private var trackingStartedAt: Date?
     private(set) var authorizationStatus: CLAuthorizationStatus
     private(set) var latestLocations: [CLLocation] = []
@@ -34,7 +35,20 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
     }
 
     func requestAlwaysPermission() {
-        manager.requestAlwaysAuthorization()
+        switch authorizationStatus {
+        case .notDetermined:
+            shouldRequestAlwaysAfterWhenInUse = true
+            manager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse:
+            shouldRequestAlwaysAfterWhenInUse = true
+            manager.requestAlwaysAuthorization()
+        case .authorizedAlways:
+            shouldRequestAlwaysAfterWhenInUse = false
+        case .denied, .restricted:
+            shouldRequestAlwaysAfterWhenInUse = false
+        @unknown default:
+            shouldRequestAlwaysAfterWhenInUse = false
+        }
     }
 
     func preparePreviewLocation() {
@@ -62,6 +76,7 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
         isBackgroundTrackingAllowed = backgroundAllowed
         trackingStartedAt = Date()
         manager.distanceFilter = kCLDistanceFilterNone
+        manager.pausesLocationUpdatesAutomatically = false
         latestLocations.removeAll()
         latestHorizontalAccuracy = nil
         latestErrorMessage = nil
@@ -73,7 +88,9 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
         trackingStartedAt = nil
         manager.stopUpdatingLocation()
         manager.distanceFilter = idleDistanceFilter
+        manager.pausesLocationUpdatesAutomatically = true
         manager.allowsBackgroundLocationUpdates = false
+        shouldRequestAlwaysAfterWhenInUse = false
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -90,6 +107,11 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
             @unknown default:
                 isPreviewLocationRequested = false
             }
+        }
+        if isTrackingRequested, isBackgroundTrackingAllowed, shouldRequestAlwaysAfterWhenInUse, authorizationStatus == .authorizedWhenInUse {
+            manager.requestAlwaysAuthorization()
+        } else if authorizationStatus == .authorizedAlways || authorizationStatus == .denied || authorizationStatus == .restricted {
+            shouldRequestAlwaysAfterWhenInUse = false
         }
         startUpdatingLocationIfAuthorized()
     }

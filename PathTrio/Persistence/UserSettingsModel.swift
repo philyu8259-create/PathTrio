@@ -1,9 +1,14 @@
 import Foundation
 import SwiftData
 
+enum SettingsSchema {
+    static let currentVersion = 2
+}
+
 @Model
 final class UserSettingsModel {
     @Attribute(.unique) var id: UUID
+    var settingsSchemaVersion: Int?
     var preferredUnits: String
     var smartActivityAlertsEnabled: Bool
     var autoPauseEnabled: Bool
@@ -18,11 +23,12 @@ final class UserSettingsModel {
 
     init(
         id: UUID = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,
+        settingsSchemaVersion: Int? = SettingsSchema.currentVersion,
         preferredUnits: String = "metric",
         smartActivityAlertsEnabled: Bool = false,
         autoPauseEnabled: Bool = false,
         speedAnomalyAlertsEnabled: Bool = false,
-        backgroundRecordingEnabled: Bool = false,
+        backgroundRecordingEnabled: Bool = true,
         autoStartRemindersEnabled: Bool? = false,
         bodyWeightKilograms: Double? = nil,
         healthKitSyncEnabled: Bool = false,
@@ -31,6 +37,7 @@ final class UserSettingsModel {
         preferredMapStyleRawValue: String? = PathTrioMapStyle.standard.rawValue
     ) {
         self.id = id
+        self.settingsSchemaVersion = settingsSchemaVersion
         self.preferredUnits = preferredUnits
         self.smartActivityAlertsEnabled = smartActivityAlertsEnabled
         self.autoPauseEnabled = autoPauseEnabled

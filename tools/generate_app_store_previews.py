@@ -64,15 +64,17 @@ SCENES: tuple[Scene, ...] = (
         (58, 118, 226, 255),
     ),
     Scene(
-        "04_pro",
+        "04_sync",
         "03_settings",
-        "Pro 解锁更多\n专业功能",
+        "进阶工具\n按需开启",
         "导出数据、健康同步、地图样式和 Apple Watch 支持",
-        "Unlock Pro\nWhen You Need More",
+        "Advanced Tools\nReady When You Are",
         "Export data, map styles, Health sync, and Apple Watch support",
         ORANGE,
     ),
 )
+
+PHONE_6_5_SIZE = (1284, 2778)
 
 
 def load_font(locale: str, size: int, bold: bool) -> ImageFont.FreeTypeFont:
@@ -240,6 +242,18 @@ def build_one(raw_dir: Path, out_dir: Path, scene: Scene, locale: str) -> None:
     canvas.convert("RGB").save(out_dir / f"{scene.slug}.png", quality=100)
 
 
+def build_phone_6_5_variants(source_dir: Path, out_dir: Path) -> None:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for preview in sorted(source_dir.glob("*.png")):
+        image = Image.open(preview).convert("RGB")
+        image.thumbnail(PHONE_6_5_SIZE, Image.Resampling.LANCZOS)
+        canvas = Image.new("RGB", PHONE_6_5_SIZE, image.getpixel((0, 0)))
+        x = (PHONE_6_5_SIZE[0] - image.width) // 2
+        y = (PHONE_6_5_SIZE[1] - image.height) // 2
+        canvas.paste(image, (x, y))
+        canvas.save(out_dir / preview.name, quality=100)
+
+
 def main() -> None:
     sets = [
         ("phone_cn", "cn"),
@@ -253,6 +267,10 @@ def main() -> None:
         for scene in SCENES:
             build_one(raw_dir, out_dir, scene, locale)
             print(f"built {out_dir / (scene.slug + '.png')}")
+        if folder.startswith("phone_"):
+            phone_6_5_dir = OUT_ROOT / f"{folder}_6_5"
+            build_phone_6_5_variants(out_dir, phone_6_5_dir)
+            print(f"built {phone_6_5_dir}")
 
 
 if __name__ == "__main__":

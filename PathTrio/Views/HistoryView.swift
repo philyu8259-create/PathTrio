@@ -3,6 +3,7 @@ import SwiftUI
 
 struct HistoryView: View {
     @Environment(AppModel.self) private var appModel
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \WorkoutSessionModel.startedAt, order: .reverse) private var workouts: [WorkoutSessionModel]
     @State private var grouping: WorkoutHistoryGrouping = .day
@@ -10,6 +11,8 @@ struct HistoryView: View {
     @State private var shareItem: ExportShareItem?
     @State private var lockedProFeature: ProFeature?
     @State private var exportErrorMessage: String?
+    @State private var clearHistoryErrorMessage: String?
+    @State private var isConfirmingClearHistory = false
     let showsDoneButton: Bool
 
     private let organizer = WorkoutHistoryOrganizer()
@@ -52,6 +55,18 @@ struct HistoryView: View {
                             }
                             .buttonStyle(.plain)
                             .foregroundStyle(PathTrioTheme.action)
+                            .pathTrioCard()
+
+                            Button {
+                                isConfirmingClearHistory = true
+                            } label: {
+                                Label("history.clearAll", systemImage: "trash")
+                                    .font(.subheadline.weight(.bold))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                            }
+                            .buttonStyle(.plain)
+                            .foregroundStyle(.red)
                             .pathTrioCard()
 
                             if appModel.entitlementStore.canUse(.advancedStats) {
@@ -105,6 +120,21 @@ struct HistoryView: View {
             } message: {
                 Text(exportErrorMessage ?? "")
             }
+            .confirmationDialog("history.clearAll.confirm.title", isPresented: $isConfirmingClearHistory, titleVisibility: .visible) {
+                Button("action.delete", role: .destructive) {
+                    clearAllHistory()
+                }
+                Button("action.cancel", role: .cancel) {}
+            } message: {
+                Text(L10n.string("history.clearAll.confirm.message"))
+            }
+            .alert("history.clearAll.error.title", isPresented: clearHistoryErrorAlertBinding) {
+                Button("action.ok") {
+                    clearHistoryErrorMessage = nil
+                }
+            } message: {
+                Text(clearHistoryErrorMessage ?? "")
+            }
         }
     }
 
@@ -128,6 +158,16 @@ struct HistoryView: View {
         }
     }
 
+    private var clearHistoryErrorAlertBinding: Binding<Bool> {
+        Binding {
+            clearHistoryErrorMessage != nil
+        } set: { isPresented in
+            if !isPresented {
+                clearHistoryErrorMessage = nil
+            }
+        }
+    }
+
     private func exportHistory() {
         guard appModel.entitlementStore.canUse(.dataExport) else {
             lockedProFeature = .dataExport
@@ -143,6 +183,14 @@ struct HistoryView: View {
             shareItem = ExportShareItem(url: url)
         } catch {
             exportErrorMessage = L10n.string("export.error.message")
+        }
+    }
+
+    private func clearAllHistory() {
+        do {
+            try WorkoutStore(context: modelContext).delete(Array(workouts))
+        } catch {
+            clearHistoryErrorMessage = L10n.string("history.clearAll.error.message")
         }
     }
 }

@@ -9,7 +9,12 @@ struct ActiveWorkoutView: View {
     private let metricsTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     private var routeRecordingStatus: RouteRecordingStatus? {
-        RouteRecordingStatus.evaluate(
+        #if DEBUG
+        if ScreenshotDemoData.isEnabled {
+            return nil
+        }
+        #endif
+        return RouteRecordingStatus.evaluate(
             authorizationStatus: appModel.locationService.authorizationStatus,
             latestHorizontalAccuracy: appModel.locationService.latestHorizontalAccuracy,
             latestErrorMessage: appModel.locationService.latestErrorMessage,
@@ -21,6 +26,14 @@ struct ActiveWorkoutView: View {
         appModel.entitlementStore.canUse(.mapStyles) ? appModel.settingsStore.preferredMapStyle : .standard
     }
 
+    private var shouldFollowLatestLocation: Bool {
+        #if DEBUG
+        !ScreenshotDemoData.isEnabled
+        #else
+        true
+        #endif
+    }
+
     var body: some View {
         let draft = appModel.recorder.draft ?? appModel.activeDraft
         let metrics = draft?.metrics ?? WorkoutMetrics(duration: 0, distanceMeters: 0, averageSpeedMetersPerSecond: 0)
@@ -30,7 +43,7 @@ struct ActiveWorkoutView: View {
         ZStack(alignment: .bottom) {
             RouteMapView(
                 locations: locations,
-                followsLatestLocation: true,
+                followsLatestLocation: shouldFollowLatestLocation,
                 style: activeMapStyle
             )
                 .ignoresSafeArea()

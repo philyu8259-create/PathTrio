@@ -8,6 +8,7 @@
 "action.start" = "Start";
 "action.done" = "Done";
 "action.cancel" = "Cancel";
+"action.restore" = "Restore";
 "action.ok" = "OK";
 "action.pause" = "Pause";
 "action.resume" = "Resume";
@@ -70,6 +71,11 @@
 "history.empty.title" = "No Workouts";
 "history.empty.description" = "Your saved walks, runs, and rides will appear here.";
 "history.empty.filtered" = "No workouts match this filter yet.";
+"history.clearAll" = "Delete All Workouts";
+"history.clearAll.confirm.title" = "Delete all workout history?";
+"history.clearAll.confirm.message" = "This permanently removes all saved workouts from this device. You can still export first if you want to keep a backup.";
+"history.clearAll.error.title" = "Unable to Delete Workouts";
+"history.clearAll.error.message" = "Please try again. The selected workouts could not be deleted.";
 "history.group.title" = "History Grouping";
 "history.group.day" = "Day";
 "history.group.month" = "Month";
@@ -109,9 +115,14 @@
 "settings.health.confirm.title" = "Sync to Apple Health?";
 "settings.health.confirm.message" = "PathTrio will ask permission before writing completed walks, runs, rides, distance, and active energy to Apple Health. Your workout is saved in PathTrio even if sync fails.";
 "settings.health.confirm.enable" = "Enable Health Sync";
-"settings.health.plannedData" = "PathTrio plans to write";
 "settings.privacy" = "Privacy";
 "settings.privacy.description" = "PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.";
+
+"settings.privacy.policy" = "Privacy Policy";
+"settings.privacy.support" = "Support";
+"settings.privacy.eula" = "Terms of Use";
+"settings.linkUnavailable.title" = "Unable to open page";
+"settings.linkUnavailable.message" = "The page is not available right now. Please try again later.";
 
 "pro.title" = "PathTrio Pro";
 "pro.badge" = "PRO";
@@ -123,11 +134,14 @@
 "pro.products.title" = "One-Time Purchase";
 "pro.products.loading" = "Loading purchase options...";
 "pro.products.unavailable" = "The lifetime Pro purchase will appear after the App Store Connect product is approved for testing.";
+"pro.products.restore" = "Restore Purchases";
+"pro.products.restore.none" = "No recent purchase found to restore.";
 "pro.product.lifetime.title" = "Lifetime Pro";
 "pro.product.lifetime.description" = "Pay once and keep Pro features unlocked.";
+"pro.products.restored" = "Purchase restored.";
 "pro.locked.title" = "PathTrio Pro Feature";
-"pro.locked.message" = "%@ is included with PathTrio Pro. Choose a purchase option to unlock it.";
-"pro.locked.preview" = "%@ Unlock Pro to use this feature.";
+"pro.locked.message" = "%@ is part of the premium feature set.";
+"pro.locked.preview" = "%@ can be used with premium features enabled.";
 "pro.controls.title" = "Pro Controls";
 "pro.features.title" = "Pro Features";
 "pro.feature.autoRecording.title" = "Automatic Recording";
@@ -176,10 +190,6 @@
 "health.status.off.message" = "Workouts stay in PathTrio only. You can turn on Apple Health sync later.";
 "health.status.permissionNeeded.title" = "Permission Needed";
 "health.status.permissionNeeded.message" = "PathTrio will ask permission before writing workouts or activity data to Apple Health.";
-"health.data.workouts" = "Workout sessions";
-"health.data.walkRunDistance" = "Walking and running distance";
-"health.data.cyclingDistance" = "Cycling distance";
-"health.data.activeEnergy" = "Active energy";
 
 "location.status.permissionNeeded.title" = "Location Permission Needed";
 "location.status.permissionNeeded.message" = "Allow location access so PathTrio can draw your route and measure distance.";
@@ -189,6 +199,8 @@
 "location.status.weakSignal.message" = "Move to an open area for a more accurate route and distance.";
 "location.status.background.title" = "Background Recording On";
 "location.status.background.message" = "PathTrio will keep GPS active while this workout is recording, which may use more battery.";
+"location.status.foregroundOnly.title" = "Lock Screen Recording Off";
+"location.status.foregroundOnly.message" = "This workout can stop receiving GPS after the screen locks. Turn on Record When Locked in Settings for complete routes.";
 "location.status.backgroundPermission.title" = "Allow Always Location";
 "location.status.backgroundPermission.message" = "Background recording needs Always location access to keep tracking when the screen is locked.";
 "location.status.error.title" = "Location Update Issue";

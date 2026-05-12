@@ -31,6 +31,18 @@ final class RouteRecordingStatusTests: XCTestCase {
         XCTAssertEqual(status?.titleKey, "location.status.weakSignal.title")
     }
 
+    func testBackgroundRecordingDisabledShowsForegroundOnlyNotice() {
+        let status = RouteRecordingStatus.evaluate(
+            authorizationStatus: .authorizedWhenInUse,
+            latestHorizontalAccuracy: 10,
+            latestErrorMessage: nil,
+            backgroundRecordingEnabled: false
+        )
+
+        XCTAssertEqual(status?.kind, .info)
+        XCTAssertEqual(status?.titleKey, "location.status.foregroundOnly.title")
+    }
+
     func testBackgroundRecordingEnabledShowsBatteryNoticeAfterAuthorization() {
         let status = RouteRecordingStatus.evaluate(
             authorizationStatus: .authorizedAlways,

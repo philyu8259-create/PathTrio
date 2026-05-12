@@ -57,7 +57,7 @@ xcodebuild -scheme PathTrio -destination 'platform=iOS Simulator,name=iPhone 16 
 - Support email: 67238615@qq.com
 - Support: https://philyu8259-create.github.io/PathTrio/support-en.html
 - Privacy Policy: https://philyu8259-create.github.io/PathTrio/privacy-policy-en.html
-- Terms of Use: https://philyu8259-create.github.io/PathTrio/terms-en.html
+- Terms of Use: https://www.apple.com/legal/internet-services/itunes/appstore/dev/stdeula/
 - 中文支持: https://philyu8259-create.github.io/PathTrio/support-zh-Hans.html
 - 中文隐私政策: https://philyu8259-create.github.io/PathTrio/privacy-policy-zh-Hans.html
-- 中文使用条款: https://philyu8259-create.github.io/PathTrio/terms-zh-Hans.html
+- 中文使用条款（Apple 标准 EULA）: https://www.apple.com/legal/internet-services/itunes/appstore/dev/stdeula/

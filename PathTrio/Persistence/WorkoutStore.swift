@@ -76,6 +76,11 @@ struct WorkoutStore {
         return session
     }
 
+    func delete(_ sessions: [WorkoutSessionModel]) throws {
+        sessions.forEach(context.delete)
+        try context.save()
+    }
+
     func updateHealthSyncResult(_ result: WorkoutHealthSyncResult, for session: WorkoutSessionModel) throws {
         session.healthSyncResult = result
         session.updatedAt = Date()

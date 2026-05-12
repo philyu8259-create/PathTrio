@@ -1,3 +1,4 @@
+import CoreLocation
 import Foundation
 import SwiftData
 
@@ -8,15 +9,27 @@ enum ScreenshotDemoData {
         ProcessInfo.processInfo.arguments.contains("-PathTrioScreenshotMode")
     }
 
+    static var targetTab: AppTab? {
+        switch argument(after: "-PathTrioScreenshotTab") {
+        case "history": .history
+        case "settings": .settings
+        default: nil
+        }
+    }
+
+    static var shouldOpenActiveWorkout: Bool {
+        argument(after: "-PathTrioScreenshotScene") == "active"
+    }
+
     static func prepare(appModel: AppModel, context: ModelContext) {
         guard isEnabled else { return }
         appModel.entitlementStore.isProUnlocked = true
         appModel.settingsStore.weeklyDistanceGoalMeters = 12_000
         appModel.settingsStore.monthlyWorkoutGoalCount = 18
-        appModel.settingsStore.autoStartRemindersEnabled = true
-        appModel.settingsStore.smartActivityAlertsEnabled = true
-        appModel.settingsStore.autoPauseEnabled = true
-        appModel.settingsStore.speedAnomalyAlertsEnabled = true
+        appModel.settingsStore.autoStartRemindersEnabled = false
+        appModel.settingsStore.smartActivityAlertsEnabled = false
+        appModel.settingsStore.autoPauseEnabled = false
+        appModel.settingsStore.speedAnomalyAlertsEnabled = false
         appModel.settingsStore.preferredMapStyle = .standard
 
         do {
@@ -30,6 +43,49 @@ enum ScreenshotDemoData {
         } catch {
             // Screenshots should continue even if the demo store cannot be seeded.
         }
+    }
+
+    static func activeWorkoutDraft(now: Date = Date()) -> WorkoutSessionDraft {
+        let startedAt = now.addingTimeInterval(-1_645)
+        let locations = previewLocations(startedAt: startedAt, duration: 1_645, speed: 2.95)
+
+        return WorkoutSessionDraft(
+            type: .run,
+            startedAt: startedAt,
+            state: .recording,
+            locations: locations,
+            metrics: WorkoutMetrics(
+                duration: 1_645,
+                distanceMeters: 4_860,
+                averageSpeedMetersPerSecond: 2.95
+            )
+        )
+    }
+
+    static func previewLocations(
+        startedAt: Date = Date().addingTimeInterval(-1_200),
+        duration: TimeInterval = 1_200,
+        speed: Double = 2.6
+    ) -> [CLLocation] {
+        routePoints(startedAt: startedAt, duration: duration, speed: speed).map {
+            CLLocation(
+                coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude),
+                altitude: $0.altitude,
+                horizontalAccuracy: $0.horizontalAccuracy,
+                verticalAccuracy: 12,
+                course: $0.course,
+                speed: $0.speedMetersPerSecond,
+                timestamp: $0.timestamp
+            )
+        }
+    }
+
+    private static func argument(after flag: String) -> String? {
+        let arguments = ProcessInfo.processInfo.arguments
+        guard let index = arguments.firstIndex(of: flag) else { return nil }
+        let valueIndex = arguments.index(after: index)
+        guard arguments.indices.contains(valueIndex) else { return nil }
+        return arguments[valueIndex]
     }
 
     private static func sampleWorkouts() -> [WorkoutSessionModel] {

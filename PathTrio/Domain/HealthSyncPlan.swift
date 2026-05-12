@@ -13,13 +13,6 @@ enum HealthSyncPlan {
         let systemImage: String
     }
 
-    static let plannedWriteTypeKeys = [
-        "health.data.workouts",
-        "health.data.walkRunDistance",
-        "health.data.cyclingDistance",
-        "health.data.activeEnergy"
-    ]
-
     static func status(syncEnabled: Bool) -> Status {
         if syncEnabled {
             return Status(

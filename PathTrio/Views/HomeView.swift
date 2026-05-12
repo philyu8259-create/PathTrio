@@ -28,8 +28,21 @@ struct HomeView: View {
     }
 
     private var currentPreviewLocations: [CLLocation] {
+        #if DEBUG
+        if ScreenshotDemoData.isEnabled {
+            return ScreenshotDemoData.previewLocations()
+        }
+        #endif
         guard let latestLocation = appModel.locationService.latestLocations.last else { return [] }
         return [latestLocation]
+    }
+
+    private var shouldFollowLatestLocation: Bool {
+        #if DEBUG
+        !ScreenshotDemoData.isEnabled
+        #else
+        true
+        #endif
     }
 
     private var dashboardColumns: [GridItem] {
@@ -91,9 +104,21 @@ struct HomeView: View {
             .task {
                 appModel.loadSettings(from: modelContext)
                 appModel.reconcileLockedProSettings(in: modelContext)
+                #if DEBUG
+                if !ScreenshotDemoData.isEnabled {
+                    appModel.locationService.preparePreviewLocation()
+                }
+                #else
                 appModel.locationService.preparePreviewLocation()
+                #endif
                 updateAutoStartMonitoring()
                 refreshTodayTotals()
+                #if DEBUG
+                if ScreenshotDemoData.shouldOpenActiveWorkout {
+                    appModel.activeDraft = ScreenshotDemoData.activeWorkoutDraft()
+                    showingActiveWorkout = true
+                }
+                #endif
             }
             .onChange(of: appModel.latestCompletedWorkoutID) { _, _ in
                 refreshTodayTotals()
@@ -180,7 +205,7 @@ struct HomeView: View {
 
     private func routePreviewCard(for selectedType: WorkoutType) -> some View {
         ZStack(alignment: .bottomLeading) {
-            RouteMapView(locations: currentPreviewLocations, followsLatestLocation: true, style: activeMapStyle)
+            RouteMapView(locations: currentPreviewLocations, followsLatestLocation: shouldFollowLatestLocation, style: activeMapStyle)
                 .frame(height: 210)
                 .allowsHitTesting(false)
 

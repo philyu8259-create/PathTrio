@@ -16,15 +16,10 @@ final class HealthSyncPlanTests: XCTestCase {
         XCTAssertEqual(status.titleKey, "health.status.permissionNeeded.title")
     }
 
-    func testPlannedWriteTypesCoverCoreWorkoutData() {
-        XCTAssertEqual(
-            HealthSyncPlan.plannedWriteTypeKeys,
-            [
-                "health.data.workouts",
-                "health.data.walkRunDistance",
-                "health.data.cyclingDistance",
-                "health.data.activeEnergy"
-            ]
-        )
+    func testEnabledHealthSyncReturnsPermissionNeededStatusMessage() {
+        let status = HealthSyncPlan.status(syncEnabled: true)
+
+        XCTAssertEqual(status.messageKey, "health.status.permissionNeeded.message")
+        XCTAssertEqual(status.systemImage, "heart.text.square")
     }
 }

@@ -8,6 +8,7 @@
 "action.start" = "开始";
 "action.done" = "完成";
 "action.cancel" = "取消";
+"action.restore" = "恢复购买";
 "action.ok" = "好的";
 "action.pause" = "暂停";
 "action.resume" = "继续";
@@ -70,6 +71,11 @@
 "history.empty.title" = "暂无运动记录";
 "history.empty.description" = "保存后的走路、跑步和骑行记录会显示在这里。";
 "history.empty.filtered" = "当前筛选下暂无运动记录。";
+"history.clearAll" = "删除全部运动记录";
+"history.clearAll.confirm.title" = "确认删除全部运动记录？";
+"history.clearAll.confirm.message" = "此操作会永久移除设备上的全部运动记录。若你想保留备份，可先导出后再删除。";
+"history.clearAll.error.title" = "删除运动记录失败";
+"history.clearAll.error.message" = "请稍后重试，当前记录未能删除。";
 "history.group.title" = "历史分组";
 "history.group.day" = "按天";
 "history.group.month" = "按月";
@@ -109,9 +115,13 @@
 "settings.health.confirm.title" = "同步到 Apple 健康？";
 "settings.health.confirm.message" = "三动迹会先请求授权，再将完成的走路、跑步、骑行、距离和活动能量写入 Apple 健康。即使同步失败，运动记录仍会保存在三动迹内。";
 "settings.health.confirm.enable" = "开启健康同步";
-"settings.health.plannedData" = "三动迹计划写入";
 "settings.privacy" = "隐私";
 "settings.privacy.description" = "三动迹默认将运动记录保存在本机，只在记录运动时使用定位来保存路线、距离和速度。";
+"settings.privacy.policy" = "隐私政策";
+"settings.privacy.support" = "支持与反馈";
+"settings.privacy.eula" = "使用条款";
+"settings.linkUnavailable.title" = "页面暂不可用";
+"settings.linkUnavailable.message" = "当前页面暂时无法打开，请稍后再试。";
 
 "pro.title" = "三动迹 Pro";
 "pro.badge" = "PRO";
@@ -123,11 +133,14 @@
 "pro.products.title" = "一次购买";
 "pro.products.loading" = "正在加载购买选项...";
 "pro.products.unavailable" = "App Store Connect 永久 Pro 商品通过测试配置后会显示在这里。";
+"pro.products.restore" = "恢复购买";
+"pro.products.restore.none" = "未检测到可恢复的购买记录。";
 "pro.product.lifetime.title" = "永久 Pro";
 "pro.product.lifetime.description" = "一次购买，长期解锁 Pro 功能。";
+"pro.products.restored" = "已恢复购买。";
 "pro.locked.title" = "三动迹 Pro 功能";
-"pro.locked.message" = "%@ 属于三动迹 Pro。选择一个购买选项即可解锁。";
-"pro.locked.preview" = "%@ 解锁 Pro 后即可使用。";
+"pro.locked.message" = "%@ 属于高级功能。开启高级功能后即可使用。";
+"pro.locked.preview" = "%@ 为高级功能，开启后可查看。";
 "pro.controls.title" = "Pro 控制";
 "pro.features.title" = "Pro 功能";
 "pro.feature.autoRecording.title" = "自动记录";
@@ -176,10 +189,6 @@
 "health.status.off.message" = "运动记录只保存在三动迹内。你可以之后再开启 Apple 健康同步。";
 "health.status.permissionNeeded.title" = "需要授权";
 "health.status.permissionNeeded.message" = "写入运动记录或活动数据到 Apple 健康前，三动迹会先请求你的许可。";
-"health.data.workouts" = "运动记录";
-"health.data.walkRunDistance" = "步行和跑步距离";
-"health.data.cyclingDistance" = "骑行距离";
-"health.data.activeEnergy" = "活动能量";
 
 "location.status.permissionNeeded.title" = "需要定位权限";
 "location.status.permissionNeeded.message" = "允许定位后，三动迹才能绘制路线并计算距离。";
@@ -189,6 +198,8 @@
 "location.status.weakSignal.message" = "移动到开阔区域，可以获得更准确的路线和距离。";
 "location.status.background.title" = "后台记录已开启";
 "location.status.background.message" = "本次运动记录期间会持续使用 GPS，可能会增加耗电。";
+"location.status.foregroundOnly.title" = "锁屏记录未开启";
+"location.status.foregroundOnly.message" = "锁屏后系统可能停止发送 GPS。请在设置中开启“锁屏继续记录”，路线才会完整。";
 "location.status.backgroundPermission.title" = "需要始终允许定位";
 "location.status.backgroundPermission.message" = "锁屏继续记录需要“始终允许”定位权限，才能在屏幕锁定后继续追踪。";
 "location.status.error.title" = "定位更新异常";

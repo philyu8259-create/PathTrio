@@ -10,6 +10,10 @@ struct SettingsView: View {
     @State private var isConfirmingHealthSync = false
     @State private var lockedProFeature: ProFeature?
     let showsDoneButton: Bool
+    static let localeSuffix: String = Locale.current.identifier.hasPrefix("zh") ? "zh-Hans" : "en"
+    static let supportURL = URL(string: "https://philyu8259-create.github.io/PathTrio/support-\(localeSuffix).html")!
+    static let privacyPolicyURL = URL(string: "https://philyu8259-create.github.io/PathTrio/privacy-policy-\(localeSuffix).html")!
+    static let eulaURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/appstore/dev/stdeula/")!
 
     var body: some View {
         @Bindable var settings = appModel.settingsStore
@@ -65,23 +69,44 @@ struct SettingsView: View {
                             SettingsToggleRow(titleKey: "settings.health.syncToAppleHealth", systemImage: "heart", accessoryKey: "pro.badge", isOn: healthSyncBinding)
                             SettingsDivider()
                             HealthSyncStatusRow(status: HealthSyncPlan.status(syncEnabled: settings.healthKitSyncEnabled && appModel.entitlementStore.canUse(.advancedHealthSync)))
-                            SettingsDivider()
-
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("settings.health.plannedData")
-                                    .font(.footnote.weight(.bold))
-                                    .foregroundStyle(PathTrioTheme.ink)
-
-                                ForEach(HealthSyncPlan.plannedWriteTypeKeys, id: \.self) { key in
-                                    Label(L10n.string(key), systemImage: "checkmark.circle.fill")
-                                        .font(.footnote.weight(.semibold))
-                                        .foregroundStyle(PathTrioTheme.muted)
-                                }
-                            }
                         }
 
                         SettingsPanel(titleKey: "settings.privacy", systemImage: "hand.raised") {
                             SettingsDescription(textKey: "settings.privacy.description")
+                            SettingsDivider()
+                            SettingsLinkRow(
+                                titleKey: "settings.privacy.policy",
+                                systemImage: "doc.text",
+                                destination: Self.privacyPolicyURL
+                            )
+                            SettingsDivider()
+                            SettingsLinkRow(
+                                titleKey: "settings.privacy.support",
+                                systemImage: "envelope.fill",
+                                destination: Self.supportURL
+                            )
+                            SettingsDivider()
+                            SettingsLinkRow(
+                                titleKey: "settings.privacy.eula",
+                                systemImage: "doc.plaintext",
+                                destination: Self.eulaURL,
+                            )
+                            SettingsDivider()
+                            NavigationLink {
+                                HistoryView(showsDoneButton: false)
+                            } label: {
+                                HStack(spacing: 10) {
+                                    Label("history.clearAll", systemImage: "trash")
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(.red)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .foregroundStyle(PathTrioTheme.muted)
+                                        .font(.subheadline.weight(.semibold))
+                                }
+                                .padding(.top, 4)
+                            }
+                            .buttonStyle(.plain)
                         }
 
                         Spacer(minLength: 18)
@@ -102,6 +127,13 @@ struct SettingsView: View {
             .toolbar(showsDoneButton ? .visible : .hidden, for: .navigationBar)
             .task {
                 appModel.loadSettings(from: modelContext)
+                #if DEBUG
+                if ScreenshotDemoData.isEnabled {
+                    ScreenshotDemoData.prepare(appModel: appModel, context: modelContext)
+                    appModel.reconcileLockedProSettings(in: modelContext)
+                    return
+                }
+                #endif
                 await appModel.entitlementStore.refreshPurchasedEntitlements()
                 await appModel.entitlementStore.loadProducts()
                 appModel.reconcileLockedProSettings(in: modelContext)
@@ -313,7 +345,13 @@ private struct ProSettingsView: View {
                             ProPurchaseOptions(
                                 products: appModel.entitlementStore.availableProducts,
                                 state: appModel.entitlementStore.purchaseState,
-                                purchase: purchase
+                                purchase: purchase,
+                                restore: {
+                                    Task {
+                                        await appModel.entitlementStore.restorePurchases()
+                                    }
+                                },
+                                errorMessage: appModel.entitlementStore.lastErrorMessage
                             )
                         }
                     }
@@ -609,6 +647,8 @@ private struct ProPurchaseOptions: View {
     let products: [Product]
     let state: ProPurchaseState
     let purchase: (Product) -> Void
+    let restore: () -> Void
+    let errorMessage: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -649,6 +689,51 @@ private struct ProPurchaseOptions: View {
                     .buttonStyle(.plain)
                     .disabled(state == .purchasing)
                 }
+            }
+
+            SettingsDivider()
+
+            Button {
+                restore()
+            } label: {
+                HStack(spacing: 10) {
+                    Text("pro.products.restore")
+                        .font(.footnote.weight(.bold))
+                        .foregroundStyle(PathTrioTheme.ink)
+
+                    Spacer(minLength: 0)
+
+                    if state == .loading {
+                        ProgressView()
+                            .tint(PathTrioTheme.action)
+                    } else {
+                        Text("action.restore")
+                            .font(.footnote.weight(.black))
+                            .foregroundStyle(PathTrioTheme.warm)
+                    }
+                }
+                .padding(12)
+                .background(.white.opacity(0.58), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            }
+            .buttonStyle(.plain)
+            .disabled(state == .loading || state == .purchasing)
+
+            if let errorMessage {
+                Text(errorMessage)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            if state == .purchased {
+                Text("pro.products.restored")
+                    .font(.caption)
+                    .foregroundStyle(PathTrioTheme.teal)
+            } else if state == .idle && products.isEmpty {
+                Text("pro.products.restore.none")
+                    .font(.caption)
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
@@ -728,6 +813,84 @@ private struct SettingsDescription: View {
             .foregroundStyle(PathTrioTheme.muted)
             .fixedSize(horizontal: false, vertical: true)
             .padding(.top, 2)
+    }
+}
+
+private struct SettingsLinkRow: View {
+    let titleKey: LocalizedStringKey
+    let systemImage: String
+    let destination: URL
+    var fallbackDestination: URL? = nil
+
+    @Environment(\.openURL) private var openURL
+    @State private var isChecking = false
+    @State private var showUnavailable = false
+
+    var body: some View {
+        Button {
+            Task {
+                isChecking = true
+                defer { isChecking = false }
+
+                if await Self.canOpen(destination) {
+                    openURL(destination)
+                    return
+                }
+                if let fallback = fallbackDestination, await Self.canOpen(fallback) {
+                    openURL(fallback)
+                    return
+                }
+                showUnavailable = true
+            }
+        } label: {
+            HStack(spacing: 10) {
+                HStack(spacing: 8) {
+                    Image(systemName: systemImage)
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundStyle(PathTrioTheme.action)
+                        .frame(width: 22, height: 22)
+                        .background(PathTrioTheme.action.opacity(0.12), in: Circle())
+
+                    Text(titleKey)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(PathTrioTheme.ink)
+                }
+
+                Spacer(minLength: 0)
+
+                Image(systemName: "arrow.up.right.square")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(PathTrioTheme.muted)
+            }
+                    .contentShape(Rectangle())
+                    .padding(.vertical, 1)
+        }
+        .disabled(isChecking)
+        .buttonStyle(.plain)
+        .alert("settings.linkUnavailable.title", isPresented: $showUnavailable) {
+            Button("action.ok", role: .cancel) {
+                showUnavailable = false
+            }
+        } message: {
+            Text("settings.linkUnavailable.message")
+        }
+    }
+
+    private static func canOpen(_ url: URL) async -> Bool {
+        if url.isFileURL {
+            return FileManager.default.fileExists(atPath: url.path)
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "HEAD"
+        request.timeoutInterval = 4
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else { return false }
+            return (200...399).contains(httpResponse.statusCode)
+        } catch {
+            return false
+        }
     }
 }
 

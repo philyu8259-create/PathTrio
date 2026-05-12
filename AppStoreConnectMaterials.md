@@ -9,8 +9,20 @@ Last updated: May 11, 2026
 - Privacy Policy URL EN: https://philyu8259-create.github.io/PathTrio/privacy-policy-en.html
 - Support URL zh-Hans: https://philyu8259-create.github.io/PathTrio/support-zh-Hans.html
 - Privacy Policy URL zh-Hans: https://philyu8259-create.github.io/PathTrio/privacy-policy-zh-Hans.html
-- Terms of Use URL EN: https://philyu8259-create.github.io/PathTrio/terms-en.html
-- Terms of Use URL zh-Hans: https://philyu8259-create.github.io/PathTrio/terms-zh-Hans.html
+- Apple Standard Licensed Application End User License Agreement:
+  https://www.apple.com/legal/internet-services/itunes/appstore/dev/stdeula/
+- ASC 配置备注: 已改为 Apple 标准 EULA（不要再设置 custom EULA）。
+
+## ASC Privacy Checklist (2026-05-12)
+
+- 在 App Privacy 里建议勾选的数据类型：
+  - Location
+  - Motion & Fitness（用于 Smart Assist）
+  - Health（仅可选同步场景）
+- 说明模板：
+  - Location: 前台/后台（仅活动记录中）记录训练路径、距离、速度等用于“核心运动跟踪”。
+  - Motion & Fitness: 记录当前运动状态变化，仅用于暂停提醒、活动类型变化与异常速度提示。
+  - Health: 用户开启同步后，与 Apple Health 读/写运动与 workout 相关字段。
 
 ## English Metadata
 

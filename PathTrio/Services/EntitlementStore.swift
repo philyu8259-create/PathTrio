@@ -60,6 +60,20 @@ final class EntitlementStore {
     }
 
     @MainActor
+    func restorePurchases() async {
+        purchaseState = .loading
+        lastErrorMessage = nil
+        do {
+            try await AppStore.sync()
+            await refreshPurchasedEntitlements()
+            purchaseState = isProUnlocked ? .purchased : .idle
+        } catch {
+            lastErrorMessage = error.localizedDescription
+            purchaseState = .failed
+        }
+    }
+
+    @MainActor
     func purchase(_ product: Product) async {
         purchaseState = .purchasing
         do {

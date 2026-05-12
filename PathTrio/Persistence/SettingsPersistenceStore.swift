@@ -7,6 +7,7 @@ struct SettingsPersistenceStore {
 
     func load(into settings: SettingsStore) throws {
         let model = try currentSettingsModel()
+        try migrateIfNeeded(model)
         settings.preferredUnits = model.preferredUnits
         settings.smartActivityAlertsEnabled = model.smartActivityAlertsEnabled
         settings.autoPauseEnabled = model.autoPauseEnabled
@@ -22,6 +23,7 @@ struct SettingsPersistenceStore {
 
     func save(_ settings: SettingsStore) throws {
         let model = try currentSettingsModel()
+        model.settingsSchemaVersion = SettingsSchema.currentVersion
         model.preferredUnits = settings.preferredUnits
         model.smartActivityAlertsEnabled = settings.smartActivityAlertsEnabled
         model.autoPauseEnabled = settings.autoPauseEnabled
@@ -48,5 +50,13 @@ struct SettingsPersistenceStore {
         context.insert(model)
         try context.save()
         return model
+    }
+
+    private func migrateIfNeeded(_ model: UserSettingsModel) throws {
+        guard (model.settingsSchemaVersion ?? 1) < SettingsSchema.currentVersion else { return }
+
+        model.backgroundRecordingEnabled = true
+        model.settingsSchemaVersion = SettingsSchema.currentVersion
+        try context.save()
     }
 }
