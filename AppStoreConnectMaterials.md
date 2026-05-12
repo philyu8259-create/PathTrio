@@ -4,10 +4,13 @@ Last updated: May 11, 2026
 
 ## URLs
 
+- Support contact email: 67238615@qq.com
 - Support URL EN: https://philyu8259-create.github.io/PathTrio/support-en.html
 - Privacy Policy URL EN: https://philyu8259-create.github.io/PathTrio/privacy-policy-en.html
 - Support URL zh-Hans: https://philyu8259-create.github.io/PathTrio/support-zh-Hans.html
 - Privacy Policy URL zh-Hans: https://philyu8259-create.github.io/PathTrio/privacy-policy-zh-Hans.html
+- Terms of Use URL EN: https://philyu8259-create.github.io/PathTrio/terms-en.html
+- Terms of Use URL zh-Hans: https://philyu8259-create.github.io/PathTrio/terms-zh-Hans.html
 
 ## English Metadata
 
@@ -18,7 +21,7 @@ Subtitle:
 Walk Run Ride Tracker
 
 Promotional Text:
-Track walks, runs, and rides with GPS routes, clean stats, smart reminders, Health sync controls, and Apple Watch support with Pro.
+Track walks, runs, and rides with GPS routes, clean stats, smart reminders, Health sync controls, and Apple Watch support.
 
 Keywords:
 walk tracker,run tracker,bike tracker,ride tracker,GPS route,workout,fitness,walking,running,cycling,pace
@@ -55,7 +58,7 @@ Subtitle:
 走路跑步骑行记录
 
 Promotional Text:
-用 GPS 记录走路、跑步和骑行路线，查看距离、配速、历史趋势，Pro 支持导出、健康同步和 Apple Watch。
+用 GPS 记录走路、跑步和骑行路线，查看距离、配速、历史趋势，并可连接健康同步和 Apple Watch。
 
 Keywords:
 走路,跑步,骑行,GPS,路线记录,运动记录,配速,健身,户外,Apple Watch
@@ -89,6 +92,14 @@ Review Notes:
 - Chinese: `artifacts/app_store_previews/phone_cn/*.png`
 - English: `artifacts/app_store_previews/phone_en/*.png`
 
+6.5-inch iPhone:
+- Chinese: `artifacts/app_store_previews/phone_cn_6_5/*.png`
+- English: `artifacts/app_store_previews/phone_en_6_5/*.png`
+
 13-inch iPad:
 - Chinese: `artifacts/app_store_previews/ipad_cn/*.png`
 - English: `artifacts/app_store_previews/ipad_en/*.png`
+
+Apple Watch:
+- Chinese: `artifacts/app_store_previews/watch_cn/*.png`
+- English: `artifacts/app_store_previews/watch_en/*.png`
