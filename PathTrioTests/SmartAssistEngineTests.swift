@@ -58,6 +58,96 @@ final class SmartAssistEngineTests: XCTestCase {
         XCTAssertEqual(suggestion, .activityChange(from: .run, to: .ride))
     }
 
+    func testDoesNotSuggestWalkingWhenRideIsMisclassifiedAtLowSpeed() {
+        var engine = SmartAssistEngine()
+        let start = Date(timeIntervalSince1970: 100)
+        let settings = SmartAssistSettings(
+            smartActivityAlertsEnabled: true,
+            autoPauseEnabled: false,
+            speedAnomalyAlertsEnabled: false
+        )
+
+        XCTAssertNil(engine.evaluate(
+            workoutType: .ride,
+            workoutStartedAt: start,
+            workoutState: .recording,
+            currentSpeedMetersPerSecond: 0.8,
+            detectedActivity: .walking,
+            settings: settings,
+            now: start.addingTimeInterval(26)
+        ))
+
+        XCTAssertNil(engine.evaluate(
+            workoutType: .ride,
+            workoutStartedAt: start,
+            workoutState: .recording,
+            currentSpeedMetersPerSecond: 0.8,
+            detectedActivity: .walking,
+            settings: settings,
+            now: start.addingTimeInterval(45)
+        ))
+    }
+
+    func testDoesNotSuggestWalkingWhenRunSlowsDownBriefly() {
+        var engine = SmartAssistEngine()
+        let start = Date(timeIntervalSince1970: 100)
+        let settings = SmartAssistSettings(
+            smartActivityAlertsEnabled: true,
+            autoPauseEnabled: false,
+            speedAnomalyAlertsEnabled: false
+        )
+
+        XCTAssertNil(engine.evaluate(
+            workoutType: .run,
+            workoutStartedAt: start,
+            workoutState: .recording,
+            currentSpeedMetersPerSecond: 1.2,
+            detectedActivity: .walking,
+            settings: settings,
+            now: start.addingTimeInterval(26)
+        ))
+
+        XCTAssertNil(engine.evaluate(
+            workoutType: .run,
+            workoutStartedAt: start,
+            workoutState: .recording,
+            currentSpeedMetersPerSecond: 1.2,
+            detectedActivity: .walking,
+            settings: settings,
+            now: start.addingTimeInterval(45)
+        ))
+    }
+
+    func testDoesNotSuggestRunningWhenWalkIsMisclassifiedAtWalkingSpeed() {
+        var engine = SmartAssistEngine()
+        let start = Date(timeIntervalSince1970: 100)
+        let settings = SmartAssistSettings(
+            smartActivityAlertsEnabled: true,
+            autoPauseEnabled: false,
+            speedAnomalyAlertsEnabled: false
+        )
+
+        XCTAssertNil(engine.evaluate(
+            workoutType: .walk,
+            workoutStartedAt: start,
+            workoutState: .recording,
+            currentSpeedMetersPerSecond: 1.1,
+            detectedActivity: .running,
+            settings: settings,
+            now: start.addingTimeInterval(26)
+        ))
+
+        XCTAssertNil(engine.evaluate(
+            workoutType: .walk,
+            workoutStartedAt: start,
+            workoutState: .recording,
+            currentSpeedMetersPerSecond: 1.1,
+            detectedActivity: .running,
+            settings: settings,
+            now: start.addingTimeInterval(45)
+        ))
+    }
+
     func testSuggestsSpeedAnomalyForWalkAtCarSpeedAfterStableDetection() {
         var engine = SmartAssistEngine()
         let start = Date(timeIntervalSince1970: 100)

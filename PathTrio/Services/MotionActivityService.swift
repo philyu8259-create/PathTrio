@@ -4,7 +4,7 @@ import Observation
 
 @Observable
 final class MotionActivityService {
-    private let manager = CMMotionActivityManager()
+    private var manager: CMMotionActivityManager?
     private let queue = OperationQueue()
     private(set) var detectedActivity: DetectedMotionActivity = .unknown
 
@@ -18,6 +18,8 @@ final class MotionActivityService {
             return
         }
 
+        let manager = manager ?? CMMotionActivityManager()
+        self.manager = manager
         manager.startActivityUpdates(to: queue) { [weak self] activity in
             guard let activity else { return }
             Task { @MainActor in
@@ -27,7 +29,7 @@ final class MotionActivityService {
     }
 
     func stop() {
-        manager.stopActivityUpdates()
+        manager?.stopActivityUpdates()
     }
 
     private static func map(_ activity: CMMotionActivity) -> DetectedMotionActivity {

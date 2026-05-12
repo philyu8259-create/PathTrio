@@ -153,7 +153,11 @@ struct SmartAssistEngine {
         if settings.smartActivityAlertsEnabled,
            let detectedType = detectedActivity.workoutType,
            detectedType != workoutType,
-           currentSpeedMetersPerSecond >= minimumMovingSpeed(for: detectedType) {
+           isPlausibleActivityChange(
+               from: workoutType,
+               to: detectedType,
+               currentSpeedMetersPerSecond: currentSpeedMetersPerSecond
+           ) {
             return ProposedSuggestion(
                 kind: .activityChange(detectedType),
                 suggestion: .activityChange(from: workoutType, to: detectedType),
@@ -162,6 +166,26 @@ struct SmartAssistEngine {
         }
 
         return nil
+    }
+
+    private func isPlausibleActivityChange(
+        from currentType: WorkoutType,
+        to detectedType: WorkoutType,
+        currentSpeedMetersPerSecond: Double
+    ) -> Bool {
+        if currentType == .ride && detectedType != .ride {
+            return false
+        }
+
+        if currentType == .run && detectedType == .walk {
+            return false
+        }
+
+        if currentType == .walk && detectedType == .run {
+            return currentSpeedMetersPerSecond >= runningSuggestionSpeed
+        }
+
+        return currentSpeedMetersPerSecond >= minimumMovingSpeed(for: detectedType)
     }
 
     private func isSpeedAnomalous(_ speed: Double, for type: WorkoutType) -> Bool {
@@ -181,6 +205,10 @@ struct SmartAssistEngine {
         case .run: 0.9
         case .ride: 2.0
         }
+    }
+
+    private var runningSuggestionSpeed: Double {
+        1.8
     }
 
     private func stationarySpeedThreshold(for type: WorkoutType) -> Double {

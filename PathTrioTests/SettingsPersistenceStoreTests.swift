@@ -45,16 +45,16 @@ final class SettingsPersistenceStoreTests: XCTestCase {
 
         XCTAssertEqual(settings.preferredUnits, "metric")
         XCTAssertFalse(settings.smartActivityAlertsEnabled)
-        XCTAssertTrue(settings.backgroundRecordingEnabled)
+        XCTAssertFalse(settings.backgroundRecordingEnabled)
         XCTAssertFalse(settings.autoStartRemindersEnabled)
         XCTAssertEqual(settings.weeklyDistanceGoalMeters, 10_000)
         XCTAssertEqual(settings.monthlyWorkoutGoalCount, 12)
         XCTAssertEqual(settings.preferredMapStyle, .standard)
     }
 
-    func testLoadMigratesOldSettingsToEnableBackgroundRecording() throws {
+    func testLoadMigratesOldSettingsWithoutEnablingBackgroundRecording() throws {
         let context = try makeContext()
-        let oldModel = UserSettingsModel(settingsSchemaVersion: 1, backgroundRecordingEnabled: false)
+        let oldModel = UserSettingsModel(settingsSchemaVersion: 1, backgroundRecordingEnabled: true)
         context.insert(oldModel)
         try context.save()
 
@@ -64,7 +64,7 @@ final class SettingsPersistenceStoreTests: XCTestCase {
 
         try persistenceStore.load(into: settings)
 
-        XCTAssertTrue(settings.backgroundRecordingEnabled)
+        XCTAssertFalse(settings.backgroundRecordingEnabled)
     }
 
     func testReconcileLockedProSettingsPersistsSanitizedValues() throws {

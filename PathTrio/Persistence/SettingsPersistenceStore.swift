@@ -55,7 +55,7 @@ struct SettingsPersistenceStore {
     private func migrateIfNeeded(_ model: UserSettingsModel) throws {
         guard (model.settingsSchemaVersion ?? 1) < SettingsSchema.currentVersion else { return }
 
-        model.backgroundRecordingEnabled = true
+        model.backgroundRecordingEnabled = false
         model.settingsSchemaVersion = SettingsSchema.currentVersion
         try context.save()
     }

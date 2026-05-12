@@ -61,8 +61,7 @@ final class LocationTrackingService: NSObject, CLLocationManagerDelegate {
         case .authorizedAlways, .authorizedWhenInUse:
             manager.requestLocation()
         case .notDetermined:
-            isPreviewLocationRequested = true
-            manager.requestWhenInUseAuthorization()
+            break
         case .denied, .restricted:
             break
         @unknown default:

@@ -2,10 +2,10 @@ import XCTest
 @testable import PathTrio
 
 final class SettingsStoreTests: XCTestCase {
-    func testBackgroundRecordingDefaultsToOn() {
+    func testBackgroundRecordingDefaultsToOff() {
         let store = SettingsStore()
 
-        XCTAssertTrue(store.backgroundRecordingEnabled)
+        XCTAssertFalse(store.backgroundRecordingEnabled)
         XCTAssertFalse(store.autoStartRemindersEnabled)
         XCTAssertEqual(store.weeklyDistanceGoalMeters, 10_000)
         XCTAssertEqual(store.monthlyWorkoutGoalCount, 12)

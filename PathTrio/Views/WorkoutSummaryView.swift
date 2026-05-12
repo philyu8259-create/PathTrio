@@ -9,6 +9,7 @@ struct WorkoutSummaryView: View {
     @State private var saveErrorMessage: String?
     @State private var healthSyncResult: WorkoutHealthSyncResult?
     @State private var hasSaved = false
+    @State private var canDismiss = false
     private let metricColumns = [
         GridItem(.flexible(), spacing: 10),
         GridItem(.flexible(), spacing: 10)
@@ -52,6 +53,7 @@ struct WorkoutSummaryView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("action.done", action: done)
+                        .disabled(!canDismiss)
                 }
             }
             .task {
@@ -77,8 +79,10 @@ struct WorkoutSummaryView: View {
                     if let healthSyncResult {
                         try store.updateHealthSyncResult(healthSyncResult, for: saved)
                     }
+                    canDismiss = true
                 } catch {
                     saveErrorMessage = L10n.string("summary.saveError")
+                    canDismiss = true
                 }
             }
         }

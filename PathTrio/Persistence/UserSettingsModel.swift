@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 enum SettingsSchema {
-    static let currentVersion = 2
+    static let currentVersion = 3
 }
 
 @Model
@@ -28,7 +28,7 @@ final class UserSettingsModel {
         smartActivityAlertsEnabled: Bool = false,
         autoPauseEnabled: Bool = false,
         speedAnomalyAlertsEnabled: Bool = false,
-        backgroundRecordingEnabled: Bool = true,
+        backgroundRecordingEnabled: Bool = false,
         autoStartRemindersEnabled: Bool? = false,
         bodyWeightKilograms: Double? = nil,
         healthKitSyncEnabled: Bool = false,
