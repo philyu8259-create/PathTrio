@@ -109,12 +109,17 @@
 "settings.recording.backgroundDescription" = "仅在运动记录中使用后台定位。锁屏后路线会更完整，但可能更耗电。";
 "settings.recording.backgroundConfirm.title" = "开启锁屏继续记录？";
 "settings.recording.backgroundConfirm.message" = "三动迹只会在运动记录进行中使用 GPS，以便锁屏后继续记录路线。这可能增加耗电，也可能需要“始终允许”定位权限。";
-"settings.recording.backgroundConfirm.enable" = "开启后台记录";
-"settings.health" = "Apple 健康";
-"settings.health.syncToAppleHealth" = "同步到 Apple 健康";
-"settings.health.confirm.title" = "同步到 Apple 健康？";
-"settings.health.confirm.message" = "三动迹会先请求授权，再将完成的走路、跑步、骑行、距离和活动能量写入 Apple 健康。即使同步失败，运动记录仍会保存在三动迹内。";
-"settings.health.confirm.enable" = "开启健康同步";
+"settings.recording.backgroundConfirm.enable" = "继续";
+"settings.health" = "Apple HealthKit 与 CareKit";
+"settings.health.frameworks.title" = "HealthKit 与 CareKit 使用说明";
+"settings.health.frameworks.healthKit" = "HealthKit：可选的 Apple 健康同步。获得许可后，三动迹可将完成的走路、跑步、骑行、距离和活动能量写入 Apple 健康。";
+"settings.health.frameworks.careKit" = "CareKit：未使用。三动迹不提供护理计划或临床任务管理功能。";
+"settings.health.frameworks.privacy" = "HealthKit 同步是可选功能。即使关闭同步或拒绝授权，运动记录仍会保存在三动迹内。";
+"settings.health.syncToAppleHealth" = "通过 HealthKit 同步到 Apple 健康";
+"settings.health.healthKitDescription" = "仅在获得许可后使用 Apple HealthKit，将完成的走路、跑步、骑行、距离和活动能量写入 Apple 健康。";
+"settings.health.confirm.title" = "通过 HealthKit 同步到 Apple 健康？";
+"settings.health.confirm.message" = "三动迹会先请求 HealthKit 授权，再将完成的走路、跑步、骑行、距离和活动能量写入 Apple 健康。即使同步失败，运动记录仍会保存在三动迹内。";
+"settings.health.confirm.enable" = "继续";
 "settings.privacy" = "隐私";
 "settings.privacy.description" = "三动迹默认将运动记录保存在本机，只在记录运动时使用定位来保存路线、距离和速度。";
 "settings.privacy.policy" = "隐私政策";
@@ -155,8 +160,8 @@
 "pro.feature.goals.message" = "追踪每周里程、月度次数和个人运动目标。";
 "pro.feature.mapStyles.title" = "更多地图样式";
 "pro.feature.mapStyles.message" = "切换更多路线地图外观，用于复盘和分享。";
-"pro.feature.advancedHealthSync.title" = "高级健康同步";
-"pro.feature.advancedHealthSync.message" = "开启后可向 Apple 健康同步更完整的运动数据。";
+"pro.feature.advancedHealthSync.title" = "Apple HealthKit 同步";
+"pro.feature.advancedHealthSync.message" = "获得许可后，通过 HealthKit 将更完整的运动数据写入 Apple 健康。";
 "pro.feature.appleWatch.title" = "Apple Watch 支持";
 "pro.feature.appleWatch.message" = "Apple Watch 配套支持包含在 Pro 中，需要已配对的 Apple Watch。";
 
@@ -185,9 +190,9 @@
 "watch.status.ready.title" = "Apple Watch 已就绪";
 "watch.status.ready.message" = "三动迹可以将实时运动数据和已保存的运动摘要发送到 Apple Watch。";
 
-"health.status.off.title" = "健康同步已关闭";
-"health.status.off.message" = "运动记录只保存在三动迹内。你可以之后再开启 Apple 健康同步。";
-"health.status.permissionNeeded.title" = "需要授权";
+"health.status.off.title" = "HealthKit 同步已关闭";
+"health.status.off.message" = "运动记录只保存在三动迹内。你可以之后再开启同步到 Apple 健康的 HealthKit 功能。";
+"health.status.permissionNeeded.title" = "需要 HealthKit 授权";
 "health.status.permissionNeeded.message" = "写入运动记录或活动数据到 Apple 健康前，三动迹会先请求你的许可。";
 
 "location.status.permissionNeeded.title" = "需要定位权限";
@@ -210,17 +215,17 @@
 "summary.metrics.title" = "运动数据";
 "summary.route.empty" = "本次运动没有保存路线点。";
 "summary.route.saved" = "已保存 %d 个路线点。";
-"summary.health.title" = "健康同步";
-"summary.health.skipped" = "Apple 健康同步未开启。本次运动已保存在三动迹内。";
+"summary.health.title" = "HealthKit 同步";
+"summary.health.skipped" = "同步到 Apple 健康的 HealthKit 功能未开启。本次运动已保存在三动迹内。";
 "summary.saveError" = "本次运动无法保存，请重试。";
-"summary.health.synced" = "已同步到 Apple 健康。";
-"summary.health.unavailable" = "这台设备无法使用 Apple 健康。本次运动已保存在三动迹内。";
-"summary.health.failed" = "Apple 健康同步未完成。本次运动已保存在三动迹内。";
+"summary.health.synced" = "已通过 HealthKit 同步到 Apple 健康。";
+"summary.health.unavailable" = "这台设备无法使用 Apple HealthKit。本次运动已保存在三动迹内。";
+"summary.health.failed" = "同步到 Apple 健康的 HealthKit 功能未完成。本次运动已保存在三动迹内。";
 "summary.health.saving" = "正在保存运动...";
-"detail.healthSync.synced" = "已同步到 Apple 健康";
-"detail.healthSync.skipped" = "Apple 健康同步未开启";
-"detail.healthSync.unavailable" = "Apple 健康不可用";
-"detail.healthSync.failed" = "Apple 健康同步失败";
+"detail.healthSync.synced" = "已通过 HealthKit 同步到 Apple 健康";
+"detail.healthSync.skipped" = "同步到 Apple 健康的 HealthKit 功能未开启";
+"detail.healthSync.unavailable" = "Apple HealthKit 不可用";
+"detail.healthSync.failed" = "同步到 Apple 健康的 HealthKit 功能失败";
 "detail.healthSync.retry" = "同步到 Apple 健康";
 "detail.healthSync.retrying" = "正在同步...";
 "detail.insights.title" = "运动复盘";

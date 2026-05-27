@@ -109,12 +109,17 @@
 "settings.recording.backgroundDescription" = "Uses background location only during an active workout. This keeps routes complete when the screen is locked, but may use more battery.";
 "settings.recording.backgroundConfirm.title" = "Record When Locked?";
 "settings.recording.backgroundConfirm.message" = "PathTrio will use GPS only while a workout is recording so the route can continue after the screen locks. This may use more battery and may require Always location permission.";
-"settings.recording.backgroundConfirm.enable" = "Enable Background Recording";
-"settings.health" = "Apple Health";
-"settings.health.syncToAppleHealth" = "Sync to Apple Health";
-"settings.health.confirm.title" = "Sync to Apple Health?";
-"settings.health.confirm.message" = "PathTrio will ask permission before writing completed walks, runs, rides, distance, and active energy to Apple Health. Your workout is saved in PathTrio even if sync fails.";
-"settings.health.confirm.enable" = "Enable Health Sync";
+"settings.recording.backgroundConfirm.enable" = "Continue";
+"settings.health" = "Apple HealthKit & CareKit";
+"settings.health.frameworks.title" = "HealthKit and CareKit use";
+"settings.health.frameworks.healthKit" = "HealthKit: optional Apple Health sync. After permission, PathTrio can write completed walks, runs, rides, distance, and active energy to Apple Health.";
+"settings.health.frameworks.careKit" = "CareKit: not used. PathTrio does not provide care-plan or clinical task management features.";
+"settings.health.frameworks.privacy" = "HealthKit sync is optional. Workout records stay saved in PathTrio even when sync is off or permission is denied.";
+"settings.health.syncToAppleHealth" = "HealthKit Sync to Apple Health";
+"settings.health.healthKitDescription" = "Uses Apple HealthKit only after permission to write completed walks, runs, rides, distance, and active energy to Apple Health.";
+"settings.health.confirm.title" = "HealthKit Sync to Apple Health?";
+"settings.health.confirm.message" = "PathTrio will ask for HealthKit permission before writing completed walks, runs, rides, distance, and active energy to Apple Health. Your workout is saved in PathTrio even if sync fails.";
+"settings.health.confirm.enable" = "Continue";
 "settings.privacy" = "Privacy";
 "settings.privacy.description" = "PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.";
 
@@ -156,8 +161,8 @@
 "pro.feature.goals.message" = "Track weekly distance, monthly sessions, and personal targets.";
 "pro.feature.mapStyles.title" = "More Map Styles";
 "pro.feature.mapStyles.message" = "Switch between additional route map looks for review and sharing.";
-"pro.feature.advancedHealthSync.title" = "Advanced Health Sync";
-"pro.feature.advancedHealthSync.message" = "Sync richer workout data with Apple Health when enabled.";
+"pro.feature.advancedHealthSync.title" = "Apple HealthKit Sync";
+"pro.feature.advancedHealthSync.message" = "Write richer workout data to Apple Health through HealthKit after permission.";
 "pro.feature.appleWatch.title" = "Apple Watch Support";
 "pro.feature.appleWatch.message" = "Apple Watch companion support is included with Pro and requires a paired Apple Watch.";
 
@@ -186,9 +191,9 @@
 "watch.status.ready.title" = "Apple Watch Ready";
 "watch.status.ready.message" = "PathTrio can publish live workout metrics and saved workout summaries to Apple Watch.";
 
-"health.status.off.title" = "Health Sync Off";
-"health.status.off.message" = "Workouts stay in PathTrio only. You can turn on Apple Health sync later.";
-"health.status.permissionNeeded.title" = "Permission Needed";
+"health.status.off.title" = "HealthKit Sync Off";
+"health.status.off.message" = "Workouts stay in PathTrio only. You can turn on HealthKit sync to Apple Health later.";
+"health.status.permissionNeeded.title" = "HealthKit Permission Needed";
 "health.status.permissionNeeded.message" = "PathTrio will ask permission before writing workouts or activity data to Apple Health.";
 
 "location.status.permissionNeeded.title" = "Location Permission Needed";
@@ -211,17 +216,17 @@
 "summary.metrics.title" = "Workout Metrics";
 "summary.route.empty" = "No route points were saved for this workout.";
 "summary.route.saved" = "%d route points saved.";
-"summary.health.title" = "Health Sync";
-"summary.health.skipped" = "Apple Health sync is off. Your workout was saved in PathTrio.";
+"summary.health.title" = "HealthKit Sync";
+"summary.health.skipped" = "HealthKit sync to Apple Health is off. Your workout was saved in PathTrio.";
 "summary.saveError" = "This workout could not be saved. Please try again.";
-"summary.health.synced" = "Synced to Apple Health.";
-"summary.health.unavailable" = "Apple Health is not available on this device. Your workout was saved in PathTrio.";
-"summary.health.failed" = "Apple Health sync did not finish. Your workout was saved in PathTrio.";
+"summary.health.synced" = "Synced to Apple Health through HealthKit.";
+"summary.health.unavailable" = "Apple HealthKit is not available on this device. Your workout was saved in PathTrio.";
+"summary.health.failed" = "HealthKit sync to Apple Health did not finish. Your workout was saved in PathTrio.";
 "summary.health.saving" = "Saving workout...";
-"detail.healthSync.synced" = "Synced to Apple Health";
-"detail.healthSync.skipped" = "Apple Health sync was off";
-"detail.healthSync.unavailable" = "Apple Health was unavailable";
-"detail.healthSync.failed" = "Apple Health sync failed";
+"detail.healthSync.synced" = "Synced to Apple Health through HealthKit";
+"detail.healthSync.skipped" = "HealthKit sync to Apple Health was off";
+"detail.healthSync.unavailable" = "Apple HealthKit was unavailable";
+"detail.healthSync.failed" = "HealthKit sync to Apple Health failed";
 "detail.healthSync.retry" = "Sync to Apple Health";
 "detail.healthSync.retrying" = "Syncing...";
 "detail.insights.title" = "Workout Review";

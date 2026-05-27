@@ -714,7 +714,7 @@
 				INFOPLIST_FILE = PathTrio/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you enable sync.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.";
@@ -780,7 +780,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-			CURRENT_PROJECT_VERSION = 9;
+			CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -845,7 +845,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-			CURRENT_PROJECT_VERSION = 9;
+			CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -880,7 +880,7 @@
 				INFOPLIST_FILE = PathTrio/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you enable sync.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.";

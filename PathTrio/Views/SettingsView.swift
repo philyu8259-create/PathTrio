@@ -66,7 +66,10 @@ struct SettingsView: View {
                         }
 
                         SettingsPanel(titleKey: "settings.health", systemImage: "heart.text.square") {
+                            HealthFrameworkDisclosureRow()
+                            SettingsDivider()
                             SettingsToggleRow(titleKey: "settings.health.syncToAppleHealth", systemImage: "heart", accessoryKey: "pro.badge", isOn: healthSyncBinding)
+                            SettingsDescription(textKey: "settings.health.healthKitDescription")
                             SettingsDivider()
                             HealthSyncStatusRow(status: HealthSyncPlan.status(syncEnabled: settings.healthKitSyncEnabled && appModel.entitlementStore.canUse(.advancedHealthSync)))
                         }
@@ -130,7 +133,6 @@ struct SettingsView: View {
                 #if DEBUG
                 if ScreenshotDemoData.isEnabled {
                     ScreenshotDemoData.prepare(appModel: appModel, context: modelContext)
-                    appModel.reconcileLockedProSettings(in: modelContext)
                     return
                 }
                 #endif
@@ -383,8 +385,6 @@ private struct ProSettingsView: View {
                 .padding(16)
             }
         }
-        .navigationTitle("pro.title")
-        .navigationBarTitleDisplayMode(.large)
         .task {
             if appModel.entitlementStore.canUse(.appleWatch) {
                 appModel.appleWatchSupportService.activate()
@@ -564,6 +564,43 @@ private struct HealthSyncStatusRow: View {
         switch status.kind {
         case .disabled: .secondary
         case .permissionNeeded: .blue
+        }
+    }
+}
+
+private struct HealthFrameworkDisclosureRow: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Label("settings.health.frameworks.title", systemImage: "heart.text.square")
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(PathTrioTheme.ink)
+
+            VStack(alignment: .leading, spacing: 8) {
+                DisclosureLine(textKey: "settings.health.frameworks.healthKit", systemImage: "heart.fill", tint: .red)
+                DisclosureLine(textKey: "settings.health.frameworks.careKit", systemImage: "cross.case", tint: .blue)
+                DisclosureLine(textKey: "settings.health.frameworks.privacy", systemImage: "lock.shield", tint: PathTrioTheme.teal)
+            }
+        }
+        .padding(12)
+        .background(.white.opacity(0.58), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+    }
+}
+
+private struct DisclosureLine: View {
+    let textKey: LocalizedStringKey
+    let systemImage: String
+    let tint: Color
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 8) {
+            Image(systemName: systemImage)
+                .font(.caption.weight(.bold))
+                .foregroundStyle(tint)
+                .frame(width: 18, height: 18)
+            Text(textKey)
+                .font(.footnote)
+                .foregroundStyle(PathTrioTheme.muted)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }

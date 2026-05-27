@@ -3,4 +3,4 @@
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.";
 "NSMotionUsageDescription" = "PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.";
 "NSHealthShareUsageDescription" = "PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.";
-"NSHealthUpdateUsageDescription" = "PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you enable sync.";
+"NSHealthUpdateUsageDescription" = "PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.";

@@ -8,7 +8,7 @@ settings:
   base:
     SWIFT_VERSION: 5.9
     MARKETING_VERSION: 1.0
-    CURRENT_PROJECT_VERSION: 9
+    CURRENT_PROJECT_VERSION: 12
 targets:
   PathTrio:
     type: application
@@ -32,7 +32,7 @@ targets:
         INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription: PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.
         INFOPLIST_KEY_NSMotionUsageDescription: PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.
         INFOPLIST_KEY_NSHealthShareUsageDescription: PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.
-        INFOPLIST_KEY_NSHealthUpdateUsageDescription: PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you enable sync.
+        INFOPLIST_KEY_NSHealthUpdateUsageDescription: PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.
     info:
       path: PathTrio/Info.plist
       properties:
@@ -52,7 +52,7 @@ targets:
         NSLocationAlwaysAndWhenInUseUsageDescription: PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.
         NSMotionUsageDescription: PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.
         NSHealthShareUsageDescription: PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.
-        NSHealthUpdateUsageDescription: PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you enable sync.
+        NSHealthUpdateUsageDescription: PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.
   PathTrioWatch:
     type: application
     platform: watchOS
