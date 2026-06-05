@@ -204,6 +204,9 @@
 "profile.settings" = "Settings";
 "profile.achievements" = "Achievements";
 "profile.achievements.placeholder" = "Achievements coming soon";
+"profile.achievements.unlocked" = "%@ / %@ unlocked";
+"profile.peachBuddy.title" = "Peach Buddy status";
+"profile.peachBuddy.stats" = "%@ day streak · %@ workouts";
 
 "pro.title" = "PathTrio Pro";
 "pro.badge" = "PRO";
@@ -293,6 +296,7 @@
 "summary.route.empty" = "No route points were saved for this workout.";
 "summary.route.saved" = "%d route points saved.";
 "summary.health.title" = "HealthKit Sync";
+"summary.peachBuddy.message" = "Peach Buddy saved your progress.";
 "summary.health.skipped" = "HealthKit sync to Apple Health is off. Your workout was saved in PathTrio.";
 "summary.saveError" = "This workout could not be saved. Please try again.";
 "summary.health.synced" = "Synced to Apple Health through HealthKit.";
@@ -333,6 +337,8 @@
 "food.placeholder.feature.two" = "Macro and hydration tracking";
 "food.placeholder.feature.three" = "Hydration reminders";
 "food.recognitionUsage" = "AI food recognition";
+"food.peachBuddy.title" = "Peach Buddy checks your meals";
+"food.peachBuddy.message" = "Photo estimates are starting points. Edit them before saving.";
 "food.recognitionUsage.value" = "Used today: %@ / %@";
 "food.recognitionUsage.remaining" = "%@ free recognitions left today";
 "food.recognitionUsage.exhausted" = "No AI recognitions left today";
@@ -347,6 +353,7 @@
 "food.input.calories" = "Estimated calories";
 "food.logs.title" = "Recent meals";
 "food.logs.empty" = "No meals logged yet";
+"food.logs.empty.message" = "Pick a meal photo or take one to let Peach Buddy estimate it.";
 "food.logs.calories" = "%@ kcal";
 "food.error.dailyLimit" = "Daily AI recognition limit reached (%@ / %@ used).";
 "food.error.emptyImage" = "No image was selected.";

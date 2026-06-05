@@ -203,6 +203,9 @@
 "profile.settings" = "设置";
 "profile.achievements" = "成就";
 "profile.achievements.placeholder" = "成就功能即将上线";
+"profile.achievements.unlocked" = "已解锁 %@ / %@";
+"profile.peachBuddy.title" = "桃子伙伴状态";
+"profile.peachBuddy.stats" = "连续 %@ 天 · %@ 次运动";
 
 "pro.title" = "三动迹 Pro";
 "pro.badge" = "PRO";
@@ -292,6 +295,7 @@
 "summary.route.empty" = "本次运动没有保存路线点。";
 "summary.route.saved" = "已保存 %d 个路线点。";
 "summary.health.title" = "HealthKit 同步";
+"summary.peachBuddy.message" = "桃子伙伴已帮你收下这次进步。";
 "summary.health.skipped" = "同步到 Apple 健康的 HealthKit 功能未开启。本次运动已保存在三动迹内。";
 "summary.saveError" = "本次运动无法保存，请重试。";
 "summary.health.synced" = "已通过 HealthKit 同步到 Apple 健康。";
@@ -332,6 +336,8 @@
 "food.placeholder.feature.two" = "热量与营养素追踪";
 "food.placeholder.feature.three" = "补水提醒";
 "food.recognitionUsage" = "AI 食物识别";
+"food.peachBuddy.title" = "桃子伙伴帮你看餐食";
+"food.peachBuddy.message" = "图片识别只是估算，保存前可以自己修正。";
 "food.recognitionUsage.value" = "今日已用：%@ / %@";
 "food.recognitionUsage.remaining" = "今日剩余 %@ 次免费识别";
 "food.recognitionUsage.exhausted" = "今日免费识别次数已用完";
@@ -346,6 +352,7 @@
 "food.input.calories" = "预估热量";
 "food.logs.title" = "最近记录";
 "food.logs.empty" = "暂无餐食记录";
+"food.logs.empty.message" = "选择或拍摄一张餐食照片，让桃子伙伴先帮你估算。";
 "food.logs.calories" = "%@ 千卡";
 "food.error.dailyLimit" = "今日 AI 识别次数已达上限（%@/%@）。";
 "food.error.emptyImage" = "未选择图片。";

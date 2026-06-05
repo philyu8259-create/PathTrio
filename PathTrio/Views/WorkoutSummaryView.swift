@@ -91,11 +91,22 @@ struct WorkoutSummaryView: View {
 
     private var summaryHeader: some View {
         HStack(spacing: 12) {
-            Image(systemName: draft.type.systemImage)
-                .font(.title3.weight(.bold))
-                .foregroundStyle(.white)
-                .frame(width: 52, height: 52)
-                .background(PathTrioTheme.tint(for: draft.type), in: Circle())
+            ZStack(alignment: .bottomTrailing) {
+                Image(PathTrioAssets.Image.peachBuddyWorkoutComplete)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 74, height: 74)
+                    .background(.white.opacity(0.82), in: Circle())
+
+                Image(systemName: draft.type.systemImage)
+                    .font(.caption.weight(.black))
+                    .foregroundStyle(.white)
+                    .frame(width: 28, height: 28)
+                    .background(PathTrioTheme.tint(for: draft.type), in: Circle())
+                    .overlay {
+                        Circle().stroke(.white.opacity(0.86), lineWidth: 1)
+                    }
+            }
 
             VStack(alignment: .leading, spacing: 5) {
                 Text(L10n.string("summary.subtitle", draft.type.displayName))
@@ -104,6 +115,9 @@ struct WorkoutSummaryView: View {
                 Text(draft.startedAt.formatted(date: .abbreviated, time: .shortened))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(PathTrioTheme.muted)
+                Text("summary.peachBuddy.message")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(PathTrioTheme.hawk)
             }
 
             Spacer()

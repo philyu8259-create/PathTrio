@@ -32,6 +32,7 @@ struct FoodView: View {
                             tint: PathTrioTheme.action
                         )
 
+                        peachBuddyFoodCard
                         usageCard
                         entryControls
                         if let image = displayedImageData.map({ data in Image(uiImage: UIImage(data: data) ?? UIImage()) }) {
@@ -45,14 +46,11 @@ struct FoodView: View {
                         if !foodLogs.isEmpty {
                             historySection
                         } else {
-                            Text("food.logs.empty")
-                                .font(.footnote.weight(.semibold))
-                                .foregroundStyle(PathTrioTheme.muted)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 6)
+                            foodEmptyState
                         }
                     }
                     .padding(16)
+                    .padding(.bottom, 96)
                 }
             }
             .navigationTitle(Text("food.title"))
@@ -91,6 +89,33 @@ struct FoodView: View {
                 }
             }
         }
+    }
+
+    private var peachBuddyFoodCard: some View {
+        HStack(spacing: 12) {
+            Image(PathTrioAssets.Image.peachBuddyFoodLog)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 82, height: 82)
+                .background(.white.opacity(0.78), in: Circle())
+                .overlay {
+                    Circle().stroke(.white.opacity(0.86), lineWidth: 1)
+                }
+
+            VStack(alignment: .leading, spacing: 5) {
+                Text("food.peachBuddy.title")
+                    .font(.headline.weight(.black))
+                    .foregroundStyle(PathTrioTheme.ink)
+                Text("food.peachBuddy.message")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 0)
+        }
+        .padding(14)
+        .pathTrioCard()
     }
 
     private var usageCard: some View {
@@ -281,6 +306,30 @@ struct FoodView: View {
                 }
             }
         }
+    }
+
+    private var foodEmptyState: some View {
+        HStack(spacing: 12) {
+            Image(PathTrioAssets.Image.peachBuddyRest)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 64, height: 64)
+                .background(.white.opacity(0.74), in: Circle())
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("food.logs.empty")
+                    .font(.footnote.weight(.black))
+                    .foregroundStyle(PathTrioTheme.ink)
+                Text("food.logs.empty.message")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer(minLength: 0)
+        }
+        .padding(14)
+        .pathTrioCard()
     }
 
     private func handleLibrarySelection(_ item: PhotosPickerItem?) async {
