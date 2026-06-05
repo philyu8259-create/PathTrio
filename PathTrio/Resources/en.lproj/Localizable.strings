@@ -1,9 +1,13 @@
 "app.name" = "PathTrio";
-"app.subtitle" = "Walk, Run & Ride Tracker";
+"app.subtitle" = "Multi-Sport Fitness Tracker";
 
 "tab.home" = "Home";
 "tab.history" = "History";
 "tab.settings" = "Settings";
+"tab.today" = "Today";
+"tab.workouts" = "Workouts";
+"tab.food" = "Food";
+"tab.profile" = "Profile";
 
 "action.start" = "Start";
 "action.done" = "Done";
@@ -21,6 +25,30 @@
 "workout.walk" = "Walk";
 "workout.run" = "Run";
 "workout.ride" = "Ride";
+"workout.hike" = "Hike";
+"workout.trailRun" = "Trail Run";
+"workout.treadmillRun" = "Treadmill Run";
+"workout.roadRide" = "Road Ride";
+"workout.mountainRide" = "Mountain Ride";
+"workout.indoorRide" = "Indoor Ride";
+"workout.eBikeRide" = "E-Bike Ride";
+"workout.swim" = "Swim";
+"workout.openWaterSwim" = "Open-Water Swim";
+"workout.row" = "Row";
+"workout.paddle" = "Paddle";
+"workout.kayak" = "Kayak";
+"workout.canoe" = "Canoe";
+"workout.standUpPaddleboard" = "SUP";
+"workout.rowingMachine" = "Rowing Machine";
+"workout.elliptical" = "Elliptical";
+"workout.stairClimb" = "Stair Climb";
+"workout.skiing" = "Skiing";
+"workout.snowshoe" = "Snowshoe";
+"workout.yoga" = "Yoga";
+"workout.strengthTraining" = "Strength Training";
+"workout.coreTraining" = "Core Training";
+"workout.hiit" = "HIIT";
+"workout.dance" = "Dance";
 
 "workoutState.ready" = "Ready";
 "workoutState.recording" = "Recording";
@@ -49,14 +77,38 @@
 "home.today.sessions" = "Sessions";
 "home.recent.title" = "Recent";
 "home.recent.empty.title" = "No workouts yet";
-"home.recent.empty.message" = "Your next saved walk, run, or ride will appear here.";
+"home.recent.empty.message" = "Your next saved workout will appear here.";
 "home.openHistory" = "Open History";
 "home.openSettings" = "Open Settings";
 "home.quickStart" = "Quick Start";
 "home.mode.title" = "Activity";
+"home.trioPal.title" = "Trio Pal";
+"home.trioPal.subtitle" = "Your active buddy is cheering your progress.";
+"home.peachBuddy.title" = "Peach Buddy";
+"home.peachBuddy.subtitle" = "Your energy buddy is cheering you on.";
 
 "detail.started" = "Started";
 "detail.ended" = "Ended";
+
+"today.title" = "Today";
+"today.subtitle" = "Daily mission board and quick start";
+"today.metrics.title" = "Today at a glance";
+"today.quickStart" = "Quick Start";
+"today.quickStart.button" = "Start";
+"today.streak.title" = "Streak";
+"today.streak.value" = "%@";
+"today.streak.active" = "%@ day streak in progress";
+"today.streak.inactive" = "Start a workout to begin your streak";
+"today.tasks.title" = "Daily tasks";
+"today.task.session.title" = "Daily session";
+"today.task.session.progress" = "%@ / %@ session";
+"today.task.minutes.title" = "Move 20 min";
+"today.task.minutes.progress" = "%@ / %@ minutes";
+"today.task.distance.title" = "Cover 2.0km";
+"today.task.distance.progress" = "%@ / %@";
+"today.quickActions.title" = "Quick actions";
+"today.quickActions.workouts" = "Workouts";
+"today.quickActions.profile" = "Profile";
 
 "active.title" = "Live Workout";
 "active.map.empty" = "Waiting for GPS route";
@@ -69,7 +121,7 @@
 "history.title" = "History";
 "history.subtitle" = "Review workouts by day and month";
 "history.empty.title" = "No Workouts";
-"history.empty.description" = "Your saved walks, runs, and rides will appear here.";
+"history.empty.description" = "Your saved workouts will appear here.";
 "history.empty.filtered" = "No workouts match this filter yet.";
 "history.clearAll" = "Delete All Workouts";
 "history.clearAll.confirm.title" = "Delete all workout history?";
@@ -96,6 +148,19 @@
 "autoStart.title" = "Start %@?";
 "autoStart.message" = "PathTrio detected sustained movement. Tap play to start recording.";
 
+"workout.search.placeholder" = "Search workouts";
+"workout.search.empty" = "No matching workout type.";
+"workout.category.all" = "All";
+"workout.category.favorites" = "Favorites";
+"workout.category.cardio" = "Cardio";
+"workout.category.endurance" = "Endurance";
+"workouts.title" = "Workouts";
+"workouts.subtitle" = "Pick sport, favorite your go-tos, and start";
+"workouts.quickStart" = "Start selected workout";
+"workouts.start" = "Start Workout";
+"workouts.history.summary" = "Recent totals";
+"workouts.summary.count" = "%@ records";
+
 "settings.title" = "Settings";
 "settings.subtitle" = "Recording, assist, and Pro controls";
 "settings.smartAssist" = "Smart Assist";
@@ -104,21 +169,20 @@
 "settings.smartAssist.speedAnomalyAlerts" = "Speed Anomaly Alerts";
 "settings.recording" = "Recording";
 "settings.recording.autoStartReminders" = "Automatic Start Reminders";
-"settings.recording.autoStartDescription" = "When enabled, PathTrio watches motion activity and suggests starting a workout after sustained walking, running, or riding. You still confirm before recording starts.";
+"settings.recording.autoStartDescription" = "When enabled, PathTrio watches motion activity and suggests starting a workout after sustained movement. You still confirm before recording starts.";
 "settings.recording.recordWhenLocked" = "Record When Locked";
 "settings.recording.backgroundDescription" = "Uses background location only during an active workout. This keeps routes complete when the screen is locked, but may use more battery.";
 "settings.recording.backgroundConfirm.title" = "Record When Locked?";
 "settings.recording.backgroundConfirm.message" = "PathTrio will use GPS only while a workout is recording so the route can continue after the screen locks. This may use more battery and may require Always location permission.";
 "settings.recording.backgroundConfirm.enable" = "Continue";
-"settings.health" = "Apple HealthKit & CareKit";
-"settings.health.frameworks.title" = "HealthKit and CareKit use";
-"settings.health.frameworks.healthKit" = "HealthKit: optional Apple Health sync. After permission, PathTrio can write completed walks, runs, rides, distance, and active energy to Apple Health.";
-"settings.health.frameworks.careKit" = "CareKit: not used. PathTrio does not provide care-plan or clinical task management features.";
+"settings.health" = "Apple HealthKit";
+"settings.health.frameworks.title" = "HealthKit use";
+"settings.health.frameworks.healthKit" = "HealthKit: optional Apple Health sync. After permission, PathTrio can write supported completed workouts, distance when available, and active energy to Apple Health.";
 "settings.health.frameworks.privacy" = "HealthKit sync is optional. Workout records stay saved in PathTrio even when sync is off or permission is denied.";
 "settings.health.syncToAppleHealth" = "HealthKit Sync to Apple Health";
-"settings.health.healthKitDescription" = "Uses Apple HealthKit only after permission to write completed walks, runs, rides, distance, and active energy to Apple Health.";
+"settings.health.healthKitDescription" = "Uses Apple HealthKit only after permission to write supported completed workouts, distance when available, and active energy to Apple Health.";
 "settings.health.confirm.title" = "HealthKit Sync to Apple Health?";
-"settings.health.confirm.message" = "PathTrio will ask for HealthKit permission before writing completed walks, runs, rides, distance, and active energy to Apple Health. Your workout is saved in PathTrio even if sync fails.";
+"settings.health.confirm.message" = "PathTrio will ask for HealthKit permission before writing supported completed workouts, distance when available, and active energy to Apple Health. Your workout is saved in PathTrio even if sync fails.";
 "settings.health.confirm.enable" = "Continue";
 "settings.privacy" = "Privacy";
 "settings.privacy.description" = "PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.";
@@ -128,6 +192,18 @@
 "settings.privacy.eula" = "Terms of Use";
 "settings.linkUnavailable.title" = "Unable to open page";
 "settings.linkUnavailable.message" = "The page is not available right now. Please try again later.";
+
+"profile.title" = "Profile";
+"profile.subtitle" = "History, settings, and your status";
+"profile.pro.title" = "Pro status";
+"profile.pro.active" = "Pro active";
+"profile.pro.free" = "Free mode";
+"profile.pro.unlockMessage" = "You're already unlocked with full features.";
+"profile.pro.lockedMessage" = "Upgrade for AI-free premium features.";
+"profile.history" = "History";
+"profile.settings" = "Settings";
+"profile.achievements" = "Achievements";
+"profile.achievements.placeholder" = "Achievements coming soon";
 
 "pro.title" = "PathTrio Pro";
 "pro.badge" = "PRO";
@@ -247,3 +323,51 @@
 "smartAssist.autoPause.message" = "You appear to be still. PathTrio can pause this workout until movement resumes.";
 "smartAssist.speedAnomaly.title" = "Unusual speed detected";
 "smartAssist.speedAnomaly.message" = "Your speed is unusually high for this workout type. You may want to pause recording.";
+
+"food.title" = "Food";
+"food.subtitle" = "Nutrition tracking is in progress";
+"food.placeholder.title" = "Food module is arriving";
+"food.placeholder.message" = "We plan to bring meal logging, fueling plans, and nutrition insights. Stay tuned.";
+"food.placeholder.features" = "Planned in v2:";
+"food.placeholder.feature.one" = "Quick food scanner";
+"food.placeholder.feature.two" = "Macro and hydration tracking";
+"food.placeholder.feature.three" = "Hydration reminders";
+"food.recognitionUsage" = "AI food recognition";
+"food.recognitionUsage.value" = "Used today: %@ / %@";
+"food.recognitionUsage.remaining" = "%@ free recognitions left today";
+"food.recognitionUsage.exhausted" = "No AI recognitions left today";
+"food.recognitionUsage.limitReached" = "Daily free AI usage limit reached";
+"food.action.pickPhoto" = "Pick a photo";
+"food.action.camera" = "Take photo";
+"food.action.save" = "Save meal";
+"food.recognizing" = "Recognizing your food image...";
+"food.recognitionError.title" = "Recognition failed";
+"food.recognitionResult" = "Review and edit before saving";
+"food.input.foodName" = "Food name";
+"food.input.calories" = "Estimated calories";
+"food.logs.title" = "Recent meals";
+"food.logs.empty" = "No meals logged yet";
+"food.logs.calories" = "%@ kcal";
+"food.error.dailyLimit" = "Daily AI recognition limit reached (%@ / %@ used).";
+"food.error.emptyImage" = "No image was selected.";
+"food.error.invalidResult" = "Could not read the recognition response.";
+"food.error.networkResponseMissing" = "Could not read server response.";
+"food.error.network" = "Recognition failed: %@";
+"food.error.server" = "Food recognition service is unavailable (HTTP %@)";
+"food.error.emptyName" = "Food name cannot be empty.";
+"food.result.unavailable" = "Unknown food";
+
+"gamification.trioPal.state.resting" = "PathTrio Resting";
+"gamification.trioPal.state.warmUp" = "Warm-up";
+"gamification.trioPal.state.steady" = "Steady Pace";
+"gamification.trioPal.state.blazing" = "On Fire";
+"gamification.trioPal.state.protected" = "Shielded";
+
+"achievement.firstWorkout.title" = "First Step";
+"achievement.firstWorkout.detail" = "Complete your first workout.";
+"achievement.steadyStarter.title" = "Steady Starter";
+"achievement.steadyStarter.detail" = "Keep it up for 3 days in a row.";
+"achievement.weekWarmup.title" = "Warm  Up";
+"achievement.weekWarmup.detail" = "Complete 5 workouts.";
+"achievement.weekWarrior.title" = "Week Warrior";
+"achievement.weekWarrior.detail" = "Keep a 7-day streak.";

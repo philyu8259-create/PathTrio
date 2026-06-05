@@ -11,8 +11,12 @@ enum ScreenshotDemoData {
 
     static var targetTab: AppTab? {
         switch argument(after: "-PathTrioScreenshotTab") {
-        case "history": .history
-        case "settings": .settings
+        case "today": .today
+        case "workouts": .workouts
+        case "food": .food
+        case "profile": .profile
+        case "history": .workouts
+        case "settings": .profile
         default: nil
         }
     }
@@ -96,6 +100,10 @@ enum ScreenshotDemoData {
             makeWorkout(type: .ride, daysAgo: 3, hour: 8, distance: 12_650, duration: 2_210, calories: 358, now: now),
             makeWorkout(type: .run, daysAgo: 5, hour: 7, distance: 3_920, duration: 1_504, calories: 232, now: now),
             makeWorkout(type: .walk, daysAgo: 8, hour: 20, distance: 1_680, duration: 1_360, calories: 92, now: now),
+            makeWorkout(type: .hike, daysAgo: 9, hour: 16, distance: 3_410, duration: 2_450, calories: 211, now: now),
+            makeWorkout(type: .trailRun, daysAgo: 10, hour: 7, distance: 6_200, duration: 1_830, calories: 298, now: now),
+            makeWorkout(type: .swim, daysAgo: 11, hour: 8, distance: 1_200, duration: 2_040, calories: 240, now: now),
+            makeWorkout(type: .strengthTraining, daysAgo: 13, hour: 21, distance: 0, duration: 1_600, calories: 145, now: now),
             makeWorkout(type: .ride, daysAgo: 12, hour: 9, distance: 8_760, duration: 1_740, calories: 252, now: now)
         ]
     }

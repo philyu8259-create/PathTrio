@@ -40,11 +40,7 @@ private struct LatestWorkoutView: View {
     let refresh: () -> Void
 
     private var typeColor: Color {
-        switch workout.typeRawValue {
-        case "run": .orange
-        case "ride": .blue
-        default: .teal
-        }
+        WatchWorkoutFormatters.typeColor(for: workout.typeRawValue)
     }
 
     var body: some View {
@@ -114,10 +110,13 @@ private struct WatchMetricGrid: View {
                 tint: .blue
             )
             WatchMetricRow(
-                titleKey: workout.typeRawValue == "ride" ? "watch.metric.speed" : "watch.metric.pace",
-                value: workout.typeRawValue == "ride"
-                    ? WatchWorkoutFormatters.speed(workout.averageSpeedMetersPerSecond)
-                    : WatchWorkoutFormatters.pace(duration: workout.duration, distanceMeters: workout.distanceMeters),
+                titleKey: WatchWorkoutFormatters.metricTitleKey(for: workout.typeRawValue),
+                value: WatchWorkoutFormatters.metricValue(
+                    for: workout.typeRawValue,
+                    duration: workout.duration,
+                    distanceMeters: workout.distanceMeters,
+                    averageSpeedMetersPerSecond: workout.averageSpeedMetersPerSecond
+                ),
                 systemImage: "speedometer",
                 tint: .purple
             )

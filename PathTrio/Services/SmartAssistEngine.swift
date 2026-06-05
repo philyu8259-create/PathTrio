@@ -173,15 +173,15 @@ struct SmartAssistEngine {
         to detectedType: WorkoutType,
         currentSpeedMetersPerSecond: Double
     ) -> Bool {
-        if currentType == .ride && detectedType != .ride {
+        if currentType.category == .cycling && detectedType.category != .cycling {
             return false
         }
 
-        if currentType == .run && detectedType == .walk {
+        if currentType.category == .running && detectedType.category == .walking {
             return false
         }
 
-        if currentType == .walk && detectedType == .run {
+        if currentType.category == .walking && detectedType.category == .running {
             return currentSpeedMetersPerSecond >= runningSuggestionSpeed
         }
 
@@ -189,22 +189,11 @@ struct SmartAssistEngine {
     }
 
     private func isSpeedAnomalous(_ speed: Double, for type: WorkoutType) -> Bool {
-        switch type {
-        case .walk:
-            speed > 4.5
-        case .run:
-            speed > 8.5
-        case .ride:
-            speed > 22
-        }
+        speed > type.speedAnomalyThreshold
     }
 
     private func minimumMovingSpeed(for type: WorkoutType) -> Double {
-        switch type {
-        case .walk: 0.35
-        case .run: 0.9
-        case .ride: 2.0
-        }
+        type.minimumMovingSpeed
     }
 
     private var runningSuggestionSpeed: Double {
@@ -212,11 +201,7 @@ struct SmartAssistEngine {
     }
 
     private func stationarySpeedThreshold(for type: WorkoutType) -> Double {
-        switch type {
-        case .walk: 0.35
-        case .run: 0.6
-        case .ride: 1.0
-        }
+        type.stationarySpeedThreshold
     }
 
     private func isAutoPauseCandidate(

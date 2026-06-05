@@ -100,6 +100,17 @@ final class DistanceCalculatorTests: XCTestCase {
         }
     }
 
+    func testNonGpsSportsProduceNoRouteDistance() {
+        let calculator = DistanceCalculator()
+        let start = Date(timeIntervalSince1970: 100)
+        let points = [
+            movingLocation(latitude: 31.184000, longitude: 121.603000, accuracy: 8, speed: 1.0, timestamp: start),
+            movingLocation(latitude: 31.184540, longitude: 121.603000, accuracy: 8, speed: 1.0, timestamp: start.addingTimeInterval(60))
+        ]
+
+        XCTAssertEqual(calculator.totalDistanceMeters(for: points, type: .yoga), 0)
+    }
+
     func testCountsShortAccurateMovementMoreResponsivelyForAllWorkoutTypes() {
         let calculator = DistanceCalculator()
         let start = Date(timeIntervalSince1970: 100)

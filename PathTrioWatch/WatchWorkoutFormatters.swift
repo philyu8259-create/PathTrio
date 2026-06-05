@@ -1,19 +1,31 @@
 import Foundation
+import SwiftUI
 
 enum WatchWorkoutFormatters {
+    private enum WatchWorkoutCategory {
+        case walking
+        case running
+        case cycling
+        case swimming
+        case water
+        case outdoorAdventure
+        case studio
+    }
+
     static func displayName(for typeRawValue: String) -> String {
-        switch typeRawValue {
-        case "run": NSLocalizedString("watch.workout.run", comment: "")
-        case "ride": NSLocalizedString("watch.workout.ride", comment: "")
-        default: NSLocalizedString("watch.workout.walk", comment: "")
-        }
+        let value = NSLocalizedString("watch.workout.\(typeRawValue)", comment: "")
+        return value != "watch.workout.\(typeRawValue)" ? value : NSLocalizedString("watch.workout.walk", comment: "")
     }
 
     static func systemImage(for typeRawValue: String) -> String {
-        switch typeRawValue {
-        case "run": "figure.run"
-        case "ride": "bicycle"
-        default: "figure.walk"
+        switch workoutCategory(for: typeRawValue) {
+        case .walking: "figure.walk"
+        case .running: "figure.run"
+        case .cycling: "bicycle"
+        case .swimming: "figure.pool.swim"
+        case .water: "figure.open.water.sports"
+        case .outdoorAdventure: "snowflake"
+        case .studio: "figure.flexibility"
         }
     }
 
@@ -22,6 +34,60 @@ enum WatchWorkoutFormatters {
         case "paused", "autoPaused": NSLocalizedString("watch.state.paused", comment: "")
         case "recording": NSLocalizedString("watch.state.recording", comment: "")
         default: NSLocalizedString("watch.state.ready", comment: "")
+        }
+    }
+
+    static func usesSpeedMetric(for typeRawValue: String) -> Bool {
+        workoutCategory(for: typeRawValue) == .cycling
+    }
+
+    static func typeColor(for typeRawValue: String) -> Color {
+        switch workoutCategory(for: typeRawValue) {
+        case .walking:
+            .teal
+        case .running:
+            .orange
+        case .cycling:
+            .blue
+        case .swimming, .water, .outdoorAdventure, .studio:
+            .green
+        }
+    }
+
+    static func metricTitleKey(for typeRawValue: String) -> LocalizedStringKey {
+        usesSpeedMetric(for: typeRawValue) ? "watch.metric.speed" : "watch.metric.pace"
+    }
+
+    static func metricValue(
+        for typeRawValue: String,
+        duration: TimeInterval,
+        distanceMeters: Double,
+        averageSpeedMetersPerSecond: Double
+    ) -> String {
+        if usesSpeedMetric(for: typeRawValue) {
+            return speed(averageSpeedMetersPerSecond)
+        }
+        return pace(duration: duration, distanceMeters: distanceMeters)
+    }
+
+    private static func workoutCategory(for typeRawValue: String) -> WatchWorkoutCategory {
+        switch typeRawValue {
+        case "walk", "hike":
+            .walking
+        case "run", "trailRun", "treadmillRun":
+            .running
+        case "ride", "roadRide", "mountainRide", "indoorRide", "eBikeRide":
+            .cycling
+        case "swim", "openWaterSwim":
+            .swimming
+        case "row", "paddle", "kayak", "canoe", "standUpPaddleboard", "rowingMachine":
+            .water
+        case "elliptical", "skiing", "snowshoe", "stairClimb":
+            .outdoorAdventure
+        case "yoga", "strengthTraining", "coreTraining", "hiit", "dance":
+            .studio
+        default:
+            .walking
         }
     }
 

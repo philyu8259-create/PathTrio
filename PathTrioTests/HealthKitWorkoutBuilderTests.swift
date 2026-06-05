@@ -7,6 +7,8 @@ final class HealthKitWorkoutBuilderTests: XCTestCase {
         XCTAssertEqual(HealthKitWorkoutBuilder.activityType(for: .walk), .walking)
         XCTAssertEqual(HealthKitWorkoutBuilder.activityType(for: .run), .running)
         XCTAssertEqual(HealthKitWorkoutBuilder.activityType(for: .ride), .cycling)
+        XCTAssertEqual(HealthKitWorkoutBuilder.activityType(for: .openWaterSwim), .swimming)
+        XCTAssertEqual(HealthKitWorkoutBuilder.activityType(for: .yoga), .other)
     }
 
     func testShareTypesIncludeWorkoutDistanceAndActiveEnergy() throws {
@@ -15,6 +17,7 @@ final class HealthKitWorkoutBuilderTests: XCTestCase {
         XCTAssertTrue(identifiers.contains(HKWorkoutType.workoutType().identifier))
         XCTAssertTrue(identifiers.contains(try XCTUnwrap(HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)).identifier))
         XCTAssertTrue(identifiers.contains(try XCTUnwrap(HKQuantityType.quantityType(forIdentifier: .distanceCycling)).identifier))
+        XCTAssertTrue(identifiers.contains(try XCTUnwrap(HKQuantityType.quantityType(forIdentifier: .distanceSwimming)).identifier))
         XCTAssertTrue(identifiers.contains(try XCTUnwrap(HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)).identifier))
     }
 
@@ -58,5 +61,37 @@ final class HealthKitWorkoutBuilderTests: XCTestCase {
 
         XCTAssertNotNil(samples.first { $0.quantityType.identifier == HKQuantityTypeIdentifier.distanceCycling.rawValue })
         XCTAssertNil(samples.first { $0.quantityType.identifier == HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue })
+    }
+
+    func testSwimmingUsesSwimmingDistanceSample() throws {
+        let session = WorkoutSessionModel(
+            type: .swim,
+            startedAt: Date(timeIntervalSince1970: 100),
+            endedAt: Date(timeIntervalSince1970: 1_000),
+            duration: 900,
+            distanceMeters: 1_000,
+            averageSpeedMetersPerSecond: 2.0,
+            smartAssistEnabledAtStart: false
+        )
+
+        let samples = HealthKitWorkoutBuilder.samples(for: session)
+
+        XCTAssertNotNil(samples.first { $0.quantityType.identifier == HKQuantityTypeIdentifier.distanceSwimming.rawValue })
+    }
+
+    func testUnsupportedTypesHaveNoDistanceSamples() throws {
+        let session = WorkoutSessionModel(
+            type: .yoga,
+            startedAt: Date(timeIntervalSince1970: 100),
+            endedAt: Date(timeIntervalSince1970: 1_000),
+            duration: 900,
+            distanceMeters: 1_000,
+            averageSpeedMetersPerSecond: 1.0,
+            smartAssistEnabledAtStart: false
+        )
+
+        let samples = HealthKitWorkoutBuilder.samples(for: session)
+
+        XCTAssertEqual(samples.count, 0)
     }
 }

@@ -1,0 +1,13 @@
+{
+  "name": "ecs-food-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ECS food recognition proxy for PathTrio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

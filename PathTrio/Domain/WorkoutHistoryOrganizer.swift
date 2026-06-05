@@ -22,12 +22,12 @@ enum WorkoutTypeFilter: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
-    var workoutType: WorkoutType? {
+    var workoutCategory: WorkoutCategory? {
         switch self {
         case .all: nil
-        case .walk: .walk
-        case .run: .run
-        case .ride: .ride
+        case .walk: .walking
+        case .run: .running
+        case .ride: .cycling
         }
     }
 
@@ -58,8 +58,8 @@ struct WorkoutHistoryOrganizer {
         calendar: Calendar = .current
     ) -> [WorkoutHistorySection] {
         let filteredWorkouts = workouts.filter { workout in
-            guard let workoutType = filter.workoutType else { return true }
-            return workout.type == workoutType
+            guard let category = filter.workoutCategory else { return true }
+            return workout.type.category == category
         }
 
         let grouped = Dictionary(grouping: filteredWorkouts) { workout in

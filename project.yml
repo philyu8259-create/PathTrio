@@ -28,11 +28,13 @@ targets:
         CODE_SIGN_ENTITLEMENTS: PathTrio/PathTrio.entitlements
         INFOPLIST_KEY_CFBundleDisplayName: PathTrio
         INFOPLIST_KEY_NSHumanReadableCopyright: ""
-        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: PathTrio uses location to record route, distance, and speed for supported outdoor workouts.
         INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription: PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.
         INFOPLIST_KEY_NSMotionUsageDescription: PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.
+        INFOPLIST_KEY_NSCameraUsageDescription: PathTrio uses camera access to capture food photos for recognition.
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: PathTrio uses photo library access to read food images for recognition.
         INFOPLIST_KEY_NSHealthShareUsageDescription: PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.
-        INFOPLIST_KEY_NSHealthUpdateUsageDescription: PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.
+        INFOPLIST_KEY_NSHealthUpdateUsageDescription: PathTrio writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.
     info:
       path: PathTrio/Info.plist
       properties:
@@ -48,11 +50,13 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
-        NSLocationWhenInUseUsageDescription: PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.
+        NSLocationWhenInUseUsageDescription: PathTrio uses location to record route, distance, and speed for supported outdoor workouts.
         NSLocationAlwaysAndWhenInUseUsageDescription: PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.
         NSMotionUsageDescription: PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.
+        NSCameraUsageDescription: PathTrio uses camera access to capture food photos for recognition.
+        NSPhotoLibraryUsageDescription: PathTrio uses photo library access to read food images for recognition.
         NSHealthShareUsageDescription: PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.
-        NSHealthUpdateUsageDescription: PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.
+        NSHealthUpdateUsageDescription: PathTrio writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.
   PathTrioWatch:
     type: application
     platform: watchOS

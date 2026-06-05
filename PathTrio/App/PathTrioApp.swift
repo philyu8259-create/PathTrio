@@ -13,7 +13,10 @@ struct PathTrioApp: App {
         .modelContainer(for: [
             WorkoutSessionModel.self,
             LocationPointModel.self,
-            UserSettingsModel.self
+            UserSettingsModel.self,
+            DailyCheckInModel.self,
+            FoodLogModel.self,
+            AIUsageModel.self,
         ])
     }
 }

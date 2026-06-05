@@ -4,30 +4,22 @@ enum HealthKitWorkoutBuilder {
     static var shareTypes: Set<HKSampleType> {
         var types: Set<HKSampleType> = [HKWorkoutType.workoutType()]
 
-        if let walkingRunningDistance = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning) {
-            types.insert(walkingRunningDistance)
-        }
-
-        if let cyclingDistance = HKQuantityType.quantityType(forIdentifier: .distanceCycling) {
-            types.insert(cyclingDistance)
-        }
-
         if let activeEnergy = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
             types.insert(activeEnergy)
+        }
+
+        let distanceKinds = Set(WorkoutType.allCases.compactMap(\.distanceQuantityKind))
+        for kind in distanceKinds {
+            if let quantityType = HKQuantityType.quantityType(forIdentifier: kind) {
+                types.insert(quantityType)
+            }
         }
 
         return types
     }
 
     static func activityType(for type: WorkoutType) -> HKWorkoutActivityType {
-        switch type {
-        case .walk:
-            return .walking
-        case .run:
-            return .running
-        case .ride:
-            return .cycling
-        }
+        type.healthKitActivityType
     }
 
     static func configuration(for session: WorkoutSessionModel) -> HKWorkoutConfiguration {
@@ -70,11 +62,7 @@ enum HealthKitWorkoutBuilder {
     }
 
     private static func distanceQuantityType(for type: WorkoutType) -> HKQuantityType? {
-        switch type {
-        case .walk, .run:
-            return HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)
-        case .ride:
-            return HKQuantityType.quantityType(forIdentifier: .distanceCycling)
-        }
+        guard let distanceQuantityKind = type.distanceQuantityKind else { return nil }
+        return HKQuantityType.quantityType(forIdentifier: distanceQuantityKind)
     }
 }

@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "PeachBuddyWorkoutComplete.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "PeachBuddyWorkoutComplete@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "PeachBuddyWorkoutComplete@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

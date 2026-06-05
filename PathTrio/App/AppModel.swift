@@ -19,6 +19,7 @@ final class AppModel {
     let healthSyncer: any HealthSyncing
     let entitlementStore: EntitlementStore
     let appleWatchSupportService: AppleWatchSupportService
+    let foodRecognitionService: any FoodRecognizing
 
     init(
         recorder: WorkoutRecorder = WorkoutRecorder(distanceCalculator: DistanceCalculator()),
@@ -28,7 +29,8 @@ final class AppModel {
         motionService: MotionActivityService = MotionActivityService(),
         healthSyncer: any HealthSyncing = HealthKitWorkoutSyncer(),
         entitlementStore: EntitlementStore = EntitlementStore(),
-        appleWatchSupportService: AppleWatchSupportService = AppleWatchSupportService()
+        appleWatchSupportService: AppleWatchSupportService = AppleWatchSupportService(),
+        foodRecognitionService: any FoodRecognizing = FoodRecognitionService()
     ) {
         self.recorder = recorder
         self.settingsStore = settingsStore
@@ -38,6 +40,7 @@ final class AppModel {
         self.healthSyncer = healthSyncer
         self.entitlementStore = entitlementStore
         self.appleWatchSupportService = appleWatchSupportService
+        self.foodRecognitionService = foodRecognitionService
     }
 
     var smartAssistSettings: SmartAssistSettings {

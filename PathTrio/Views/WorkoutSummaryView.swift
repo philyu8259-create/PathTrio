@@ -79,6 +79,7 @@ struct WorkoutSummaryView: View {
                     if let healthSyncResult {
                         try store.updateHealthSyncResult(healthSyncResult, for: saved)
                     }
+                    _ = try GamificationStore(context: modelContext).processCompletedWorkout(saved)
                     canDismiss = true
                 } catch {
                     saveErrorMessage = L10n.string("summary.saveError")

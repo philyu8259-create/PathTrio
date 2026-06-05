@@ -1,9 +1,10 @@
 import SwiftUI
 
 enum AppTab: Hashable {
-    case home
-    case history
-    case settings
+    case today
+    case workouts
+    case food
+    case profile
 }
 
 struct AppRootView: View {
@@ -13,9 +14,9 @@ struct AppRootView: View {
 
     init() {
         #if DEBUG
-        _selectedTab = State(initialValue: ScreenshotDemoData.targetTab ?? .home)
+        _selectedTab = State(initialValue: ScreenshotDemoData.targetTab ?? .today)
         #else
-        _selectedTab = State(initialValue: .home)
+        _selectedTab = State(initialValue: .today)
         #endif
     }
 
@@ -75,27 +76,34 @@ struct AppRootView: View {
     private var tabContent: some View {
         TabView(selection: $selectedTab) {
             HomeView(
-                openHistory: { selectedTab = .history }
+                openWorkouts: { selectedTab = .workouts },
+                openProfile: { selectedTab = .profile }
             )
             .tabItem {
-                Label("tab.home", systemImage: "figure.walk")
+                Label("tab.today", systemImage: "sparkles")
             }
-            .tag(AppTab.home)
+            .tag(AppTab.today)
 
-            HistoryView(showsDoneButton: false)
+            WorkoutsView()
                 .tabItem {
-                    Label("tab.history", systemImage: "clock.arrow.circlepath")
+                    Label("tab.workouts", systemImage: "figure.run")
                 }
-                .tag(AppTab.history)
+                .tag(AppTab.workouts)
 
-            SettingsView(showsDoneButton: false)
+            FoodView()
                 .tabItem {
-                    Label("tab.settings", systemImage: "gearshape")
+                    Label("tab.food", systemImage: "fork.knife")
                 }
-                .tag(AppTab.settings)
+                .tag(AppTab.food)
+
+            ProfileView()
+                .tabItem {
+                    Label("tab.profile", systemImage: "person.crop.circle")
+                }
+                .tag(AppTab.profile)
         }
         .tint(PathTrioTheme.action)
-        .toolbarBackground(PathTrioTheme.pageBackground, for: .tabBar)
+        .toolbarBackground(PathTrioTheme.tabBarFill, for: .tabBar)
         .toolbarBackground(.visible, for: .tabBar)
     }
 }

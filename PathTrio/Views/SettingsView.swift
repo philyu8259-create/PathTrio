@@ -577,7 +577,6 @@ private struct HealthFrameworkDisclosureRow: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 DisclosureLine(textKey: "settings.health.frameworks.healthKit", systemImage: "heart.fill", tint: .red)
-                DisclosureLine(textKey: "settings.health.frameworks.careKit", systemImage: "cross.case", tint: .blue)
                 DisclosureLine(textKey: "settings.health.frameworks.privacy", systemImage: "lock.shield", tint: PathTrioTheme.teal)
             }
         }

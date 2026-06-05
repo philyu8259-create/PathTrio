@@ -25,11 +25,11 @@
 	<key>NSHealthShareUsageDescription</key>
 	<string>PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>PathTrio writes completed walks, runs, rides, distance, and active energy to Apple Health when you turn on sync.</string>
+	<string>PathTrio writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>PathTrio uses location to record your workout route, distance, and speed while you are tracking a walk, run, or ride.</string>
+	<string>PathTrio uses location to record route, distance, and speed for supported outdoor workouts.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.</string>
 	<key>UIBackgroundModes</key>

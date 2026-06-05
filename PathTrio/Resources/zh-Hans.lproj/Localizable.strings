@@ -1,9 +1,13 @@
 "app.name" = "三动迹";
-"app.subtitle" = "走路跑步骑行记录";
+"app.subtitle" = "多运动健身记录";
 
 "tab.home" = "首页";
 "tab.history" = "历史";
 "tab.settings" = "设置";
+"tab.today" = "今日";
+"tab.workouts" = "运动";
+"tab.food" = "饮食";
+"tab.profile" = "我";
 
 "action.start" = "开始";
 "action.done" = "完成";
@@ -21,6 +25,30 @@
 "workout.walk" = "走路";
 "workout.run" = "跑步";
 "workout.ride" = "骑行";
+"workout.hike" = "徒步";
+"workout.trailRun" = "越野跑";
+"workout.treadmillRun" = "跑步机";
+"workout.roadRide" = "公路骑行";
+"workout.mountainRide" = "山地骑行";
+"workout.indoorRide" = "室内骑行";
+"workout.eBikeRide" = "电动自行车骑行";
+"workout.swim" = "游泳";
+"workout.openWaterSwim" = "公开水域游泳";
+"workout.row" = "划船";
+"workout.paddle" = "划桨";
+"workout.kayak" = "皮划艇";
+"workout.canoe" = "独木舟";
+"workout.standUpPaddleboard" = "立式划水";
+"workout.rowingMachine" = "划船机";
+"workout.elliptical" = "椭圆机";
+"workout.stairClimb" = "爬楼机";
+"workout.skiing" = "滑雪";
+"workout.snowshoe" = "雪鞋";
+"workout.yoga" = "瑜伽";
+"workout.strengthTraining" = "力量训练";
+"workout.coreTraining" = "核心训练";
+"workout.hiit" = "HIIT";
+"workout.dance" = "舞蹈";
 
 "workoutState.ready" = "准备";
 "workoutState.recording" = "记录中";
@@ -49,14 +77,38 @@
 "home.today.sessions" = "次数";
 "home.recent.title" = "最近记录";
 "home.recent.empty.title" = "还没有运动记录";
-"home.recent.empty.message" = "下一次保存的走路、跑步或骑行会显示在这里。";
+"home.recent.empty.message" = "下一次保存的运动会显示在这里。";
 "home.openHistory" = "打开历史";
 "home.openSettings" = "打开设置";
 "home.quickStart" = "快速开始";
 "home.mode.title" = "运动类型";
+"home.trioPal.title" = "三动迹伙伴";
+"home.trioPal.subtitle" = "你的伙伴正在为你加油。";
+"home.peachBuddy.title" = "桃子能量伙伴";
+"home.peachBuddy.subtitle" = "你的能量伙伴正在为你加油。";
 
 "detail.started" = "开始时间";
 "detail.ended" = "结束时间";
+
+"today.title" = "今日";
+"today.subtitle" = "今日任务盘和快速开始";
+"today.metrics.title" = "今日速览";
+"today.quickStart" = "快速开始";
+"today.quickStart.button" = "开始";
+"today.streak.title" = "连续打卡";
+"today.streak.value" = "%@";
+"today.streak.active" = "连续 %@ 天打卡中";
+"today.streak.inactive" = "开始一次运动，开启连续打卡";
+"today.tasks.title" = "今日任务";
+"today.task.session.title" = "完成一次运动";
+"today.task.session.progress" = "%@ / %@ 次";
+"today.task.minutes.title" = "运动累计20分钟";
+"today.task.minutes.progress" = "%@ / %@ 分钟";
+"today.task.distance.title" = "完成2公里";
+"today.task.distance.progress" = "%@ / %@";
+"today.quickActions.title" = "快捷入口";
+"today.quickActions.workouts" = "运动";
+"today.quickActions.profile" = "我的";
 
 "active.title" = "运动记录中";
 "active.map.empty" = "正在等待 GPS 路线";
@@ -69,7 +121,7 @@
 "history.title" = "历史";
 "history.subtitle" = "按天和月份查看运动记录";
 "history.empty.title" = "暂无运动记录";
-"history.empty.description" = "保存后的走路、跑步和骑行记录会显示在这里。";
+"history.empty.description" = "保存后的运动记录会显示在这里。";
 "history.empty.filtered" = "当前筛选下暂无运动记录。";
 "history.clearAll" = "删除全部运动记录";
 "history.clearAll.confirm.title" = "确认删除全部运动记录？";
@@ -96,6 +148,19 @@
 "autoStart.title" = "开始%@？";
 "autoStart.message" = "三动迹检测到你已持续运动。点播放即可开始记录。";
 
+"workout.search.placeholder" = "搜索运动";
+"workout.search.empty" = "未匹配到运动类型";
+"workout.category.all" = "全部";
+"workout.category.favorites" = "收藏";
+"workout.category.cardio" = "有氧";
+"workout.category.endurance" = "耐力";
+"workouts.title" = "运动";
+"workouts.subtitle" = "选择运动、收藏常用，开始记录";
+"workouts.quickStart" = "开始选择项目";
+"workouts.start" = "开始训练";
+"workouts.history.summary" = "最近汇总";
+"workouts.summary.count" = "%@ 条记录";
+
 "settings.title" = "设置";
 "settings.subtitle" = "记录、辅助和 Pro 功能管理";
 "settings.smartAssist" = "智能辅助";
@@ -104,21 +169,20 @@
 "settings.smartAssist.speedAnomalyAlerts" = "异常速度提醒";
 "settings.recording" = "记录";
 "settings.recording.autoStartReminders" = "自动开始提醒";
-"settings.recording.autoStartDescription" = "开启后，三动迹会观察运动状态，并在持续走路、跑步或骑行后提醒你开始记录。真正开始记录前仍需要你确认。";
+"settings.recording.autoStartDescription" = "开启后，三动迹会观察运动状态，并在持续运动后提醒你开始记录。真正开始记录前仍需要你确认。";
 "settings.recording.recordWhenLocked" = "锁屏继续记录";
 "settings.recording.backgroundDescription" = "仅在运动记录中使用后台定位。锁屏后路线会更完整，但可能更耗电。";
 "settings.recording.backgroundConfirm.title" = "开启锁屏继续记录？";
 "settings.recording.backgroundConfirm.message" = "三动迹只会在运动记录进行中使用 GPS，以便锁屏后继续记录路线。这可能增加耗电，也可能需要“始终允许”定位权限。";
 "settings.recording.backgroundConfirm.enable" = "继续";
-"settings.health" = "Apple HealthKit 与 CareKit";
-"settings.health.frameworks.title" = "HealthKit 与 CareKit 使用说明";
-"settings.health.frameworks.healthKit" = "HealthKit：可选的 Apple 健康同步。获得许可后，三动迹可将完成的走路、跑步、骑行、距离和活动能量写入 Apple 健康。";
-"settings.health.frameworks.careKit" = "CareKit：未使用。三动迹不提供护理计划或临床任务管理功能。";
+"settings.health" = "Apple HealthKit";
+"settings.health.frameworks.title" = "HealthKit 使用说明";
+"settings.health.frameworks.healthKit" = "HealthKit：可选的 Apple 健康同步。获得许可后，三动迹可将完成的支持运动、可用距离和活动能量写入 Apple 健康。";
 "settings.health.frameworks.privacy" = "HealthKit 同步是可选功能。即使关闭同步或拒绝授权，运动记录仍会保存在三动迹内。";
 "settings.health.syncToAppleHealth" = "通过 HealthKit 同步到 Apple 健康";
-"settings.health.healthKitDescription" = "仅在获得许可后使用 Apple HealthKit，将完成的走路、跑步、骑行、距离和活动能量写入 Apple 健康。";
+"settings.health.healthKitDescription" = "仅在获得许可后使用 Apple HealthKit，将完成的支持运动、可用距离和活动能量写入 Apple 健康。";
 "settings.health.confirm.title" = "通过 HealthKit 同步到 Apple 健康？";
-"settings.health.confirm.message" = "三动迹会先请求 HealthKit 授权，再将完成的走路、跑步、骑行、距离和活动能量写入 Apple 健康。即使同步失败，运动记录仍会保存在三动迹内。";
+"settings.health.confirm.message" = "三动迹会先请求 HealthKit 授权，再将完成的支持运动、可用距离和活动能量写入 Apple 健康。即使同步失败，运动记录仍会保存在三动迹内。";
 "settings.health.confirm.enable" = "继续";
 "settings.privacy" = "隐私";
 "settings.privacy.description" = "三动迹默认将运动记录保存在本机，只在记录运动时使用定位来保存路线、距离和速度。";
@@ -127,6 +191,18 @@
 "settings.privacy.eula" = "使用条款";
 "settings.linkUnavailable.title" = "页面暂不可用";
 "settings.linkUnavailable.message" = "当前页面暂时无法打开，请稍后再试。";
+
+"profile.title" = "我的";
+"profile.subtitle" = "历史、设置、会员状态";
+"profile.pro.title" = "会员状态";
+"profile.pro.active" = "会员已开通";
+"profile.pro.free" = "免费模式";
+"profile.pro.unlockMessage" = "你已解锁全部高级功能。";
+"profile.pro.lockedMessage" = "升级可解锁高级功能。";
+"profile.history" = "历史";
+"profile.settings" = "设置";
+"profile.achievements" = "成就";
+"profile.achievements.placeholder" = "成就功能即将上线";
 
 "pro.title" = "三动迹 Pro";
 "pro.badge" = "PRO";
@@ -246,3 +322,51 @@
 "smartAssist.autoPause.message" = "你看起来暂时静止。三动迹可以暂停本次运动，等你继续移动后再恢复。";
 "smartAssist.speedAnomaly.title" = "检测到异常速度";
 "smartAssist.speedAnomaly.message" = "当前速度对这个运动类型来说偏高，你可能需要暂停记录。";
+
+"food.title" = "饮食";
+"food.subtitle" = "饮食记录即将上线";
+"food.placeholder.title" = "饮食模块即将上线";
+"food.placeholder.message" = "我们会陆续带来扫码录入、营养宏量统计和加餐提醒体验。";
+"food.placeholder.features" = "v2 计划功能：";
+"food.placeholder.feature.one" = "一键记录餐食";
+"food.placeholder.feature.two" = "热量与营养素追踪";
+"food.placeholder.feature.three" = "补水提醒";
+"food.recognitionUsage" = "AI 食物识别";
+"food.recognitionUsage.value" = "今日已用：%@ / %@";
+"food.recognitionUsage.remaining" = "今日剩余 %@ 次免费识别";
+"food.recognitionUsage.exhausted" = "今日免费识别次数已用完";
+"food.recognitionUsage.limitReached" = "今日免费 AI 识别额度已达上限";
+"food.action.pickPhoto" = "选取图片";
+"food.action.camera" = "拍照识别";
+"food.action.save" = "保存餐食";
+"food.recognizing" = "正在识别图片内容...";
+"food.recognitionError.title" = "识别失败";
+"food.recognitionResult" = "确认识别结果后保存";
+"food.input.foodName" = "食物名称";
+"food.input.calories" = "预估热量";
+"food.logs.title" = "最近记录";
+"food.logs.empty" = "暂无餐食记录";
+"food.logs.calories" = "%@ 千卡";
+"food.error.dailyLimit" = "今日 AI 识别次数已达上限（%@/%@）。";
+"food.error.emptyImage" = "未选择图片。";
+"food.error.invalidResult" = "识别结果解析失败。";
+"food.error.networkResponseMissing" = "服务响应不可解析。";
+"food.error.network" = "识别失败：%@";
+"food.error.server" = "食物识别服务不可用（HTTP %@）";
+"food.error.emptyName" = "请输入食物名称。";
+"food.result.unavailable" = "未知食物";
+
+"gamification.trioPal.state.resting" = "路径精灵 · 静养";
+"gamification.trioPal.state.warmUp" = "启动模式";
+"gamification.trioPal.state.steady" = "稳定前行";
+"gamification.trioPal.state.blazing" = "持续连击";
+"gamification.trioPal.state.protected" = "护盾加持";
+
+"achievement.firstWorkout.title" = "第一步";
+"achievement.firstWorkout.detail" = "完成你的第一次运动。";
+"achievement.steadyStarter.title" = "稳步起步";
+"achievement.steadyStarter.detail" = "连续运动 3 天。";
+"achievement.weekWarmup.title" = "节奏热身";
+"achievement.weekWarmup.detail" = "完成 5 次运动。";
+"achievement.weekWarrior.title" = "周度斗士";
+"achievement.weekWarrior.detail" = "坚持连续 7 天。";

@@ -1,16 +1,15 @@
 import XCTest
+@testable import PathTrio
 
 final class LocalizationTests: XCTestCase {
     func testCoreInterfaceKeysExistInEnglishAndSimplifiedChinese() throws {
+        let workoutKeys = WorkoutType.allCases.map { "workout.\($0.rawValue)" }
         let keys = [
             "app.name",
             "app.subtitle",
             "tab.home",
             "tab.history",
             "tab.settings",
-            "workout.walk",
-            "workout.run",
-            "workout.ride",
             "action.start",
             "action.done",
             "settings.title",
@@ -18,7 +17,6 @@ final class LocalizationTests: XCTestCase {
             "settings.health",
             "settings.health.frameworks.title",
             "settings.health.frameworks.healthKit",
-            "settings.health.frameworks.careKit",
             "settings.health.frameworks.privacy",
             "settings.health.syncToAppleHealth",
             "settings.health.healthKitDescription",
@@ -63,7 +61,7 @@ final class LocalizationTests: XCTestCase {
             "pro.feature.appleWatch.title",
             "summary.title",
             "smartAssist.autoPause.title"
-        ]
+        ] + workoutKeys
 
         try assertLocalized(keys: keys, table: nil, locale: "en")
         try assertLocalized(keys: keys, table: nil, locale: "zh-Hans")

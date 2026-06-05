@@ -16,6 +16,7 @@ struct DistanceCalculator {
     }
 
     func cleanedLocations(from locations: [CLLocation], for type: WorkoutType = .walk) -> [CLLocation] {
+        guard type.supportsGPS else { return [] }
         let filtered = filteredLocations(from: locations)
         guard let first = filtered.first else { return [] }
 
@@ -57,50 +58,20 @@ struct DistanceCalculator {
     }
 
     private func movementThreshold(from previous: CLLocation, to location: CLLocation, type: WorkoutType) -> CLLocationDistance {
-        let combinedAccuracyThreshold = (previous.horizontalAccuracy + location.horizontalAccuracy) * movementAccuracyMultiplier(for: type)
+        let combinedAccuracyThreshold = (previous.horizontalAccuracy + location.horizontalAccuracy) * type.movementProfile.movementAccuracyMultiplier
         return max(minimumMovementDistance(for: type), min(35, combinedAccuracyThreshold))
     }
 
     private func minimumMovementDistance(for type: WorkoutType) -> CLLocationDistance {
-        switch type {
-        case .walk:
-            max(minimumMovementDistance, 6)
-        case .run:
-            max(minimumMovementDistance, 8)
-        case .ride:
-            max(minimumMovementDistance, 10)
-        }
-    }
-
-    private func movementAccuracyMultiplier(for type: WorkoutType) -> Double {
-        switch type {
-        case .walk, .run:
-            0.85
-        case .ride:
-            0.7
-        }
+        max(minimumMovementDistance, type.movementProfile.minimumMovementDistance)
     }
 
     private func maximumSegmentSpeed(for type: WorkoutType) -> CLLocationSpeed {
-        switch type {
-        case .walk:
-            min(maximumSegmentSpeedMetersPerSecond, 4.5)
-        case .run:
-            min(maximumSegmentSpeedMetersPerSecond, 8.5)
-        case .ride:
-            maximumSegmentSpeedMetersPerSecond
-        }
+        min(maximumSegmentSpeedMetersPerSecond, type.movementProfile.maximumSegmentSpeed)
     }
 
     private func minimumReliableSpeed(for type: WorkoutType) -> CLLocationSpeed {
-        switch type {
-        case .walk:
-            0.35
-        case .run:
-            0.7
-        case .ride:
-            1.2
-        }
+        type.movementProfile.minimumReliableSpeed
     }
 
     private func isLikelyStationaryDrift(
