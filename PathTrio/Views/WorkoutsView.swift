@@ -6,8 +6,16 @@ struct WorkoutsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \WorkoutSessionModel.startedAt, order: .reverse) private var workouts: [WorkoutSessionModel]
     @State private var selectedType: WorkoutType = .walk
+    @State private var activeSheet: WorkoutsSheet?
     @State private var showingActiveWorkout = false
     @State private var favorites: Set<WorkoutType> = [.walk, .run]
+    @State private var manualSelectedType: WorkoutType = .walk
+    @State private var manualStartDate = Date()
+    @State private var manualDurationMinutes = 20
+    @State private var manualDistanceKilometers = ""
+    @State private var manualCaloriesOverride = ""
+    @State private var manualFavoriteTypes: Set<WorkoutType> = [.walk, .run]
+    @State private var manualEntryError: String?
 
     private let topSummaryFallbackTypes: [WorkoutType] = [.walk, .run, .ride]
 
@@ -83,6 +91,12 @@ struct WorkoutsView: View {
             }
             .navigationDestination(isPresented: $showingActiveWorkout) {
                 ActiveWorkoutView()
+            }
+            .sheet(item: $activeSheet) { sheet in
+                switch sheet {
+                case .manualEntry:
+                    manualEntrySheet
+                }
             }
             .task {
                 appModel.loadSettings(from: modelContext)
@@ -184,24 +198,55 @@ struct WorkoutsView: View {
                 .font(.subheadline.weight(.bold))
                 .foregroundStyle(PathTrioTheme.muted)
 
-            Button {
-                startWorkout()
-            } label: {
-                Label("workouts.start", systemImage: "play.fill")
-                    .font(.headline.weight(.black))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
+            HStack(spacing: 12) {
+                Button {
+                    startWorkout()
+                } label: {
+                    Label("workouts.start", systemImage: "play.fill")
+                        .font(.headline.weight(.black))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(.white)
+                .background(
+                    LinearGradient(
+                        colors: [PathTrioTheme.action, PathTrioTheme.hawk],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ),
+                    in: RoundedRectangle(cornerRadius: 8, style: .continuous)
+                )
+
+                Button {
+                    presentManualEntry()
+                } label: {
+                    Label("workouts.manual", systemImage: "pencil.circle.fill")
+                        .font(.subheadline.weight(.black))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .padding(.horizontal, 2)
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(PathTrioTheme.ink)
+                .background(
+                    LinearGradient(
+                        colors: [Color.white, PathTrioTheme.peach.opacity(0.25)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ),
+                    in: RoundedRectangle(cornerRadius: 8, style: .continuous)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .stroke(PathTrioTheme.hawk.opacity(0.5), lineWidth: 1)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .stroke(Color.white, lineWidth: 1.5)
+                )
+                .shadow(color: PathTrioTheme.peach.opacity(0.35), radius: 10, x: 0, y: 4)
             }
-            .buttonStyle(.plain)
-            .foregroundStyle(.white)
-            .background(
-                LinearGradient(
-                    colors: [PathTrioTheme.action, PathTrioTheme.hawk],
-                    startPoint: .top,
-                    endPoint: .bottom
-                ),
-                in: RoundedRectangle(cornerRadius: 8, style: .continuous)
-            )
         }
         .padding(14)
         .background(
@@ -278,6 +323,268 @@ struct WorkoutsView: View {
             appModel.motionService.stop()
         }
         showingActiveWorkout = true
+    }
+
+    private var manualEntrySheet: some View {
+        ManualWorkoutEntrySheet(
+            selectedType: $manualSelectedType,
+            favoriteTypes: $manualFavoriteTypes,
+            startDate: $manualStartDate,
+            durationMinutes: $manualDurationMinutes,
+            distanceKilometers: $manualDistanceKilometers,
+            caloriesOverride: $manualCaloriesOverride,
+            errorMessage: manualEntryError,
+            onSave: {
+                saveManualWorkout()
+            },
+            onCancel: {
+                activeSheet = nil
+            }
+        )
+    }
+
+    private func presentManualEntry() {
+        manualSelectedType = selectedType
+        manualStartDate = Date()
+        manualDurationMinutes = 20
+        manualDistanceKilometers = ""
+        manualCaloriesOverride = ""
+        manualFavoriteTypes = favorites
+        manualEntryError = nil
+        activeSheet = .manualEntry
+    }
+
+    private func saveManualWorkout() {
+        let trimmedCalories = manualCaloriesOverride.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedDistance = manualDistanceKilometers.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard manualDurationMinutes > 0 else {
+            manualEntryError = L10n.string("workouts.manual.error.duration")
+            return
+        }
+
+        let distanceMeters: Double
+        if manualSelectedType.supportsGPS {
+            if trimmedDistance.isEmpty {
+                distanceMeters = 0
+            } else if let parsedDistance = parseManualDecimal(trimmedDistance), parsedDistance >= 0 {
+                distanceMeters = parsedDistance * 1_000
+            } else {
+                manualEntryError = L10n.string("workouts.manual.error.distance")
+                return
+            }
+        } else {
+            distanceMeters = 0
+        }
+
+        let durationSeconds = TimeInterval(manualDurationMinutes) * 60
+
+        if let parsedCalories = parseManualDecimal(trimmedCalories), !trimmedCalories.isEmpty {
+            if parsedCalories < 0 {
+                manualEntryError = L10n.string("workouts.manual.error.calories")
+                return
+            }
+            saveManualSession(estimatedCalories: parsedCalories, durationSeconds: durationSeconds, distanceMeters: distanceMeters)
+            return
+        }
+
+        if !trimmedCalories.isEmpty {
+            manualEntryError = L10n.string("workouts.manual.error.calories")
+            return
+        }
+
+        let estimatedCalories = WorkoutCaloriesEstimator.estimate(
+            type: manualSelectedType,
+            duration: durationSeconds,
+            bodyWeightKilograms: appModel.settingsStore.bodyWeightKilograms
+        )
+        saveManualSession(estimatedCalories: estimatedCalories, durationSeconds: durationSeconds, distanceMeters: distanceMeters)
+    }
+
+    private func saveManualSession(estimatedCalories: Double?, durationSeconds: TimeInterval, distanceMeters: Double) {
+        do {
+            let averageSpeedMetersPerSecond: Double = {
+                guard durationSeconds > 0 else { return 0 }
+                return distanceMeters / durationSeconds
+            }()
+
+            let startedAt = manualStartDate
+            let endedAt = startedAt.addingTimeInterval(durationSeconds)
+            let session = WorkoutSessionModel(
+                type: manualSelectedType,
+                startedAt: startedAt,
+                endedAt: endedAt,
+                duration: durationSeconds,
+                distanceMeters: distanceMeters,
+                averageSpeedMetersPerSecond: averageSpeedMetersPerSecond,
+                estimatedCalories: estimatedCalories,
+                smartAssistEnabledAtStart: false
+            )
+
+            modelContext.insert(session)
+            try modelContext.save()
+            activeSheet = nil
+            manualEntryError = nil
+        } catch {
+            manualEntryError = error.localizedDescription
+        }
+    }
+
+    private func parseManualDecimal(_ value: String) -> Double? {
+        let standardized = value.replacingOccurrences(of: ",", with: ".")
+        if let parsed = Double(standardized) {
+            return parsed
+        }
+
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = .current
+        return formatter.number(from: standardized)?.doubleValue
+    }
+}
+
+private enum WorkoutsSheet: String, Identifiable {
+    case manualEntry
+
+    var id: String { rawValue }
+}
+
+private struct ManualWorkoutEntrySheet: View {
+    @Binding var selectedType: WorkoutType
+    @Binding var favoriteTypes: Set<WorkoutType>
+    @Binding var startDate: Date
+    @Binding var durationMinutes: Int
+    @Binding var distanceKilometers: String
+    @Binding var caloriesOverride: String
+    let errorMessage: String?
+    let onSave: () -> Void
+    let onCancel: () -> Void
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    WorkoutTypePicker(
+                        selection: $selectedType,
+                        favoriteTypes: $favoriteTypes,
+                        showsSearchField: false,
+                        showsCategoryChips: true,
+                        maxColumns: 3,
+                        maxVisibleTypes: nil
+                    )
+
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("workouts.manual.start")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(PathTrioTheme.muted)
+                        DatePicker(
+                            "workouts.manual.start",
+                            selection: $startDate,
+                            displayedComponents: [.date, .hourAndMinute]
+                        )
+                        .labelsHidden()
+                        .datePickerStyle(.compact)
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 12)
+                        .background(.white.opacity(0.85), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .stroke(PathTrioTheme.line, lineWidth: 1)
+                        }
+                    }
+
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("workouts.manual.duration")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(PathTrioTheme.muted)
+                        HStack {
+                            TextField("workouts.manual.duration.value", value: $durationMinutes, format: .number)
+                                .keyboardType(.numberPad)
+                                .textFieldStyle(.plain)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 10)
+                                .background(.white.opacity(0.85), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                        .stroke(PathTrioTheme.line, lineWidth: 1)
+                                }
+                            Text("workouts.manual.minutes")
+                                .font(.subheadline.weight(.black))
+                                .foregroundStyle(PathTrioTheme.muted)
+                        }
+                    }
+
+                    if selectedType.supportsGPS {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("workouts.manual.distance")
+                                .font(.subheadline.weight(.bold))
+                                .foregroundStyle(PathTrioTheme.muted)
+                            TextField("workouts.manual.distance.hint", text: $distanceKilometers)
+                                .keyboardType(.decimalPad)
+                                .textFieldStyle(.plain)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 10)
+                                .background(.white.opacity(0.85), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                        .stroke(PathTrioTheme.line, lineWidth: 1)
+                                }
+                                .autocorrectionDisabled()
+                                .textInputAutocapitalization(.never)
+                            Text("workouts.manual.distance.note")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(PathTrioTheme.muted)
+                        }
+                    }
+
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("workouts.manual.calories")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(PathTrioTheme.muted)
+                        TextField("workouts.manual.calories.hint", text: $caloriesOverride)
+                            .keyboardType(.decimalPad)
+                            .textFieldStyle(.plain)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 10)
+                            .background(.white.opacity(0.85), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .stroke(PathTrioTheme.line, lineWidth: 1)
+                            }
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
+                        Text("workouts.manual.calories.note")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(PathTrioTheme.muted)
+                    }
+
+                    if let errorMessage {
+                        Text(errorMessage)
+                            .font(.footnote.weight(.black))
+                            .foregroundStyle(.red)
+                            .padding(12)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(.red.opacity(0.08), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .stroke(.red.opacity(0.35), lineWidth: 1)
+                            }
+                    }
+                }
+                .padding(16)
+            }
+            .background(PathTrioTheme.pageBackground.ignoresSafeArea())
+            .navigationTitle("workouts.manual.title")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("action.cancel", action: onCancel)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("action.done", action: onSave)
+                }
+            }
+        }
     }
 }
 

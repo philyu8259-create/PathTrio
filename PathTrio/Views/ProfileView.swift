@@ -255,9 +255,9 @@ struct ProfileView: View {
         case .resting:
             PathTrioAssets.Image.peachBuddyRest
         case .warmUp, .steady:
-            PathTrioAssets.Image.peachBuddyMascot
+            PathTrioAssets.Image.peachMoveIconJog
         case .blazing, .protected:
-            PathTrioAssets.Image.peachBuddyStreak
+            PathTrioAssets.Image.peachMoveIconStreak
         }
     }
 

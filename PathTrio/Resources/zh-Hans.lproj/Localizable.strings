@@ -173,6 +173,21 @@
 "workouts.mode.focus.subtitle" = "适合室内课程、力量和精细控制训练。";
 "workouts.quickStart" = "启动本次任务";
 "workouts.start" = "开始任务";
+"workouts.manual" = "手动记录";
+"workouts.manual.title" = "手动录入运动";
+"workouts.manual.start" = "开始时间";
+"workouts.manual.duration" = "时长";
+"workouts.manual.duration.value" = "20";
+"workouts.manual.minutes" = "分钟";
+"workouts.manual.distance" = "距离（公里）";
+"workouts.manual.distance.hint" = "输入公里（可选）";
+"workouts.manual.distance.note" = "仅路线类运动可选填；可留空。";
+"workouts.manual.calories" = "卡路里";
+"workouts.manual.calories.hint" = "自定义卡路里（可选）";
+"workouts.manual.calories.note" = "留空则使用运动类型与时长自动估算。";
+"workouts.manual.error.duration" = "请填写有效时长（至少 1 分钟）。";
+"workouts.manual.error.distance" = "请填写有效距离。";
+"workouts.manual.error.calories" = "请填写有效卡路里。";
 "workouts.history.summary" = "常用运动 Top3";
 "workouts.summary.count" = "已完成 %@ 次";
 
@@ -366,12 +381,6 @@
 "food.controls.title" = "操作面板";
 "food.recognitionResult.image" = "图片识别结果";
 "food.entry.header" = "营养录入";
-"food.placeholder.title" = "饮食模块即将上线";
-"food.placeholder.message" = "我们会陆续带来扫码录入、营养宏量统计和加餐提醒体验。";
-"food.placeholder.features" = "v2 计划功能：";
-"food.placeholder.feature.one" = "一键记录餐食";
-"food.placeholder.feature.two" = "热量与营养素追踪";
-"food.placeholder.feature.three" = "补水提醒";
 "food.recognitionUsage" = "AI 食物识别";
 "food.peachBuddy.title" = "桃子伙伴帮你看餐食";
 "food.peachBuddy.message" = "图片识别只是估算，保存前可以自己修正。";
@@ -383,6 +392,8 @@
 "food.action.camera" = "拍照识别";
 "food.action.manual" = "手动添加";
 "food.action.save" = "保存餐食";
+"food.action.edit" = "编辑";
+"food.action.delete" = "删除";
 "food.recognizing" = "正在识别图片内容...";
 "food.recognitionError.title" = "识别失败";
 "food.recognitionResult" = "确认识别结果后保存";
@@ -392,6 +403,9 @@
 "food.logs.empty" = "暂无餐食记录";
 "food.logs.empty.message" = "选择或拍摄一张餐食照片，让桃子伙伴先帮你估算。";
 "food.logs.calories" = "%@ 千卡";
+"food.delete.confirm.title" = "删除此餐食？";
+"food.delete.confirm.message" = "确认从记录中删除“%@”吗？";
+"food.error.deleteFailed" = "删除失败，请稍后重试。";
 "food.error.dailyLimit" = "今日 AI 识别次数已达上限（%@/%@）。";
 "food.error.emptyImage" = "未选择图片。";
 "food.error.invalidResult" = "识别结果解析失败。";

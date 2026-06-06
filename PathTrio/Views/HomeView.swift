@@ -162,11 +162,11 @@ struct HomeView: View {
                         }
                         .shadow(color: PathTrioTheme.peach.opacity(0.28), radius: 0, x: 0, y: 6)
 
-                    Image(PathTrioAssets.Image.peachBuddyMascot)
+                    Image(PathTrioAssets.Image.peachMoveIconStreak)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 92, height: 92)
-                        .clipShape(Circle())
+                        .frame(width: 98, height: 98)
+                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
 
                     Image(systemName: streakDays > 0 ? "flame.fill" : "sparkles")
                         .font(.caption.weight(.black))

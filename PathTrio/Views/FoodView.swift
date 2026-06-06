@@ -17,6 +17,8 @@ struct FoodView: View {
     @State private var errorMessage: String?
     @State private var showingCameraPicker = false
     @State private var isManualEntryMode = false
+    @State private var editingFoodLog: FoodLogModel?
+    @State private var pendingDeleteFoodLog: FoodLogModel?
 
     private let dailyCalorieGoal = 1800
 
@@ -95,11 +97,38 @@ struct FoodView: View {
                     Task { await analyzeImageData(displayedImageData ?? Data(), mimeType: "image/jpeg") }
                 }
             }
+            .sheet(isPresented: Binding(
+                get: { editingFoodLog != nil },
+                set: { if !$0 { editingFoodLog = nil } }
+            )) {
+                if editingFoodLog != nil {
+                    editFoodLogSheet
+                }
+            }
+            .confirmationDialog(
+                "food.delete.confirm.title",
+                isPresented: Binding(
+                    get: { pendingDeleteFoodLog != nil },
+                    set: { if !$0 { pendingDeleteFoodLog = nil } }
+                ),
+                titleVisibility: .visible
+            ) {
+                Button("food.action.delete", role: .destructive) {
+                    performDeleteFoodLog()
+                }
+                Button("action.cancel", role: .cancel) {
+                    pendingDeleteFoodLog = nil
+                }
+            } message: {
+                if let entry = pendingDeleteFoodLog {
+                    Text(L10n.string("food.delete.confirm.message", entry.foodName))
+                }
+            }
         }
     }
 
     private var shouldShowEntryCard: Bool {
-        isManualEntryMode || !editingFoodName.isEmpty || !editingCalories.isEmpty
+        editingFoodLog == nil && (isManualEntryMode || !editingFoodName.isEmpty || !editingCalories.isEmpty)
     }
 
     private var todayFoodLogs: [FoodLogModel] {
@@ -465,7 +494,7 @@ struct FoodView: View {
                     isPrimary: true,
                     isEnabled: !editingFoodName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                 ) {
-                    saveEntry()
+                    _ = saveEntry()
                 }
 
                 FoodPanelButton(
@@ -531,10 +560,36 @@ struct FoodView: View {
 
                         Spacer(minLength: 0)
 
-                        Text(L10n.string("food.logs.calories", "\(entry.estimatedCalories)"))
-                            .font(.subheadline.weight(.bold))
-                            .foregroundStyle(PathTrioTheme.action)
-                    }
+                            Text(L10n.string("food.logs.calories", "\(entry.estimatedCalories)"))
+                                .font(.subheadline.weight(.bold))
+                                .foregroundStyle(PathTrioTheme.action)
+
+                            HStack(spacing: 4) {
+                                Button {
+                                    beginEditing(entry)
+                                } label: {
+                                    Image(systemName: "pencil")
+                                        .font(.subheadline.weight(.bold))
+                                        .frame(width: 28, height: 28)
+                                        .background(PathTrioTheme.line.opacity(0.7), in: Circle())
+                                        .foregroundStyle(PathTrioTheme.ink)
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityLabel("food.action.edit")
+
+                                Button {
+                                    pendingDeleteFoodLog = entry
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .font(.subheadline.weight(.bold))
+                                        .frame(width: 28, height: 28)
+                                        .background(.red.opacity(0.1), in: Circle())
+                                        .foregroundStyle(.red)
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityLabel("food.action.delete")
+                            }
+                        }
                     .padding(12)
                     .background(PathTrioTheme.glassFill)
                     .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
@@ -630,23 +685,31 @@ struct FoodView: View {
         }
     }
 
-    private func saveEntry() {
+    private func saveEntry() -> Bool {
         let trimmedName = editingFoodName.trimmingCharacters(in: .whitespacesAndNewlines)
         let parsedCalories = Int(editingCalories.trimmingCharacters(in: .whitespacesAndNewlines))
         let calories = max(0, parsedCalories ?? 0)
 
         guard !trimmedName.isEmpty else {
             errorMessage = L10n.string("food.error.emptyName")
-            return
+            return false
         }
 
         do {
-            modelContext.insert(FoodLogModel(foodName: trimmedName, estimatedCalories: calories))
+            if let foodToEdit = editingFoodLog {
+                foodToEdit.foodName = trimmedName
+                foodToEdit.estimatedCalories = calories
+            } else {
+                modelContext.insert(FoodLogModel(foodName: trimmedName, estimatedCalories: calories))
+            }
             try modelContext.save()
             clearDraft()
         } catch {
             errorMessage = error.localizedDescription
+            return false
         }
+
+        return true
     }
 
     private func activateManualEntry() {
@@ -668,6 +731,97 @@ struct FoodView: View {
         displayedImageData = nil
         selectedLibraryItem = nil
         isManualEntryMode = false
+        editingFoodLog = nil
+    }
+
+    private var editFoodLogSheet: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("food.action.edit")
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(PathTrioTheme.muted)
+
+            Text("food.entry.header")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(PathTrioTheme.ink)
+
+            VStack(spacing: 8) {
+                TextField("food.input.foodName", text: $editingFoodName)
+                    .textInputAutocapitalization(.sentences)
+                    .padding(10)
+                    .background(Color.white.opacity(0.85), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .stroke(Color.white.opacity(0.88), lineWidth: 1)
+                    }
+
+                TextField("food.input.calories", text: $editingCalories)
+                    .keyboardType(.numberPad)
+                    .padding(10)
+                    .background(Color.white.opacity(0.85), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .stroke(Color.white.opacity(0.88), lineWidth: 1)
+                    }
+            }
+
+            HStack(spacing: 10) {
+                FoodPanelButton(
+                    titleKey: "food.action.save",
+                    systemImage: "checkmark.circle",
+                    isPrimary: true,
+                    isEnabled: !editingFoodName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                ) {
+                    if saveEntry() {
+                        editingFoodLog = nil
+                    }
+                }
+
+                FoodPanelButton(
+                    titleKey: "action.cancel",
+                    systemImage: "xmark",
+                    isPrimary: false,
+                    isEnabled: true
+                ) {
+                    clearDraft()
+                }
+            }
+        }
+        .padding(14)
+        .background(PathTrioTheme.glassFill)
+        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(.white.opacity(0.75), lineWidth: 1)
+        }
+        .padding(16)
+    }
+
+    private func beginEditing(_ entry: FoodLogModel) {
+        editingFoodLog = entry
+        editingFoodName = entry.foodName
+        editingCalories = "\(entry.estimatedCalories)"
+        isManualEntryMode = false
+        displayedImageData = nil
+        selectedLibraryItem = nil
+    }
+
+    private func performDeleteFoodLog() {
+        guard let foodToDelete = pendingDeleteFoodLog else {
+            return
+        }
+
+        if editingFoodLog === foodToDelete {
+            clearDraft()
+        }
+
+        do {
+            modelContext.delete(foodToDelete)
+            try modelContext.save()
+            pendingDeleteFoodLog = nil
+        } catch {
+            errorMessage = L10n.string("food.error.deleteFailed")
+            pendingDeleteFoodLog = foodToDelete
+        }
     }
 }
 

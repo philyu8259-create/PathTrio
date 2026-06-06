@@ -173,6 +173,21 @@
 "workouts.mode.focus.subtitle" = "For indoor classes, strength, and controlled training.";
 "workouts.quickStart" = "Start selected workout";
 "workouts.start" = "Start Workout";
+"workouts.manual" = "Manual Log";
+"workouts.manual.title" = "Manual Workout";
+"workouts.manual.start" = "Start time";
+"workouts.manual.duration" = "Duration";
+"workouts.manual.duration.value" = "20";
+"workouts.manual.minutes" = "min";
+"workouts.manual.distance" = "Distance (km)";
+"workouts.manual.distance.hint" = "Enter kilometers (optional)";
+"workouts.manual.distance.note" = "Optional for route-based workouts.";
+"workouts.manual.calories" = "Calories";
+"workouts.manual.calories.hint" = "Override calories (optional)";
+"workouts.manual.calories.note" = "If left empty, estimates from your workout type and duration are used.";
+"workouts.manual.error.duration" = "Duration must be at least 1 minute.";
+"workouts.manual.error.distance" = "Please enter a valid distance value.";
+"workouts.manual.error.calories" = "Please enter a valid calorie value.";
 "workouts.history.summary" = "Recent totals";
 "workouts.summary.count" = "%@ records";
 
@@ -367,12 +382,6 @@
 "food.controls.title" = "Quick mission controls";
 "food.recognitionResult.image" = "Image result";
 "food.entry.header" = "Nutrition entry";
-"food.placeholder.title" = "Food module is arriving";
-"food.placeholder.message" = "We plan to bring meal logging, fueling plans, and nutrition insights. Stay tuned.";
-"food.placeholder.features" = "Planned in v2:";
-"food.placeholder.feature.one" = "Quick food scanner";
-"food.placeholder.feature.two" = "Macro and hydration tracking";
-"food.placeholder.feature.three" = "Hydration reminders";
 "food.recognitionUsage" = "AI food recognition";
 "food.peachBuddy.title" = "Peach Buddy checks your meals";
 "food.peachBuddy.message" = "Photo estimates are starting points. Edit them before saving.";
@@ -384,6 +393,8 @@
 "food.action.camera" = "Take photo";
 "food.action.manual" = "Add manually";
 "food.action.save" = "Save meal";
+"food.action.edit" = "Edit";
+"food.action.delete" = "Delete";
 "food.recognizing" = "Recognizing your food image...";
 "food.recognitionError.title" = "Recognition failed";
 "food.recognitionResult" = "Review and edit before saving";
@@ -393,6 +404,9 @@
 "food.logs.empty" = "No meals logged yet";
 "food.logs.empty.message" = "Pick a meal photo or take one to let Peach Buddy estimate it.";
 "food.logs.calories" = "%@ kcal";
+"food.delete.confirm.title" = "Delete this meal?";
+"food.delete.confirm.message" = "Delete \"%@\" from your food log?";
+"food.error.deleteFailed" = "Unable to delete this meal. Please try again.";
 "food.error.dailyLimit" = "Daily AI recognition limit reached (%@ / %@ used).";
 "food.error.emptyImage" = "No image was selected.";
 "food.error.invalidResult" = "Could not read the recognition response.";
