@@ -15,14 +15,15 @@ final class WorkoutExportBuilderTests: XCTestCase {
             userCorrectedCalories: 82,
             smartAssistEnabledAtStart: true,
             recordingMode: .manualEntry,
-            isManualEntry: true
+            isManualEntry: true,
+            notes: "Felt strong, sunny route"
         )
 
         let csv = WorkoutExportBuilder().csv(for: [workout])
 
-        XCTAssertTrue(csv.contains("id,type,started_at,ended_at,duration_seconds,distance_meters,average_speed_mps,estimated_calories,recording_mode,is_manual_entry,route_points"))
+        XCTAssertTrue(csv.contains("id,type,started_at,ended_at,duration_seconds,distance_meters,average_speed_mps,estimated_calories,recording_mode,is_manual_entry,notes,route_points"))
         XCTAssertTrue(csv.contains("00000000-0000-0000-0000-000000000123,run"))
-        XCTAssertTrue(csv.contains("600,1500.00,2.500,82.0,manualEntry,true,0"))
+        XCTAssertTrue(csv.contains("600,1500.00,2.500,82.0,manualEntry,true,\"Felt strong, sunny route\",0"))
     }
 
     func testBuildsGpxWithRoutePoints() {

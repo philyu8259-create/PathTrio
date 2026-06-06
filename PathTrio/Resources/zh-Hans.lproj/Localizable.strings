@@ -67,6 +67,10 @@
 "metric.calories" = "卡路里";
 "metric.status" = "状态";
 
+"recording.mode.routeTracking" = "GPS 路线";
+"recording.mode.durationOnly" = "计时记录";
+"recording.mode.manualEntry" = "手动补录";
+
 "home.status.ready" = "准备就绪";
 "home.status.gps" = "GPS 路线";
 "home.status.smartAssistOn" = "辅助开启";
@@ -89,6 +93,11 @@
 
 "detail.started" = "开始时间";
 "detail.ended" = "结束时间";
+"detail.recording.title" = "记录来源";
+"detail.recording.notes" = "备注";
+"detail.recording.correctedCalories" = "已修正卡路里";
+"detail.route.empty.title" = "没有路线";
+"detail.route.empty.message" = "这次运动没有保存 GPS 路线点。";
 
 "today.title" = "今日";
 "today.subtitle" = "今日任务盘和快速开始";
@@ -185,6 +194,8 @@
 "workouts.manual.calories" = "卡路里";
 "workouts.manual.calories.hint" = "自定义卡路里（可选）";
 "workouts.manual.calories.note" = "留空则使用运动类型与时长自动估算。";
+"workouts.manual.notes" = "备注";
+"workouts.manual.notes.hint" = "这次感觉如何？可以添加可选备注。";
 "workouts.manual.error.duration" = "请填写有效时长（至少 1 分钟）。";
 "workouts.manual.error.distance" = "请填写有效距离。";
 "workouts.manual.error.calories" = "请填写有效卡路里。";

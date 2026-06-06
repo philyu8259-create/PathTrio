@@ -14,6 +14,7 @@ struct WorkoutsView: View {
     @State private var manualDurationMinutes = 20
     @State private var manualDistanceKilometers = ""
     @State private var manualCaloriesOverride = ""
+    @State private var manualNotes = ""
     @State private var manualFavoriteTypes: Set<WorkoutType> = [.walk, .run]
     @State private var manualEntryError: String?
 
@@ -333,6 +334,7 @@ struct WorkoutsView: View {
             durationMinutes: $manualDurationMinutes,
             distanceKilometers: $manualDistanceKilometers,
             caloriesOverride: $manualCaloriesOverride,
+            notes: $manualNotes,
             errorMessage: manualEntryError,
             onSave: {
                 saveManualWorkout()
@@ -349,6 +351,7 @@ struct WorkoutsView: View {
         manualDurationMinutes = 20
         manualDistanceKilometers = ""
         manualCaloriesOverride = ""
+        manualNotes = ""
         manualFavoriteTypes = favorites
         manualEntryError = nil
         activeSheet = .manualEntry
@@ -388,7 +391,8 @@ struct WorkoutsView: View {
                 estimatedCalories: parsedCalories,
                 userCorrectedCalories: parsedCalories,
                 durationSeconds: durationSeconds,
-                distanceMeters: distanceMeters
+                distanceMeters: distanceMeters,
+                notes: sanitizedManualNotes
             )
             return
         }
@@ -407,15 +411,22 @@ struct WorkoutsView: View {
             estimatedCalories: estimatedCalories,
             userCorrectedCalories: nil,
             durationSeconds: durationSeconds,
-            distanceMeters: distanceMeters
+            distanceMeters: distanceMeters,
+            notes: sanitizedManualNotes
         )
+    }
+
+    private var sanitizedManualNotes: String? {
+        let trimmedNotes = manualNotes.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmedNotes.isEmpty ? nil : trimmedNotes
     }
 
     private func saveManualSession(
         estimatedCalories: Double?,
         userCorrectedCalories: Double?,
         durationSeconds: TimeInterval,
-        distanceMeters: Double
+        distanceMeters: Double,
+        notes: String?
     ) {
         do {
             let averageSpeedMetersPerSecond: Double = {
@@ -436,7 +447,8 @@ struct WorkoutsView: View {
                 userCorrectedCalories: userCorrectedCalories,
                 smartAssistEnabledAtStart: false,
                 recordingMode: .manualEntry,
-                isManualEntry: true
+                isManualEntry: true,
+                notes: notes
             )
 
             modelContext.insert(session)
@@ -474,6 +486,7 @@ private struct ManualWorkoutEntrySheet: View {
     @Binding var durationMinutes: Int
     @Binding var distanceKilometers: String
     @Binding var caloriesOverride: String
+    @Binding var notes: String
     let errorMessage: String?
     let onSave: () -> Void
     let onCancel: () -> Void
@@ -574,6 +587,23 @@ private struct ManualWorkoutEntrySheet: View {
                         Text("workouts.manual.calories.note")
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(PathTrioTheme.muted)
+                    }
+
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("workouts.manual.notes")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(PathTrioTheme.muted)
+                        TextField("workouts.manual.notes.hint", text: $notes, axis: .vertical)
+                            .lineLimit(3, reservesSpace: true)
+                            .textFieldStyle(.plain)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 10)
+                            .background(.white.opacity(0.85), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .stroke(PathTrioTheme.line, lineWidth: 1)
+                            }
+                            .textInputAutocapitalization(.sentences)
                     }
 
                     if let errorMessage {

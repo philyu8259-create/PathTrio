@@ -236,6 +236,10 @@ enum WorkoutRecordingMode: String, Codable {
     case routeTracking
     case durationOnly
     case manualEntry
+
+    var titleKey: String {
+        "recording.mode.\(rawValue)"
+    }
 }
 
 enum WorkoutTintToken: String {

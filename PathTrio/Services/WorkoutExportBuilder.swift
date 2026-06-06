@@ -14,6 +14,7 @@ struct WorkoutExportBuilder {
             "estimated_calories",
             "recording_mode",
             "is_manual_entry",
+            "notes",
             "route_points"
         ]
 
@@ -31,6 +32,7 @@ struct WorkoutExportBuilder {
                     workout.effectiveEstimatedCalories.map { String(format: "%.1f", $0) } ?? "",
                     workout.recordingMode.rawValue,
                     workout.isManualEntry ? "true" : "false",
+                    workout.notes ?? "",
                     "\(workout.locations.count)"
                 ].map(csvEscaped).joined(separator: ",")
             }

@@ -56,13 +56,17 @@ struct WorkoutDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                RouteMapView(locations: locations, style: activeMapStyle)
-                    .frame(height: 300)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(PathTrioTheme.line, lineWidth: 1)
-                    }
+                if locations.isEmpty {
+                    WorkoutNoRouteCard(recordingMode: workout.recordingMode)
+                } else {
+                    RouteMapView(locations: locations, style: activeMapStyle)
+                        .frame(height: 300)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(PathTrioTheme.line, lineWidth: 1)
+                        }
+                }
 
                 LazyVGrid(columns: metricColumns, spacing: 12) {
                     MetricTile(title: L10n.string("metric.distance"), value: WorkoutMetricsFormatter.distance(workout.distanceMeters), systemImage: "map")
@@ -73,6 +77,8 @@ struct WorkoutDetailView: View {
                 }
 
                 WorkoutDetailInsightsPanel(insights: insights)
+
+                WorkoutRecordingInfoCard(workout: workout)
 
                 Button {
                     exportWorkout()
@@ -240,6 +246,86 @@ private struct WorkoutDetailInsightsPanel: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
+            }
+        }
+        .padding(14)
+        .pathTrioCard()
+    }
+}
+
+private struct WorkoutRecordingInfoCard: View {
+    let workout: WorkoutSessionModel
+
+    private var trimmedNotes: String? {
+        guard let notes = workout.notes?.trimmingCharacters(in: .whitespacesAndNewlines), !notes.isEmpty else {
+            return nil
+        }
+        return notes
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Label("detail.recording.title", systemImage: workout.isManualEntry ? "pencil.circle.fill" : "dot.radiowaves.left.and.right")
+                .font(.headline.weight(.bold))
+                .foregroundStyle(PathTrioTheme.ink)
+
+            HStack(spacing: 8) {
+                Text(L10n.string(workout.recordingMode.titleKey))
+                    .font(.caption.weight(.black))
+                    .foregroundStyle(workout.isManualEntry ? PathTrioTheme.warm : PathTrioTheme.action)
+                    .padding(.horizontal, 10)
+                    .frame(height: 28)
+                    .background((workout.isManualEntry ? PathTrioTheme.warm : PathTrioTheme.action).opacity(0.12), in: Capsule())
+
+                if workout.userCorrectedCalories != nil {
+                    Text("detail.recording.correctedCalories")
+                        .font(.caption.weight(.black))
+                        .foregroundStyle(PathTrioTheme.hawk)
+                        .padding(.horizontal, 10)
+                        .frame(height: 28)
+                        .background(PathTrioTheme.hawk.opacity(0.12), in: Capsule())
+                }
+            }
+
+            if let trimmedNotes {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("detail.recording.notes")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(PathTrioTheme.muted)
+                    Text(trimmedNotes)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(PathTrioTheme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(PathTrioTheme.peach.opacity(0.13), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            }
+        }
+        .padding(14)
+        .pathTrioCard()
+    }
+}
+
+private struct WorkoutNoRouteCard: View {
+    let recordingMode: WorkoutRecordingMode
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: recordingMode == .manualEntry ? "pencil.circle.fill" : "timer")
+                .font(.title3.weight(.black))
+                .foregroundStyle(PathTrioTheme.action)
+                .frame(width: 44, height: 44)
+                .background(PathTrioTheme.action.opacity(0.12), in: Circle())
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text("detail.route.empty.title")
+                    .font(.headline.weight(.black))
+                    .foregroundStyle(PathTrioTheme.ink)
+                Text("detail.route.empty.message")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(PathTrioTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(14)

@@ -414,6 +414,14 @@ private struct HistoryWorkoutRow: View {
                 Text(timeText)
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(PathTrioTheme.muted.opacity(0.82))
+                if workout.isManualEntry {
+                    Label("recording.mode.manualEntry", systemImage: "pencil")
+                        .font(.caption2.weight(.black))
+                        .foregroundStyle(PathTrioTheme.warm)
+                        .padding(.horizontal, 8)
+                        .frame(height: 22)
+                        .background(PathTrioTheme.warm.opacity(0.12), in: Capsule())
+                }
             }
 
             Spacer()

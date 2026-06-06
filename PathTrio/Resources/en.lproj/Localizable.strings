@@ -67,6 +67,10 @@
 "metric.calories" = "Calories";
 "metric.status" = "Status";
 
+"recording.mode.routeTracking" = "GPS route";
+"recording.mode.durationOnly" = "Timer only";
+"recording.mode.manualEntry" = "Manual entry";
+
 "home.status.ready" = "Ready";
 "home.status.gps" = "GPS Route";
 "home.status.smartAssistOn" = "Assist On";
@@ -89,6 +93,11 @@
 
 "detail.started" = "Started";
 "detail.ended" = "Ended";
+"detail.recording.title" = "Recording source";
+"detail.recording.notes" = "Notes";
+"detail.recording.correctedCalories" = "Corrected calories";
+"detail.route.empty.title" = "No route attached";
+"detail.route.empty.message" = "This workout was saved without GPS points.";
 
 "today.title" = "Today";
 "today.subtitle" = "Daily mission board and quick start";
@@ -185,6 +194,8 @@
 "workouts.manual.calories" = "Calories";
 "workouts.manual.calories.hint" = "Override calories (optional)";
 "workouts.manual.calories.note" = "If left empty, estimates from your workout type and duration are used.";
+"workouts.manual.notes" = "Notes";
+"workouts.manual.notes.hint" = "How did it feel? Add an optional note.";
 "workouts.manual.error.duration" = "Duration must be at least 1 minute.";
 "workouts.manual.error.distance" = "Please enter a valid distance value.";
 "workouts.manual.error.calories" = "Please enter a valid calorie value.";
