@@ -45,7 +45,7 @@ struct WorkoutExportBuilder {
 
         return """
         <?xml version="1.0" encoding="UTF-8"?>
-        <gpx version="1.1" creator="PathTrio" xmlns="http://www.topografix.com/GPX/1/1">
+        <gpx version="1.1" creator="PeachMove" xmlns="http://www.topografix.com/GPX/1/1">
         <metadata><time>\(isoDate(workout.startedAt))</time></metadata>
         <trk><name>\(xmlEscaped(workout.type.displayName)) \(isoDate(workout.startedAt))</name><trkseg>
         \(trackPoints)
@@ -56,7 +56,7 @@ struct WorkoutExportBuilder {
 
     func writeTemporaryFile(contents: String, filename: String) throws -> URL {
         let directory = FileManager.default.temporaryDirectory
-            .appendingPathComponent("PathTrioExports", isDirectory: true)
+            .appendingPathComponent("PeachMoveExports", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let fileURL = directory.appendingPathComponent(filename)
         try contents.write(to: fileURL, atomically: true, encoding: .utf8)

@@ -1,13 +1,13 @@
-"watch.app.title" = "PathTrio";
+"watch.app.title" = "PeachMove";
 "watch.active.title" = "Recording Now";
 "watch.latest.title" = "Latest Workout";
 "watch.latest.updated" = "Updated";
 "watch.action.refresh" = "Refresh";
 "watch.empty.title" = "Ready on Watch";
 "watch.locked.title" = "Pro Required";
-"watch.locked.message" = "Unlock PathTrio Pro on iPhone to use Apple Watch support.";
+"watch.locked.message" = "Unlock PeachMove Pro on iPhone to use Apple Watch support.";
 "watch.connection.unsupported" = "Apple Watch connectivity is unavailable.";
-"watch.connection.waiting" = "Open PathTrio on iPhone to sync.";
+"watch.connection.waiting" = "Open PeachMove on iPhone to sync.";
 "watch.connection.synced" = "Synced with iPhone.";
 "watch.metric.distance" = "Distance";
 "watch.metric.duration" = "Time";

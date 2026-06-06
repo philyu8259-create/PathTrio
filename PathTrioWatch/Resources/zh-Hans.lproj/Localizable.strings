@@ -1,13 +1,13 @@
-"watch.app.title" = "三动迹";
+"watch.app.title" = "桃动";
 "watch.active.title" = "正在记录";
 "watch.latest.title" = "最近运动";
 "watch.latest.updated" = "更新";
 "watch.action.refresh" = "刷新";
 "watch.empty.title" = "手表已就绪";
 "watch.locked.title" = "需要 Pro";
-"watch.locked.message" = "在 iPhone 上解锁三动迹 Pro 后即可使用 Apple Watch 支持。";
+"watch.locked.message" = "在 iPhone 上解锁桃动 Pro 后即可使用 Apple Watch 支持。";
 "watch.connection.unsupported" = "Apple Watch 连接不可用。";
-"watch.connection.waiting" = "打开 iPhone 上的三动迹进行同步。";
+"watch.connection.waiting" = "打开 iPhone 上的桃动进行同步。";
 "watch.connection.synced" = "已与 iPhone 同步。";
 "watch.metric.distance" = "距离";
 "watch.metric.duration" = "时间";

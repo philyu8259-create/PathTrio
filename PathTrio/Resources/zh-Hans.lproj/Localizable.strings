@@ -1,4 +1,4 @@
-"app.name" = "三动迹";
+"app.name" = "桃动";
 "app.subtitle" = "多运动健身记录";
 
 "tab.home" = "首页";
@@ -20,7 +20,7 @@
 "export.history" = "导出历史";
 "export.workout" = "导出运动";
 "export.error.title" = "导出失败";
-"export.error.message" = "三动迹暂时无法创建导出文件，请稍后再试。";
+"export.error.message" = "桃动暂时无法创建导出文件，请稍后再试。";
 
 "workout.walk" = "走路";
 "workout.run" = "跑步";
@@ -82,7 +82,7 @@
 "home.openSettings" = "打开设置";
 "home.quickStart" = "快速开始";
 "home.mode.title" = "运动类型";
-"home.trioPal.title" = "三动迹伙伴";
+"home.trioPal.title" = "桃动伙伴";
 "home.trioPal.subtitle" = "你的伙伴正在为你加油。";
 "home.peachBuddy.title" = "桃子能量伙伴";
 "home.peachBuddy.subtitle" = "你的能量伙伴正在为你加油。";
@@ -135,7 +135,7 @@
 
 "insights.title" = "智能分析";
 "insights.starter.title" = "准备生成你的运动趋势";
-"insights.starter.message" = "完成几次运动后，三动迹会在这里总结趋势和习惯。";
+"insights.starter.message" = "完成几次运动后，桃动会在这里总结趋势和习惯。";
 "insights.weeklyProgress.title" = "本周趋势";
 "insights.weeklyProgress.up.message" = "相比上周，你最近记录的距离有所提升。";
 "insights.weeklyProgress.down.message" = "相比上周，你最近记录的距离有所下降。";
@@ -146,7 +146,7 @@
 "insights.consistency.message" = "最近 7 天内至少记录过一次运动的天数。";
 
 "autoStart.title" = "开始%@？";
-"autoStart.message" = "三动迹检测到你已持续运动。点播放即可开始记录。";
+"autoStart.message" = "桃动检测到你已持续运动。点播放即可开始记录。";
 
 "workout.search.placeholder" = "搜索运动";
 "workout.search.empty" = "未匹配到运动类型";
@@ -169,23 +169,23 @@
 "settings.smartAssist.speedAnomalyAlerts" = "异常速度提醒";
 "settings.recording" = "记录";
 "settings.recording.autoStartReminders" = "自动开始提醒";
-"settings.recording.autoStartDescription" = "开启后，三动迹会观察运动状态，并在持续运动后提醒你开始记录。真正开始记录前仍需要你确认。";
+"settings.recording.autoStartDescription" = "开启后，桃动会观察运动状态，并在持续运动后提醒你开始记录。真正开始记录前仍需要你确认。";
 "settings.recording.recordWhenLocked" = "锁屏继续记录";
 "settings.recording.backgroundDescription" = "仅在运动记录中使用后台定位。锁屏后路线会更完整，但可能更耗电。";
 "settings.recording.backgroundConfirm.title" = "开启锁屏继续记录？";
-"settings.recording.backgroundConfirm.message" = "三动迹只会在运动记录进行中使用 GPS，以便锁屏后继续记录路线。这可能增加耗电，也可能需要“始终允许”定位权限。";
+"settings.recording.backgroundConfirm.message" = "桃动只会在运动记录进行中使用 GPS，以便锁屏后继续记录路线。这可能增加耗电，也可能需要“始终允许”定位权限。";
 "settings.recording.backgroundConfirm.enable" = "继续";
 "settings.health" = "Apple HealthKit";
 "settings.health.frameworks.title" = "HealthKit 使用说明";
-"settings.health.frameworks.healthKit" = "HealthKit：可选的 Apple 健康同步。获得许可后，三动迹可将完成的支持运动、可用距离和活动能量写入 Apple 健康。";
-"settings.health.frameworks.privacy" = "HealthKit 同步是可选功能。即使关闭同步或拒绝授权，运动记录仍会保存在三动迹内。";
+"settings.health.frameworks.healthKit" = "HealthKit：可选的 Apple 健康同步。获得许可后，桃动可将完成的支持运动、可用距离和活动能量写入 Apple 健康。";
+"settings.health.frameworks.privacy" = "HealthKit 同步是可选功能。即使关闭同步或拒绝授权，运动记录仍会保存在桃动内。";
 "settings.health.syncToAppleHealth" = "通过 HealthKit 同步到 Apple 健康";
 "settings.health.healthKitDescription" = "仅在获得许可后使用 Apple HealthKit，将完成的支持运动、可用距离和活动能量写入 Apple 健康。";
 "settings.health.confirm.title" = "通过 HealthKit 同步到 Apple 健康？";
-"settings.health.confirm.message" = "三动迹会先请求 HealthKit 授权，再将完成的支持运动、可用距离和活动能量写入 Apple 健康。即使同步失败，运动记录仍会保存在三动迹内。";
+"settings.health.confirm.message" = "桃动会先请求 HealthKit 授权，再将完成的支持运动、可用距离和活动能量写入 Apple 健康。即使同步失败，运动记录仍会保存在桃动内。";
 "settings.health.confirm.enable" = "继续";
 "settings.privacy" = "隐私";
-"settings.privacy.description" = "三动迹默认将运动记录保存在本机，只在记录运动时使用定位来保存路线、距离和速度。";
+"settings.privacy.description" = "桃动默认将运动记录保存在本机，只在记录运动时使用定位来保存路线、距离和速度。";
 "settings.privacy.policy" = "隐私政策";
 "settings.privacy.support" = "支持与反馈";
 "settings.privacy.eula" = "使用条款";
@@ -207,7 +207,7 @@
 "profile.peachBuddy.title" = "桃子伙伴状态";
 "profile.peachBuddy.stats" = "连续 %@ 天 · %@ 次运动";
 
-"pro.title" = "三动迹 Pro";
+"pro.title" = "桃动 Pro";
 "pro.badge" = "PRO";
 "pro.status.free.title" = "免费版";
 "pro.status.free.message" = "核心记录功能保持免费。Pro 解锁自动化、更深入复盘、数据导出和 Apple Watch 支持。";
@@ -222,7 +222,7 @@
 "pro.product.lifetime.title" = "永久 Pro";
 "pro.product.lifetime.description" = "一次购买，长期解锁 Pro 功能。";
 "pro.products.restored" = "已恢复购买。";
-"pro.locked.title" = "三动迹 Pro 功能";
+"pro.locked.title" = "桃动 Pro 功能";
 "pro.locked.message" = "%@ 属于高级功能。开启高级功能后即可使用。";
 "pro.locked.preview" = "%@ 为高级功能，开启后可查看。";
 "pro.controls.title" = "Pro 控制";
@@ -263,19 +263,19 @@
 "watch.status.unsupported.title" = "Apple Watch 不可用";
 "watch.status.unsupported.message" = "这台设备不支持 Apple Watch 连接。";
 "watch.status.notPaired.title" = "未配对 Apple Watch";
-"watch.status.notPaired.message" = "将 Apple Watch 与这台 iPhone 配对后即可使用 Watch 支持。没有手表时，三动迹 iPhone 端仍可正常使用。";
+"watch.status.notPaired.message" = "将 Apple Watch 与这台 iPhone 配对后即可使用 Watch 支持。没有手表时，桃动 iPhone 端仍可正常使用。";
 "watch.status.missing.title" = "未安装 Watch App";
-"watch.status.missing.message" = "安装三动迹 Watch 配套 App 后，可查看实时运动数据和已保存的运动摘要。";
+"watch.status.missing.message" = "安装桃动 Watch 配套 App 后，可查看实时运动数据和已保存的运动摘要。";
 "watch.status.ready.title" = "Apple Watch 已就绪";
-"watch.status.ready.message" = "三动迹可以将实时运动数据和已保存的运动摘要发送到 Apple Watch。";
+"watch.status.ready.message" = "桃动可以将实时运动数据和已保存的运动摘要发送到 Apple Watch。";
 
 "health.status.off.title" = "HealthKit 同步已关闭";
-"health.status.off.message" = "运动记录只保存在三动迹内。你可以之后再开启同步到 Apple 健康的 HealthKit 功能。";
+"health.status.off.message" = "运动记录只保存在桃动内。你可以之后再开启同步到 Apple 健康的 HealthKit 功能。";
 "health.status.permissionNeeded.title" = "需要 HealthKit 授权";
-"health.status.permissionNeeded.message" = "写入运动记录或活动数据到 Apple 健康前，三动迹会先请求你的许可。";
+"health.status.permissionNeeded.message" = "写入运动记录或活动数据到 Apple 健康前，桃动会先请求你的许可。";
 
 "location.status.permissionNeeded.title" = "需要定位权限";
-"location.status.permissionNeeded.message" = "允许定位后，三动迹才能绘制路线并计算距离。";
+"location.status.permissionNeeded.message" = "允许定位后，桃动才能绘制路线并计算距离。";
 "location.status.permissionBlocked.title" = "定位访问已关闭";
 "location.status.permissionBlocked.message" = "请在系统设置中开启定位权限，才能记录路线、距离和速度。";
 "location.status.weakSignal.title" = "GPS 信号较弱";
@@ -287,7 +287,7 @@
 "location.status.backgroundPermission.title" = "需要始终允许定位";
 "location.status.backgroundPermission.message" = "锁屏继续记录需要“始终允许”定位权限，才能在屏幕锁定后继续追踪。";
 "location.status.error.title" = "定位更新异常";
-"location.status.error.message" = "三动迹暂时无法稳定接收定位更新。";
+"location.status.error.message" = "桃动暂时无法稳定接收定位更新。";
 
 "summary.title" = "运动已保存";
 "summary.subtitle" = "%@ 已完成";
@@ -296,11 +296,11 @@
 "summary.route.saved" = "已保存 %d 个路线点。";
 "summary.health.title" = "HealthKit 同步";
 "summary.peachBuddy.message" = "桃子伙伴已帮你收下这次进步。";
-"summary.health.skipped" = "同步到 Apple 健康的 HealthKit 功能未开启。本次运动已保存在三动迹内。";
+"summary.health.skipped" = "同步到 Apple 健康的 HealthKit 功能未开启。本次运动已保存在桃动内。";
 "summary.saveError" = "本次运动无法保存，请重试。";
 "summary.health.synced" = "已通过 HealthKit 同步到 Apple 健康。";
-"summary.health.unavailable" = "这台设备无法使用 Apple HealthKit。本次运动已保存在三动迹内。";
-"summary.health.failed" = "同步到 Apple 健康的 HealthKit 功能未完成。本次运动已保存在三动迹内。";
+"summary.health.unavailable" = "这台设备无法使用 Apple HealthKit。本次运动已保存在桃动内。";
+"summary.health.failed" = "同步到 Apple 健康的 HealthKit 功能未完成。本次运动已保存在桃动内。";
 "summary.health.saving" = "正在保存运动...";
 "detail.healthSync.synced" = "已通过 HealthKit 同步到 Apple 健康";
 "detail.healthSync.skipped" = "同步到 Apple 健康的 HealthKit 功能未开启";
@@ -320,10 +320,10 @@
 "detail.insights.energy.message" = "根据运动类型和持续时间估算活动能量。";
 
 "smartAssist.activityChange.title" = "切换为%@？";
-"smartAssist.activityChange.message" = "三动迹检测到当前移动更像%@，而不是%@。";
+"smartAssist.activityChange.message" = "桃动检测到当前移动更像%@，而不是%@。";
 "smartAssist.activityChange.confirm" = "切换";
 "smartAssist.autoPause.title" = "暂停运动？";
-"smartAssist.autoPause.message" = "你看起来暂时静止。三动迹可以暂停本次运动，等你继续移动后再恢复。";
+"smartAssist.autoPause.message" = "你看起来暂时静止。桃动可以暂停本次运动，等你继续移动后再恢复。";
 "smartAssist.speedAnomaly.title" = "检测到异常速度";
 "smartAssist.speedAnomaly.message" = "当前速度对这个运动类型来说偏高，你可能需要暂停记录。";
 
@@ -363,7 +363,7 @@
 "food.error.emptyName" = "请输入食物名称。";
 "food.result.unavailable" = "未知食物";
 
-"gamification.trioPal.state.resting" = "路径精灵 · 静养";
+"gamification.trioPal.state.resting" = "桃子伙伴 · 静养";
 "gamification.trioPal.state.warmUp" = "启动模式";
 "gamification.trioPal.state.steady" = "稳定前行";
 "gamification.trioPal.state.blazing" = "持续连击";

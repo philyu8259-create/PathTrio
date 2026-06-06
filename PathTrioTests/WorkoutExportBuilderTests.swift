@@ -46,7 +46,7 @@ final class WorkoutExportBuilderTests: XCTestCase {
 
         let gpx = WorkoutExportBuilder().gpx(for: workout)
 
-        XCTAssertTrue(gpx.contains("<gpx version=\"1.1\" creator=\"PathTrio\""))
+        XCTAssertTrue(gpx.contains("<gpx version=\"1.1\" creator=\"PeachMove\""))
         XCTAssertTrue(gpx.contains("<trkpt lat=\"37.1\" lon=\"-122.1\">"))
         XCTAssertTrue(gpx.contains("<ele>10.0</ele>"))
     }

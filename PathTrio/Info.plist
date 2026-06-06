@@ -22,16 +22,20 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>PeachMove uses camera access to capture food photos for recognition.</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.</string>
+	<string>PeachMove checks relevant Apple Health workout permissions only to show and manage sync status.</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>PathTrio writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.</string>
+	<string>PeachMove writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.</string>
+	<string>PeachMove uses background location only during an active workout so it can keep recording your route when the screen is locked.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>PathTrio uses location to record route, distance, and speed for supported outdoor workouts.</string>
+	<string>PeachMove uses location to record route, distance, and speed for supported outdoor workouts.</string>
 	<key>NSMotionUsageDescription</key>
-	<string>PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.</string>
+	<string>PeachMove uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>PeachMove uses photo library access to read food images for recognition.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

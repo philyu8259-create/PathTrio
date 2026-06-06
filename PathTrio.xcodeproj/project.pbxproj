@@ -10,6 +10,7 @@
 		02B64B46E1FBC4074962F4EE /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3841CDE5329461C5FC03C4ED /* AppRootView.swift */; };
 		043FB8978C962FDB8B86C0E1 /* WorkoutSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B13A6619CB76C5F240357A4 /* WorkoutSessionModel.swift */; };
 		06E06E0FC384E6EF5D55FFEF /* WorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB6B25B4B0765BABA83DD3 /* WorkoutStore.swift */; };
+		08DF28B4C06314D8A260AFB6 /* FoodModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6025D5EA52064718702AEE9 /* FoodModelsTests.swift */; };
 		0E727CFBBB5E5C75E797C408 /* PathTrioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E6F57CF9E3E84E0157259 /* PathTrioApp.swift */; };
 		10B14C4F322E80C2716C5AB1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDA08311FBB61B2CC790A1D /* SettingsView.swift */; };
 		164709DB104DBC8B5C6D9D16 /* MetricTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F40CE362C17DA2116BDC4D2 /* MetricTile.swift */; };
@@ -209,6 +210,7 @@
 		9E2C904E8B4553BCA9EA82BC /* PathTrioTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTrioTheme.swift; sourceTree = "<group>"; };
 		A03D593E24A02227B4BC69D9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A59374B9141A9114D8674E51 /* SmartAssistEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAssistEngine.swift; sourceTree = "<group>"; };
+		A6025D5EA52064718702AEE9 /* FoodModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodModelsTests.swift; sourceTree = "<group>"; };
 		A7E3C1F7F5E177057F5D04D4 /* DailyCheckInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheckInModel.swift; sourceTree = "<group>"; };
 		AC86B6D9B53B0ABCF16D9B4A /* WorkoutSessionDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionDraft.swift; sourceTree = "<group>"; };
 		ADC906CEF70E96FC039CD7FE /* RouteMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				164EE6940FCEB6685F27F598 /* AppleWatchSyncEnvelopeTests.swift */,
 				7AE2EF9A55F90ECEDF75DBCD /* AutoStartReminderEngineTests.swift */,
 				B0842326A31060730BF90DDB /* DistanceCalculatorTests.swift */,
+				A6025D5EA52064718702AEE9 /* FoodModelsTests.swift */,
 				481B96C2CD47D426A46E1FDF /* GamificationTests.swift */,
 				0FCAECDE95F2532FA8B3BA7B /* HealthKitWorkoutBuilderTests.swift */,
 				0765AC35EB908C7C873461A0 /* HealthSyncPlanTests.swift */,
@@ -616,6 +619,7 @@
 				7E3DAA5AB228B67CC5C1C94C /* AppleWatchSyncEnvelopeTests.swift in Sources */,
 				9BBBF7440AF60B9C04352875 /* AutoStartReminderEngineTests.swift in Sources */,
 				6BB60E18663FDFE45CF8F9C4 /* DistanceCalculatorTests.swift in Sources */,
+				08DF28B4C06314D8A260AFB6 /* FoodModelsTests.swift in Sources */,
 				ADB69B6DEC5CD938E6E4F638 /* GamificationTests.swift in Sources */,
 				CBEE85C0CEC6CDB4D02EB172 /* HealthKitWorkoutBuilderTests.swift in Sources */,
 				8C7F5D01D47C2A9C091E93FF /* HealthSyncPlanTests.swift in Sources */,
@@ -772,13 +776,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9SZ5257PF4;
 				INFOPLIST_FILE = PathTrio/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PathTrio writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.";
+				INFOPLIST_KEY_CFBundleDisplayName = PeachMove;
+				INFOPLIST_KEY_NSCameraUsageDescription = "PeachMove uses camera access to capture food photos for recognition.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "PeachMove checks relevant Apple Health workout permissions only to show and manage sync status.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PeachMove writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PathTrio uses location to record route, distance, and speed for supported outdoor workouts.";
-				INFOPLIST_KEY_NSMotionUsageDescription = "PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PeachMove uses background location only during an active workout so it can keep recording your route when the screen is locked.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PeachMove uses location to record route, distance, and speed for supported outdoor workouts.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "PeachMove uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "PeachMove uses photo library access to read food images for recognition.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -938,13 +944,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9SZ5257PF4;
 				INFOPLIST_FILE = PathTrio/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PathTrio writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.";
+				INFOPLIST_KEY_CFBundleDisplayName = PeachMove;
+				INFOPLIST_KEY_NSCameraUsageDescription = "PeachMove uses camera access to capture food photos for recognition.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "PeachMove checks relevant Apple Health workout permissions only to show and manage sync status.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PeachMove writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PathTrio uses location to record route, distance, and speed for supported outdoor workouts.";
-				INFOPLIST_KEY_NSMotionUsageDescription = "PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PeachMove uses background location only during an active workout so it can keep recording your route when the screen is locked.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PeachMove uses location to record route, distance, and speed for supported outdoor workouts.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "PeachMove uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "PeachMove uses photo library access to read food images for recognition.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -962,7 +970,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9SZ5257PF4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
+				INFOPLIST_KEY_CFBundleDisplayName = PeachMove;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.phil.PathTrio;
@@ -980,7 +988,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9SZ5257PF4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = PathTrio;
+				INFOPLIST_KEY_CFBundleDisplayName = PeachMove;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.phil.PathTrio;

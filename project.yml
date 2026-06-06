@@ -26,15 +26,15 @@ targets:
         DEVELOPMENT_TEAM: 9SZ5257PF4
         CODE_SIGN_STYLE: Automatic
         CODE_SIGN_ENTITLEMENTS: PathTrio/PathTrio.entitlements
-        INFOPLIST_KEY_CFBundleDisplayName: PathTrio
+        INFOPLIST_KEY_CFBundleDisplayName: PeachMove
         INFOPLIST_KEY_NSHumanReadableCopyright: ""
-        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: PathTrio uses location to record route, distance, and speed for supported outdoor workouts.
-        INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription: PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.
-        INFOPLIST_KEY_NSMotionUsageDescription: PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.
-        INFOPLIST_KEY_NSCameraUsageDescription: PathTrio uses camera access to capture food photos for recognition.
-        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: PathTrio uses photo library access to read food images for recognition.
-        INFOPLIST_KEY_NSHealthShareUsageDescription: PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.
-        INFOPLIST_KEY_NSHealthUpdateUsageDescription: PathTrio writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: PeachMove uses location to record route, distance, and speed for supported outdoor workouts.
+        INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription: PeachMove uses background location only during an active workout so it can keep recording your route when the screen is locked.
+        INFOPLIST_KEY_NSMotionUsageDescription: PeachMove uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.
+        INFOPLIST_KEY_NSCameraUsageDescription: PeachMove uses camera access to capture food photos for recognition.
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: PeachMove uses photo library access to read food images for recognition.
+        INFOPLIST_KEY_NSHealthShareUsageDescription: PeachMove checks relevant Apple Health workout permissions only to show and manage sync status.
+        INFOPLIST_KEY_NSHealthUpdateUsageDescription: PeachMove writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.
     info:
       path: PathTrio/Info.plist
       properties:
@@ -50,13 +50,13 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
-        NSLocationWhenInUseUsageDescription: PathTrio uses location to record route, distance, and speed for supported outdoor workouts.
-        NSLocationAlwaysAndWhenInUseUsageDescription: PathTrio uses background location only during an active workout so it can keep recording your route when the screen is locked.
-        NSMotionUsageDescription: PathTrio uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.
-        NSCameraUsageDescription: PathTrio uses camera access to capture food photos for recognition.
-        NSPhotoLibraryUsageDescription: PathTrio uses photo library access to read food images for recognition.
-        NSHealthShareUsageDescription: PathTrio checks relevant Apple Health workout permissions only to show and manage sync status.
-        NSHealthUpdateUsageDescription: PathTrio writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.
+        NSLocationWhenInUseUsageDescription: PeachMove uses location to record route, distance, and speed for supported outdoor workouts.
+        NSLocationAlwaysAndWhenInUseUsageDescription: PeachMove uses background location only during an active workout so it can keep recording your route when the screen is locked.
+        NSMotionUsageDescription: PeachMove uses motion activity to provide optional Smart Assist alerts for pauses, activity changes, and unusual speeds.
+        NSCameraUsageDescription: PeachMove uses camera access to capture food photos for recognition.
+        NSPhotoLibraryUsageDescription: PeachMove uses photo library access to read food images for recognition.
+        NSHealthShareUsageDescription: PeachMove checks relevant Apple Health workout permissions only to show and manage sync status.
+        NSHealthUpdateUsageDescription: PeachMove writes completed supported workouts, distance when available, and active energy to Apple Health when you turn on sync.
   PathTrioWatch:
     type: application
     platform: watchOS
@@ -77,7 +77,7 @@ targets:
         DEVELOPMENT_TEAM: 9SZ5257PF4
         CODE_SIGN_STYLE: Automatic
         GENERATE_INFOPLIST_FILE: YES
-        INFOPLIST_KEY_CFBundleDisplayName: PathTrio
+        INFOPLIST_KEY_CFBundleDisplayName: PeachMove
         INFOPLIST_KEY_WKApplication: YES
         INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.phil.PathTrio
         INFOPLIST_KEY_NSHumanReadableCopyright: ""

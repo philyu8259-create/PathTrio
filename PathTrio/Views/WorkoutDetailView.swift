@@ -180,7 +180,7 @@ struct WorkoutDetailView: View {
 
         do {
             let builder = WorkoutExportBuilder()
-            let filename = "PathTrio-\(workout.type.rawValue)-\(workout.id.uuidString.prefix(8)).gpx"
+            let filename = "PeachMove-\(workout.type.rawValue)-\(workout.id.uuidString.prefix(8)).gpx"
             let url = try builder.writeTemporaryFile(contents: builder.gpx(for: workout), filename: filename)
             shareItem = ExportShareItem(url: url)
         } catch {

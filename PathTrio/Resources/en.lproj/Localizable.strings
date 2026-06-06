@@ -1,4 +1,4 @@
-"app.name" = "PathTrio";
+"app.name" = "PeachMove";
 "app.subtitle" = "Multi-Sport Fitness Tracker";
 
 "tab.home" = "Home";
@@ -20,7 +20,7 @@
 "export.history" = "Export history";
 "export.workout" = "Export workout";
 "export.error.title" = "Export Failed";
-"export.error.message" = "PathTrio could not create the export file. Please try again.";
+"export.error.message" = "PeachMove could not create the export file. Please try again.";
 
 "workout.walk" = "Walk";
 "workout.run" = "Run";
@@ -82,7 +82,7 @@
 "home.openSettings" = "Open Settings";
 "home.quickStart" = "Quick Start";
 "home.mode.title" = "Activity";
-"home.trioPal.title" = "Trio Pal";
+"home.trioPal.title" = "Peach Buddy";
 "home.trioPal.subtitle" = "Your active buddy is cheering your progress.";
 "home.peachBuddy.title" = "Peach Buddy";
 "home.peachBuddy.subtitle" = "Your energy buddy is cheering you on.";
@@ -135,7 +135,7 @@
 
 "insights.title" = "Smart Analysis";
 "insights.starter.title" = "Ready for your first pattern";
-"insights.starter.message" = "After a few workouts, PathTrio will summarize trends and habits here.";
+"insights.starter.message" = "After a few workouts, PeachMove will summarize trends and habits here.";
 "insights.weeklyProgress.title" = "Weekly trend";
 "insights.weeklyProgress.up.message" = "Your recent distance is up compared with the previous week.";
 "insights.weeklyProgress.down.message" = "Your recent distance is lower than the previous week.";
@@ -146,7 +146,7 @@
 "insights.consistency.message" = "Days with at least one recorded workout in the last 7 days.";
 
 "autoStart.title" = "Start %@?";
-"autoStart.message" = "PathTrio detected sustained movement. Tap play to start recording.";
+"autoStart.message" = "PeachMove detected sustained movement. Tap play to start recording.";
 
 "workout.search.placeholder" = "Search workouts";
 "workout.search.empty" = "No matching workout type.";
@@ -169,23 +169,23 @@
 "settings.smartAssist.speedAnomalyAlerts" = "Speed Anomaly Alerts";
 "settings.recording" = "Recording";
 "settings.recording.autoStartReminders" = "Automatic Start Reminders";
-"settings.recording.autoStartDescription" = "When enabled, PathTrio watches motion activity and suggests starting a workout after sustained movement. You still confirm before recording starts.";
+"settings.recording.autoStartDescription" = "When enabled, PeachMove watches motion activity and suggests starting a workout after sustained movement. You still confirm before recording starts.";
 "settings.recording.recordWhenLocked" = "Record When Locked";
 "settings.recording.backgroundDescription" = "Uses background location only during an active workout. This keeps routes complete when the screen is locked, but may use more battery.";
 "settings.recording.backgroundConfirm.title" = "Record When Locked?";
-"settings.recording.backgroundConfirm.message" = "PathTrio will use GPS only while a workout is recording so the route can continue after the screen locks. This may use more battery and may require Always location permission.";
+"settings.recording.backgroundConfirm.message" = "PeachMove will use GPS only while a workout is recording so the route can continue after the screen locks. This may use more battery and may require Always location permission.";
 "settings.recording.backgroundConfirm.enable" = "Continue";
 "settings.health" = "Apple HealthKit";
 "settings.health.frameworks.title" = "HealthKit use";
-"settings.health.frameworks.healthKit" = "HealthKit: optional Apple Health sync. After permission, PathTrio can write supported completed workouts, distance when available, and active energy to Apple Health.";
-"settings.health.frameworks.privacy" = "HealthKit sync is optional. Workout records stay saved in PathTrio even when sync is off or permission is denied.";
+"settings.health.frameworks.healthKit" = "HealthKit: optional Apple Health sync. After permission, PeachMove can write supported completed workouts, distance when available, and active energy to Apple Health.";
+"settings.health.frameworks.privacy" = "HealthKit sync is optional. Workout records stay saved in PeachMove even when sync is off or permission is denied.";
 "settings.health.syncToAppleHealth" = "HealthKit Sync to Apple Health";
 "settings.health.healthKitDescription" = "Uses Apple HealthKit only after permission to write supported completed workouts, distance when available, and active energy to Apple Health.";
 "settings.health.confirm.title" = "HealthKit Sync to Apple Health?";
-"settings.health.confirm.message" = "PathTrio will ask for HealthKit permission before writing supported completed workouts, distance when available, and active energy to Apple Health. Your workout is saved in PathTrio even if sync fails.";
+"settings.health.confirm.message" = "PeachMove will ask for HealthKit permission before writing supported completed workouts, distance when available, and active energy to Apple Health. Your workout is saved in PeachMove even if sync fails.";
 "settings.health.confirm.enable" = "Continue";
 "settings.privacy" = "Privacy";
-"settings.privacy.description" = "PathTrio stores workouts locally by default and uses location only to record active workout routes, distance, and speed.";
+"settings.privacy.description" = "PeachMove stores workouts locally by default and uses location only to record active workout routes, distance, and speed.";
 
 "settings.privacy.policy" = "Privacy Policy";
 "settings.privacy.support" = "Support";
@@ -208,7 +208,7 @@
 "profile.peachBuddy.title" = "Peach Buddy status";
 "profile.peachBuddy.stats" = "%@ day streak · %@ workouts";
 
-"pro.title" = "PathTrio Pro";
+"pro.title" = "PeachMove Pro";
 "pro.badge" = "PRO";
 "pro.status.free.title" = "Free Plan";
 "pro.status.free.message" = "Core tracking stays free. Pro unlocks automation, deeper review, export, and Apple Watch support.";
@@ -223,7 +223,7 @@
 "pro.product.lifetime.title" = "Lifetime Pro";
 "pro.product.lifetime.description" = "Pay once and keep Pro features unlocked.";
 "pro.products.restored" = "Purchase restored.";
-"pro.locked.title" = "PathTrio Pro Feature";
+"pro.locked.title" = "PeachMove Pro Feature";
 "pro.locked.message" = "%@ is part of the premium feature set.";
 "pro.locked.preview" = "%@ can be used with premium features enabled.";
 "pro.controls.title" = "Pro Controls";
@@ -264,31 +264,31 @@
 "watch.status.unsupported.title" = "Apple Watch Unavailable";
 "watch.status.unsupported.message" = "This device does not support Apple Watch connectivity.";
 "watch.status.notPaired.title" = "No Apple Watch Paired";
-"watch.status.notPaired.message" = "Pair an Apple Watch with this iPhone to use Watch support. PathTrio still works normally on iPhone without a watch.";
+"watch.status.notPaired.message" = "Pair an Apple Watch with this iPhone to use Watch support. PeachMove still works normally on iPhone without a watch.";
 "watch.status.missing.title" = "Watch App Not Installed";
-"watch.status.missing.message" = "Install the PathTrio Watch companion to see live workout metrics and saved workout summaries.";
+"watch.status.missing.message" = "Install the PeachMove Watch companion to see live workout metrics and saved workout summaries.";
 "watch.status.ready.title" = "Apple Watch Ready";
-"watch.status.ready.message" = "PathTrio can publish live workout metrics and saved workout summaries to Apple Watch.";
+"watch.status.ready.message" = "PeachMove can publish live workout metrics and saved workout summaries to Apple Watch.";
 
 "health.status.off.title" = "HealthKit Sync Off";
-"health.status.off.message" = "Workouts stay in PathTrio only. You can turn on HealthKit sync to Apple Health later.";
+"health.status.off.message" = "Workouts stay in PeachMove only. You can turn on HealthKit sync to Apple Health later.";
 "health.status.permissionNeeded.title" = "HealthKit Permission Needed";
-"health.status.permissionNeeded.message" = "PathTrio will ask permission before writing workouts or activity data to Apple Health.";
+"health.status.permissionNeeded.message" = "PeachMove will ask permission before writing workouts or activity data to Apple Health.";
 
 "location.status.permissionNeeded.title" = "Location Permission Needed";
-"location.status.permissionNeeded.message" = "Allow location access so PathTrio can draw your route and measure distance.";
+"location.status.permissionNeeded.message" = "Allow location access so PeachMove can draw your route and measure distance.";
 "location.status.permissionBlocked.title" = "Location Access Off";
 "location.status.permissionBlocked.message" = "Turn on location access in Settings to record route, distance, and speed.";
 "location.status.weakSignal.title" = "GPS Signal Is Weak";
 "location.status.weakSignal.message" = "Move to an open area for a more accurate route and distance.";
 "location.status.background.title" = "Background Recording On";
-"location.status.background.message" = "PathTrio will keep GPS active while this workout is recording, which may use more battery.";
+"location.status.background.message" = "PeachMove will keep GPS active while this workout is recording, which may use more battery.";
 "location.status.foregroundOnly.title" = "Lock Screen Recording Off";
 "location.status.foregroundOnly.message" = "This workout can stop receiving GPS after the screen locks. Turn on Record When Locked in Settings for complete routes.";
 "location.status.backgroundPermission.title" = "Allow Always Location";
 "location.status.backgroundPermission.message" = "Background recording needs Always location access to keep tracking when the screen is locked.";
 "location.status.error.title" = "Location Update Issue";
-"location.status.error.message" = "PathTrio is having trouble receiving location updates right now.";
+"location.status.error.message" = "PeachMove is having trouble receiving location updates right now.";
 
 "summary.title" = "Workout Saved";
 "summary.subtitle" = "%@ complete";
@@ -297,11 +297,11 @@
 "summary.route.saved" = "%d route points saved.";
 "summary.health.title" = "HealthKit Sync";
 "summary.peachBuddy.message" = "Peach Buddy saved your progress.";
-"summary.health.skipped" = "HealthKit sync to Apple Health is off. Your workout was saved in PathTrio.";
+"summary.health.skipped" = "HealthKit sync to Apple Health is off. Your workout was saved in PeachMove.";
 "summary.saveError" = "This workout could not be saved. Please try again.";
 "summary.health.synced" = "Synced to Apple Health through HealthKit.";
-"summary.health.unavailable" = "Apple HealthKit is not available on this device. Your workout was saved in PathTrio.";
-"summary.health.failed" = "HealthKit sync to Apple Health did not finish. Your workout was saved in PathTrio.";
+"summary.health.unavailable" = "Apple HealthKit is not available on this device. Your workout was saved in PeachMove.";
+"summary.health.failed" = "HealthKit sync to Apple Health did not finish. Your workout was saved in PeachMove.";
 "summary.health.saving" = "Saving workout...";
 "detail.healthSync.synced" = "Synced to Apple Health through HealthKit";
 "detail.healthSync.skipped" = "HealthKit sync to Apple Health was off";
@@ -321,10 +321,10 @@
 "detail.insights.energy.message" = "Estimated active energy based on workout type and duration.";
 
 "smartAssist.activityChange.title" = "Switch to %@?";
-"smartAssist.activityChange.message" = "PathTrio detected movement that looks more like %@ than %@.";
+"smartAssist.activityChange.message" = "PeachMove detected movement that looks more like %@ than %@.";
 "smartAssist.activityChange.confirm" = "Switch";
 "smartAssist.autoPause.title" = "Pause workout?";
-"smartAssist.autoPause.message" = "You appear to be still. PathTrio can pause this workout until movement resumes.";
+"smartAssist.autoPause.message" = "You appear to be still. PeachMove can pause this workout until movement resumes.";
 "smartAssist.speedAnomaly.title" = "Unusual speed detected";
 "smartAssist.speedAnomaly.message" = "Your speed is unusually high for this workout type. You may want to pause recording.";
 
@@ -364,7 +364,7 @@
 "food.error.emptyName" = "Food name cannot be empty.";
 "food.result.unavailable" = "Unknown food";
 
-"gamification.trioPal.state.resting" = "PathTrio Resting";
+"gamification.trioPal.state.resting" = "Peach Buddy Resting";
 "gamification.trioPal.state.warmUp" = "Warm-up";
 "gamification.trioPal.state.steady" = "Steady Pace";
 "gamification.trioPal.state.blazing" = "On Fire";

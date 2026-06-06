@@ -178,7 +178,7 @@ struct HistoryView: View {
             let builder = WorkoutExportBuilder()
             let url = try builder.writeTemporaryFile(
                 contents: builder.csv(for: workouts),
-                filename: "PathTrio-Workouts.csv"
+                filename: "PeachMove-Workouts.csv"
             )
             shareItem = ExportShareItem(url: url)
         } catch {
