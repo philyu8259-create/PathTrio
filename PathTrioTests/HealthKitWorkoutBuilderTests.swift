@@ -46,6 +46,51 @@ final class HealthKitWorkoutBuilderTests: XCTestCase {
         XCTAssertEqual(energySample.quantity.doubleValue(for: HKUnit.kilocalorie()), 343, accuracy: 0.1)
     }
 
+    func testMetadataMarksOnlyManualWorkoutsAsUserEntered() throws {
+        let automaticSession = WorkoutSessionModel(
+            type: .run,
+            startedAt: Date(timeIntervalSince1970: 100),
+            endedAt: Date(timeIntervalSince1970: 1_900),
+            duration: 1_800,
+            distanceMeters: 5_000,
+            averageSpeedMetersPerSecond: 2.78,
+            smartAssistEnabledAtStart: false
+        )
+        let manualSession = WorkoutSessionModel(
+            type: .run,
+            startedAt: Date(timeIntervalSince1970: 100),
+            endedAt: Date(timeIntervalSince1970: 1_900),
+            duration: 1_800,
+            distanceMeters: 5_000,
+            averageSpeedMetersPerSecond: 2.78,
+            smartAssistEnabledAtStart: false,
+            recordingMode: .manualEntry,
+            isManualEntry: true
+        )
+
+        XCTAssertEqual(try XCTUnwrap(HealthKitWorkoutBuilder.metadata(for: automaticSession)[HKMetadataKeyWasUserEntered] as? Bool), false)
+        XCTAssertEqual(try XCTUnwrap(HealthKitWorkoutBuilder.metadata(for: manualSession)[HKMetadataKeyWasUserEntered] as? Bool), true)
+    }
+
+    func testSamplesUseUserCorrectedCaloriesWhenAvailable() throws {
+        let session = WorkoutSessionModel(
+            type: .run,
+            startedAt: Date(timeIntervalSince1970: 100),
+            endedAt: Date(timeIntervalSince1970: 1_900),
+            duration: 1_800,
+            distanceMeters: 5_000,
+            averageSpeedMetersPerSecond: 2.78,
+            estimatedCalories: 343,
+            userCorrectedCalories: 390,
+            smartAssistEnabledAtStart: false
+        )
+
+        let samples = HealthKitWorkoutBuilder.samples(for: session)
+        let energySample = try XCTUnwrap(samples.first { $0.quantityType.identifier == HKQuantityTypeIdentifier.activeEnergyBurned.rawValue })
+
+        XCTAssertEqual(energySample.quantity.doubleValue(for: HKUnit.kilocalorie()), 390, accuracy: 0.1)
+    }
+
     func testCyclingUsesCyclingDistanceSample() throws {
         let session = WorkoutSessionModel(
             type: .ride,

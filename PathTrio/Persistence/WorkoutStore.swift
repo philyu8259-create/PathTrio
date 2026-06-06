@@ -25,7 +25,7 @@ struct WorkoutStore {
             totals.workoutCount += 1
             totals.distanceMeters += workout.distanceMeters
             totals.duration += workout.duration
-            totals.estimatedCalories += workout.estimatedCalories ?? WorkoutCaloriesEstimator.estimate(
+            totals.estimatedCalories += workout.effectiveEstimatedCalories ?? WorkoutCaloriesEstimator.estimate(
                 type: workout.type,
                 duration: workout.duration,
                 bodyWeightKilograms: nil
@@ -68,6 +68,7 @@ struct WorkoutStore {
                 bodyWeightKilograms: bodyWeightKilograms
             ),
             smartAssistEnabledAtStart: smartAssistEnabledAtStart,
+            recordingMode: draft.type.recordingMode,
             locations: points
         )
 

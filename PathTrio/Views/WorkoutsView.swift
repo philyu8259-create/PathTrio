@@ -384,7 +384,12 @@ struct WorkoutsView: View {
                 manualEntryError = L10n.string("workouts.manual.error.calories")
                 return
             }
-            saveManualSession(estimatedCalories: parsedCalories, durationSeconds: durationSeconds, distanceMeters: distanceMeters)
+            saveManualSession(
+                estimatedCalories: parsedCalories,
+                userCorrectedCalories: parsedCalories,
+                durationSeconds: durationSeconds,
+                distanceMeters: distanceMeters
+            )
             return
         }
 
@@ -398,10 +403,20 @@ struct WorkoutsView: View {
             duration: durationSeconds,
             bodyWeightKilograms: appModel.settingsStore.bodyWeightKilograms
         )
-        saveManualSession(estimatedCalories: estimatedCalories, durationSeconds: durationSeconds, distanceMeters: distanceMeters)
+        saveManualSession(
+            estimatedCalories: estimatedCalories,
+            userCorrectedCalories: nil,
+            durationSeconds: durationSeconds,
+            distanceMeters: distanceMeters
+        )
     }
 
-    private func saveManualSession(estimatedCalories: Double?, durationSeconds: TimeInterval, distanceMeters: Double) {
+    private func saveManualSession(
+        estimatedCalories: Double?,
+        userCorrectedCalories: Double?,
+        durationSeconds: TimeInterval,
+        distanceMeters: Double
+    ) {
         do {
             let averageSpeedMetersPerSecond: Double = {
                 guard durationSeconds > 0 else { return 0 }
@@ -418,7 +433,10 @@ struct WorkoutsView: View {
                 distanceMeters: distanceMeters,
                 averageSpeedMetersPerSecond: averageSpeedMetersPerSecond,
                 estimatedCalories: estimatedCalories,
-                smartAssistEnabledAtStart: false
+                userCorrectedCalories: userCorrectedCalories,
+                smartAssistEnabledAtStart: false,
+                recordingMode: .manualEntry,
+                isManualEntry: true
             )
 
             modelContext.insert(session)

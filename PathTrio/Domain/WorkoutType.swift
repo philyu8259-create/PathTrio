@@ -232,9 +232,10 @@ enum WorkoutCategory: String, Codable {
     case studio
 }
 
-enum WorkoutRecordingMode {
+enum WorkoutRecordingMode: String, Codable {
     case routeTracking
     case durationOnly
+    case manualEntry
 }
 
 enum WorkoutTintToken: String {

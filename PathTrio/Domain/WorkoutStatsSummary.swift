@@ -38,7 +38,7 @@ struct WorkoutStatsSummaryBuilder {
             distanceMeters: workouts.reduce(0) { $0 + $1.distanceMeters },
             duration: workouts.reduce(0) { $0 + $1.duration },
             estimatedCalories: workouts.reduce(0) {
-                $0 + ($1.estimatedCalories ?? WorkoutCaloriesEstimator.estimate(
+                $0 + ($1.effectiveEstimatedCalories ?? WorkoutCaloriesEstimator.estimate(
                     type: $1.type,
                     duration: $1.duration,
                     bodyWeightKilograms: nil

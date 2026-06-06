@@ -31,7 +31,7 @@ enum HealthKitWorkoutBuilder {
     static func metadata(for session: WorkoutSessionModel) -> [String: Any] {
         [
             HKMetadataKeyExternalUUID: session.id.uuidString,
-            HKMetadataKeyWasUserEntered: true
+            HKMetadataKeyWasUserEntered: session.isManualEntry
         ]
     }
 
@@ -48,7 +48,7 @@ enum HealthKitWorkoutBuilder {
         }
 
         if let activeEnergyType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned),
-           let estimatedCalories = session.estimatedCalories,
+           let estimatedCalories = session.effectiveEstimatedCalories,
            estimatedCalories > 0 {
             samples.append(HKQuantitySample(
                 type: activeEnergyType,

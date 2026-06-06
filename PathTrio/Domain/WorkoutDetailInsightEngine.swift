@@ -56,7 +56,7 @@ struct WorkoutDetailInsightEngine {
     }
 
     private func energyInsight(for workout: WorkoutSessionModel) -> WorkoutDetailInsight? {
-        let calories = workout.estimatedCalories ?? WorkoutCaloriesEstimator.estimate(
+        let calories = workout.effectiveEstimatedCalories ?? WorkoutCaloriesEstimator.estimate(
             type: workout.type,
             duration: workout.duration,
             bodyWeightKilograms: nil

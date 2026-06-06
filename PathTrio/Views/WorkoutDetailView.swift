@@ -38,7 +38,7 @@ struct WorkoutDetailView: View {
     }
 
     private var estimatedCalories: Double? {
-        workout.estimatedCalories ?? WorkoutCaloriesEstimator.estimate(
+        workout.effectiveEstimatedCalories ?? WorkoutCaloriesEstimator.estimate(
             type: workout.type,
             duration: workout.duration,
             bodyWeightKilograms: nil

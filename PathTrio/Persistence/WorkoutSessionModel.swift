@@ -11,8 +11,12 @@ final class WorkoutSessionModel {
     var distanceMeters: Double
     var averageSpeedMetersPerSecond: Double
     var estimatedCalories: Double?
+    var userCorrectedCalories: Double?
     var smartAssistEnabledAtStart: Bool
     var healthSyncResultRawValue: String?
+    var recordingModeRawValue: String?
+    var isManualEntry: Bool = false
+    var notes: String?
     var createdAt: Date
     var updatedAt: Date
     @Relationship(deleteRule: .cascade, inverse: \LocationPointModel.workout) var locations: [LocationPointModel]
@@ -26,8 +30,12 @@ final class WorkoutSessionModel {
         distanceMeters: Double,
         averageSpeedMetersPerSecond: Double,
         estimatedCalories: Double? = nil,
+        userCorrectedCalories: Double? = nil,
         smartAssistEnabledAtStart: Bool,
         healthSyncResult: WorkoutHealthSyncResult? = nil,
+        recordingMode: WorkoutRecordingMode? = nil,
+        isManualEntry: Bool = false,
+        notes: String? = nil,
         locations: [LocationPointModel] = [],
         createdAt: Date = Date(),
         updatedAt: Date = Date()
@@ -40,8 +48,12 @@ final class WorkoutSessionModel {
         self.distanceMeters = distanceMeters
         self.averageSpeedMetersPerSecond = averageSpeedMetersPerSecond
         self.estimatedCalories = estimatedCalories
+        self.userCorrectedCalories = userCorrectedCalories
         self.smartAssistEnabledAtStart = smartAssistEnabledAtStart
         self.healthSyncResultRawValue = healthSyncResult?.rawValue
+        self.recordingModeRawValue = recordingMode?.rawValue
+        self.isManualEntry = isManualEntry
+        self.notes = notes
         self.locations = locations
         self.createdAt = createdAt
         self.updatedAt = updatedAt
@@ -49,6 +61,24 @@ final class WorkoutSessionModel {
 
     var type: WorkoutType {
         WorkoutType(rawValue: typeRawValue) ?? .walk
+    }
+
+    var recordingMode: WorkoutRecordingMode {
+        get {
+            guard let recordingModeRawValue,
+                  let recordingMode = WorkoutRecordingMode(rawValue: recordingModeRawValue) else {
+                return isManualEntry ? .manualEntry : type.recordingMode
+            }
+            return recordingMode
+        }
+        set {
+            recordingModeRawValue = newValue.rawValue
+            isManualEntry = newValue == .manualEntry
+        }
+    }
+
+    var effectiveEstimatedCalories: Double? {
+        userCorrectedCalories ?? estimatedCalories
     }
 
     var healthSyncResult: WorkoutHealthSyncResult? {

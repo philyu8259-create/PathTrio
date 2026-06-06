@@ -37,7 +37,7 @@ final class AppleWatchSupportService: NSObject, WCSessionDelegate {
             duration: workout.duration,
             distanceMeters: workout.distanceMeters,
             averageSpeedMetersPerSecond: workout.averageSpeedMetersPerSecond,
-            estimatedCalories: workout.estimatedCalories
+            estimatedCalories: workout.effectiveEstimatedCalories
         )
         envelope.updatedAt = Date().timeIntervalSince1970
         publishEnvelopeIfPossible()

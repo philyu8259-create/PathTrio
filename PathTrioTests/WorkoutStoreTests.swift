@@ -56,6 +56,26 @@ final class WorkoutStoreTests: XCTestCase {
         XCTAssertEqual(totals.estimatedCalories, 424.7, accuracy: 0.2)
     }
 
+    func testTotalsUseUserCorrectedCaloriesWhenAvailable() throws {
+        let context = try makeContext()
+        let store = WorkoutStore(context: context)
+        let start = Date(timeIntervalSince1970: 1_000)
+        let end = Date(timeIntervalSince1970: 2_000)
+
+        context.insert(makeWorkout(
+            startedAt: Date(timeIntervalSince1970: 1_100),
+            duration: 600,
+            distanceMeters: 1_000,
+            estimatedCalories: 90,
+            userCorrectedCalories: 125
+        ))
+        try context.save()
+
+        let totals = try store.totals(from: start, to: end)
+
+        XCTAssertEqual(totals.estimatedCalories, 125, accuracy: 0.1)
+    }
+
     func testSaveCompletedWorkoutStoresEstimatedCalories() throws {
         let context = try makeContext()
         let store = WorkoutStore(context: context)
@@ -75,6 +95,49 @@ final class WorkoutStoreTests: XCTestCase {
 
         let estimatedCalories = try XCTUnwrap(saved.estimatedCalories)
         XCTAssertEqual(estimatedCalories, 343, accuracy: 0.1)
+    }
+
+    func testSaveCompletedWorkoutDefaultsToTypeRecordingMode() throws {
+        let context = try makeContext()
+        let store = WorkoutStore(context: context)
+        let draft = WorkoutSessionDraft(
+            type: .run,
+            startedAt: Date(timeIntervalSince1970: 100),
+            endedAt: Date(timeIntervalSince1970: 1_900),
+            state: .ended,
+            metrics: WorkoutMetrics(duration: 1_800, distanceMeters: 5_000, averageSpeedMetersPerSecond: 2.78)
+        )
+
+        let saved = try store.saveCompletedWorkout(
+            draft,
+            smartAssistEnabledAtStart: false,
+            bodyWeightKilograms: 70
+        )
+
+        XCTAssertEqual(saved.recordingMode, .routeTracking)
+        XCTAssertFalse(saved.isManualEntry)
+    }
+
+    func testWorkoutSessionMetadataSupportsManualEntryAndEffectiveCalories() {
+        let workout = WorkoutSessionModel(
+            type: .yoga,
+            startedAt: Date(timeIntervalSince1970: 100),
+            endedAt: Date(timeIntervalSince1970: 700),
+            duration: 600,
+            distanceMeters: 0,
+            averageSpeedMetersPerSecond: 0,
+            estimatedCalories: 80,
+            userCorrectedCalories: 110,
+            smartAssistEnabledAtStart: false,
+            recordingMode: .manualEntry,
+            isManualEntry: true,
+            notes: "Felt harder than usual."
+        )
+
+        XCTAssertEqual(workout.recordingMode, .manualEntry)
+        XCTAssertTrue(workout.isManualEntry)
+        XCTAssertEqual(workout.notes, "Felt harder than usual.")
+        XCTAssertEqual(workout.effectiveEstimatedCalories, 110)
     }
 
     func testSaveCompletedWorkoutStartsWithoutHealthSyncResult() throws {
@@ -142,7 +205,9 @@ final class WorkoutStoreTests: XCTestCase {
         startedAt: Date,
         duration: TimeInterval,
         distanceMeters: Double,
-        type: WorkoutType = .walk
+        type: WorkoutType = .walk,
+        estimatedCalories: Double? = nil,
+        userCorrectedCalories: Double? = nil
     ) -> WorkoutSessionModel {
         WorkoutSessionModel(
             type: type,
@@ -151,6 +216,8 @@ final class WorkoutStoreTests: XCTestCase {
             duration: duration,
             distanceMeters: distanceMeters,
             averageSpeedMetersPerSecond: distanceMeters / max(duration, 1),
+            estimatedCalories: estimatedCalories,
+            userCorrectedCalories: userCorrectedCalories,
             smartAssistEnabledAtStart: false
         )
     }

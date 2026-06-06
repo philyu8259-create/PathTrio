@@ -12,6 +12,8 @@ struct WorkoutExportBuilder {
             "distance_meters",
             "average_speed_mps",
             "estimated_calories",
+            "recording_mode",
+            "is_manual_entry",
             "route_points"
         ]
 
@@ -26,7 +28,9 @@ struct WorkoutExportBuilder {
                     String(format: "%.0f", workout.duration),
                     String(format: "%.2f", workout.distanceMeters),
                     String(format: "%.3f", workout.averageSpeedMetersPerSecond),
-                    workout.estimatedCalories.map { String(format: "%.1f", $0) } ?? "",
+                    workout.effectiveEstimatedCalories.map { String(format: "%.1f", $0) } ?? "",
+                    workout.recordingMode.rawValue,
+                    workout.isManualEntry ? "true" : "false",
                     "\(workout.locations.count)"
                 ].map(csvEscaped).joined(separator: ",")
             }
