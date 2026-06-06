@@ -92,6 +92,11 @@
 
 "today.title" = "Today";
 "today.subtitle" = "Daily mission board and quick start";
+"today.hero.title" = "Ready for today's adventure?";
+"today.hero.subtitle" = "Peach Buddy is holding your mission board.";
+"today.hero.streak" = "%@ day";
+"today.hero.sessions" = "%@ done";
+"today.hero.progress" = "%@ / %@ quests complete";
 "today.metrics.title" = "Today at a glance";
 "today.quickStart" = "Quick Start";
 "today.quickStart.button" = "Start";
@@ -156,6 +161,16 @@
 "workout.category.endurance" = "Endurance";
 "workouts.title" = "Workouts";
 "workouts.subtitle" = "Pick sport, favorite your go-tos, and start";
+"workouts.hero.badge" = "Peach mission station";
+"workouts.hero.title" = "Choose your next fitness quest";
+"workouts.hero.subtitle" = "Favorite go-to workouts, switch modes, and start a bright little adventure.";
+"workouts.modes.title" = "Mode guide";
+"workouts.mode.speed.title" = "Sprint";
+"workouts.mode.speed.subtitle" = "For pace-focused sports like running and swimming.";
+"workouts.mode.distance.title" = "Endurance";
+"workouts.mode.distance.subtitle" = "For route workouts that keep you moving forward.";
+"workouts.mode.focus.title" = "Focus";
+"workouts.mode.focus.subtitle" = "For indoor classes, strength, and controlled training.";
 "workouts.quickStart" = "Start selected workout";
 "workouts.start" = "Start Workout";
 "workouts.history.summary" = "Recent totals";
@@ -203,10 +218,17 @@
 "profile.history" = "History";
 "profile.settings" = "Settings";
 "profile.achievements" = "Achievements";
-"profile.achievements.placeholder" = "Achievements coming soon";
 "profile.achievements.unlocked" = "%@ / %@ unlocked";
+"profile.achievements.subtitle" = "Unlock badges by moving consistently.";
+"profile.achievements.viewAll" = "Open achievement gallery";
+"profile.achievements.detail.progress" = "%@ / %@";
 "profile.peachBuddy.title" = "Peach Buddy status";
 "profile.peachBuddy.stats" = "%@ day streak · %@ workouts";
+"profile.hero.title" = "Peach Buddy HQ";
+"profile.hero.subtitle" = "Streaks, badges, and your next win live here.";
+"profile.hero.longest" = "Best %@ days";
+"profile.hero.shields" = "%@ shields";
+"profile.links.title" = "Clubhouse";
 
 "pro.title" = "PeachMove Pro";
 "pro.badge" = "PRO";
@@ -329,7 +351,22 @@
 "smartAssist.speedAnomaly.message" = "Your speed is unusually high for this workout type. You may want to pause recording.";
 
 "food.title" = "Food";
-"food.subtitle" = "Nutrition tracking is in progress";
+"food.subtitle" = "PeachMove food mission board";
+"food.dailyGoal.title" = "Daily calorie mission";
+"food.dailyGoal.subtitle" = "%@ meals logged";
+"food.dailyGoal.value" = "%@ / %@ kcal";
+"food.dailyGoal.kcalBadge" = "Kcal";
+"food.summary.title" = "Meal snapshot";
+"food.summary.subtitle" = "%@ meals · %@ kcal";
+"food.summary.status.empty" = "No meals yet. Add one to start your fuel mission!";
+"food.summary.status.left" = "%@ kcal left for today's mission";
+"food.summary.status.reached" = "Great job! Daily calorie mission complete";
+"food.summary.meals" = "Meals";
+"food.summary.avg" = "Avg kcal";
+"food.summary.latest" = "Latest";
+"food.controls.title" = "Quick mission controls";
+"food.recognitionResult.image" = "Image result";
+"food.entry.header" = "Nutrition entry";
 "food.placeholder.title" = "Food module is arriving";
 "food.placeholder.message" = "We plan to bring meal logging, fueling plans, and nutrition insights. Stay tuned.";
 "food.placeholder.features" = "Planned in v2:";
@@ -345,6 +382,7 @@
 "food.recognitionUsage.limitReached" = "Daily free AI usage limit reached";
 "food.action.pickPhoto" = "Pick a photo";
 "food.action.camera" = "Take photo";
+"food.action.manual" = "Add manually";
 "food.action.save" = "Save meal";
 "food.recognizing" = "Recognizing your food image...";
 "food.recognitionError.title" = "Recognition failed";

@@ -92,6 +92,11 @@
 
 "today.title" = "今日";
 "today.subtitle" = "今日任务盘和快速开始";
+"today.hero.title" = "今天一起开练吗？";
+"today.hero.subtitle" = "桃子伙伴已经准备好你的任务板。";
+"today.hero.streak" = "连续 %@ 天";
+"today.hero.sessions" = "完成 %@ 次";
+"today.hero.progress" = "已完成 %@ / %@ 个任务";
 "today.metrics.title" = "今日速览";
 "today.quickStart" = "快速开始";
 "today.quickStart.button" = "开始";
@@ -156,10 +161,20 @@
 "workout.category.endurance" = "耐力";
 "workouts.title" = "运动";
 "workouts.subtitle" = "选择运动、收藏常用，开始记录";
-"workouts.quickStart" = "开始选择项目";
-"workouts.start" = "开始训练";
-"workouts.history.summary" = "最近汇总";
-"workouts.summary.count" = "%@ 条记录";
+"workouts.hero.badge" = "桃子任务站";
+"workouts.hero.title" = "开启你的运动任务";
+"workouts.hero.subtitle" = "收藏常用动作，切换模式，轻松开启下一段冒险。";
+"workouts.modes.title" = "模式小贴士";
+"workouts.mode.speed.title" = "冲刺";
+"workouts.mode.speed.subtitle" = "适合重视配速的动作，如跑步和游泳。";
+"workouts.mode.distance.title" = "耐力";
+"workouts.mode.distance.subtitle" = "适合路线运动，保持稳步推进。";
+"workouts.mode.focus.title" = "专注";
+"workouts.mode.focus.subtitle" = "适合室内课程、力量和精细控制训练。";
+"workouts.quickStart" = "启动本次任务";
+"workouts.start" = "开始任务";
+"workouts.history.summary" = "常用运动 Top3";
+"workouts.summary.count" = "已完成 %@ 次";
 
 "settings.title" = "设置";
 "settings.subtitle" = "记录、辅助和 Pro 功能管理";
@@ -202,10 +217,17 @@
 "profile.history" = "历史";
 "profile.settings" = "设置";
 "profile.achievements" = "成就";
-"profile.achievements.placeholder" = "成就功能即将上线";
 "profile.achievements.unlocked" = "已解锁 %@ / %@";
+"profile.achievements.subtitle" = "坚持运动，解锁徽章。";
+"profile.achievements.viewAll" = "打开成就馆";
+"profile.achievements.detail.progress" = "%@ / %@";
 "profile.peachBuddy.title" = "桃子伙伴状态";
 "profile.peachBuddy.stats" = "连续 %@ 天 · %@ 次运动";
+"profile.hero.title" = "桃子伙伴总部";
+"profile.hero.subtitle" = "连续打卡、徽章和下一次胜利都在这里。";
+"profile.hero.longest" = "最好 %@ 天";
+"profile.hero.shields" = "%@ 个护盾";
+"profile.links.title" = "小屋入口";
 
 "pro.title" = "桃动 Pro";
 "pro.badge" = "PRO";
@@ -328,7 +350,22 @@
 "smartAssist.speedAnomaly.message" = "当前速度对这个运动类型来说偏高，你可能需要暂停记录。";
 
 "food.title" = "饮食";
-"food.subtitle" = "饮食记录即将上线";
+"food.subtitle" = "桃动饮食任务面板";
+"food.dailyGoal.title" = "每日热量任务";
+"food.dailyGoal.subtitle" = "已记录 %@ 餐";
+"food.dailyGoal.value" = "%@ / %@ 千卡";
+"food.dailyGoal.kcalBadge" = "千卡";
+"food.summary.title" = "今日餐食摘要";
+"food.summary.subtitle" = "%@ 餐 · %@ 千卡";
+"food.summary.status.empty" = "还没记录任何餐食，先加一餐继续补能吧";
+"food.summary.status.left" = "距离今日目标还剩 %@ 千卡";
+"food.summary.status.reached" = "今日目标达成，补能很棒！";
+"food.summary.meals" = "餐数";
+"food.summary.avg" = "平均热量";
+"food.summary.latest" = "最近一餐";
+"food.controls.title" = "操作面板";
+"food.recognitionResult.image" = "图片识别结果";
+"food.entry.header" = "营养录入";
 "food.placeholder.title" = "饮食模块即将上线";
 "food.placeholder.message" = "我们会陆续带来扫码录入、营养宏量统计和加餐提醒体验。";
 "food.placeholder.features" = "v2 计划功能：";
@@ -344,6 +381,7 @@
 "food.recognitionUsage.limitReached" = "今日免费 AI 识别额度已达上限";
 "food.action.pickPhoto" = "选取图片";
 "food.action.camera" = "拍照识别";
+"food.action.manual" = "手动添加";
 "food.action.save" = "保存餐食";
 "food.recognizing" = "正在识别图片内容...";
 "food.recognitionError.title" = "识别失败";

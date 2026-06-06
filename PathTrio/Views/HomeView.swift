@@ -82,9 +82,9 @@ struct HomeView: View {
                             systemImage: "sparkles",
                             tint: PathTrioTheme.action
                         )
-                        trioPalCard
-                        todayStats
+                        todayHeroCard
                         quickStartSection
+                        todayStats
                         streakSection
                         dailyTasksSection
                         quickActionsSection
@@ -149,45 +149,99 @@ struct HomeView: View {
         }
     }
 
-    private var trioPalCard: some View {
-        HStack(spacing: 12) {
-            ZStack {
-                Circle()
-                    .fill(PathTrioTheme.sunsetGradient)
-                    .frame(width: 84, height: 84)
-                    .overlay {
-                        Image(PathTrioAssets.Image.peachBuddyMascot)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 62, height: 62)
-                            .clipShape(Circle())
+    private var todayHeroCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(alignment: .center, spacing: 14) {
+                ZStack(alignment: .bottomTrailing) {
+                    Circle()
+                        .fill(PathTrioTheme.candyGradient([PathTrioTheme.banana, PathTrioTheme.peach]))
+                        .frame(width: 118, height: 118)
+                        .overlay {
+                            Circle()
+                                .stroke(.white, lineWidth: 3)
+                        }
+                        .shadow(color: PathTrioTheme.peach.opacity(0.28), radius: 0, x: 0, y: 6)
+
+                    Image(PathTrioAssets.Image.peachBuddyMascot)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 92, height: 92)
+                        .clipShape(Circle())
+
+                    Image(systemName: streakDays > 0 ? "flame.fill" : "sparkles")
+                        .font(.caption.weight(.black))
+                        .foregroundStyle(.white)
+                        .frame(width: 34, height: 34)
+                        .background(streakDays > 0 ? PathTrioTheme.sunset : PathTrioTheme.action, in: Circle())
+                        .overlay(Circle().stroke(.white, lineWidth: 2))
+                        .offset(x: -4, y: -4)
+                }
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("today.hero.title")
+                        .font(.system(size: 25, weight: .black, design: .rounded))
+                        .foregroundStyle(PathTrioTheme.ink)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.78)
+
+                    Text("today.hero.subtitle")
+                        .font(.footnote.weight(.bold))
+                        .foregroundStyle(PathTrioTheme.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    HStack(spacing: 8) {
+                        HeroBadge(
+                            text: L10n.string("today.hero.streak", "\(streakDays)"),
+                            systemImage: "flame.fill",
+                            tint: PathTrioTheme.sunset
+                        )
+                        HeroBadge(
+                            text: L10n.string("today.hero.sessions", "\(todayTotals.workoutCount)"),
+                            systemImage: "star.fill",
+                            tint: PathTrioTheme.hawk
+                        )
                     }
-
-                Circle()
-                    .stroke(.white.opacity(0.82), lineWidth: 1)
-                    .frame(width: 84, height: 84)
+                }
             }
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text("home.peachBuddy.title")
-                    .font(.title3.weight(.black))
-                    .foregroundStyle(PathTrioTheme.ink)
-                Text("home.peachBuddy.subtitle")
-                    .font(.footnote.weight(.bold))
-                    .foregroundStyle(PathTrioTheme.muted)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
+            ProgressView(value: dailyTasksCompletion)
+                .tint(PathTrioTheme.peach)
+                .scaleEffect(x: 1, y: 1.6, anchor: .center)
 
-            Spacer(minLength: 0)
+            Text(L10n.string("today.hero.progress", "\(dailyTasks.filter(\.isCompleted).count)", "\(dailyTasks.count)"))
+                .font(.caption.weight(.black))
+                .foregroundStyle(PathTrioTheme.hawk)
         }
-        .padding(14)
-        .pathTrioCard()
+        .padding(16)
+        .background(
+            PathTrioTheme.candyGradient([
+                Color.white.opacity(0.98),
+                Color(red: 1.000, green: 0.914, blue: 0.850),
+                Color(red: 0.900, green: 0.986, blue: 0.952)
+            ]),
+            in: RoundedRectangle(cornerRadius: 8, style: .continuous)
+        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(.white, lineWidth: 2)
+        }
+        .overlay(alignment: .topTrailing) {
+            Image(systemName: "heart.fill")
+                .font(.caption.weight(.black))
+                .foregroundStyle(PathTrioTheme.sunset.opacity(0.85))
+                .padding(14)
+        }
+    }
+
+    private var dailyTasksCompletion: Double {
+        guard !dailyTasks.isEmpty else { return 0 }
+        return Double(dailyTasks.filter(\.isCompleted).count) / Double(dailyTasks.count)
     }
 
     private var todayStats: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("today.metrics.title")
-                .font(.subheadline.weight(.bold))
+                .font(.headline.weight(.black))
                 .foregroundStyle(PathTrioTheme.muted)
 
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
@@ -222,7 +276,7 @@ struct HomeView: View {
     private var quickStartSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("today.quickStart")
-                .font(.subheadline.weight(.bold))
+                .font(.headline.weight(.black))
                 .foregroundStyle(PathTrioTheme.muted)
 
             WorkoutTypePicker(
@@ -245,14 +299,9 @@ struct HomeView: View {
             .buttonStyle(.plain)
             .foregroundStyle(.white)
             .background(
-                LinearGradient(
-                    colors: [PathTrioTheme.hawk, PathTrioTheme.action],
-                    startPoint: .top,
-                    endPoint: .bottom
-                ),
-                in: RoundedRectangle(cornerRadius: 12, style: .continuous)
+                PathTrioTheme.candyGradient([PathTrioTheme.peach, PathTrioTheme.action]),
+                in: RoundedRectangle(cornerRadius: 8, style: .continuous)
             )
-            .shadow(color: PathTrioTheme.hawk.opacity(0.35), radius: 12, x: 0, y: 8)
         }
         .padding(14)
         .pathTrioCard()
@@ -261,7 +310,7 @@ struct HomeView: View {
     private var streakSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("today.streak.title")
-                .font(.subheadline.weight(.bold))
+                .font(.headline.weight(.black))
                 .foregroundStyle(PathTrioTheme.muted)
 
             HStack(spacing: 12) {
@@ -290,18 +339,20 @@ struct HomeView: View {
                 Spacer(minLength: 0)
             }
             .padding(12)
-            .background(PathTrioTheme.glassFill)
+            .background(.white.opacity(0.74), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
             .overlay {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
                     .stroke(PathTrioTheme.hawk.opacity(0.18), lineWidth: 1)
             }
         }
+        .padding(14)
+        .pathTrioCard()
     }
 
     private var dailyTasksSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("today.tasks.title")
-                .font(.subheadline.weight(.bold))
+                .font(.headline.weight(.black))
                 .foregroundStyle(PathTrioTheme.muted)
 
             VStack(spacing: 10) {
@@ -315,7 +366,7 @@ struct HomeView: View {
     private var quickActionsSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("today.quickActions.title")
-                .font(.subheadline.weight(.bold))
+                .font(.headline.weight(.black))
                 .foregroundStyle(PathTrioTheme.muted)
 
             HStack(spacing: 10) {
@@ -360,11 +411,11 @@ struct HomeView: View {
         .padding(14)
         .frame(maxWidth: .infinity)
         .background(
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .fill(PathTrioTheme.glassFill)
         )
         .overlay {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .stroke(.white.opacity(0.7), lineWidth: 1)
         }
     }
@@ -437,6 +488,28 @@ private struct TodayTask: Identifiable {
     let isCompleted: Bool
 }
 
+private struct HeroBadge: View {
+    let text: String
+    let systemImage: String
+    let tint: Color
+
+    var body: some View {
+        HStack(spacing: 5) {
+            Image(systemName: systemImage)
+                .font(.caption2.weight(.black))
+            Text(text)
+                .font(.caption.weight(.black))
+                .lineLimit(1)
+                .minimumScaleFactor(0.72)
+        }
+        .foregroundStyle(.white)
+        .padding(.horizontal, 9)
+        .frame(height: 28)
+        .background(tint, in: Capsule())
+        .overlay(Capsule().stroke(.white.opacity(0.88), lineWidth: 1))
+    }
+}
+
 private struct TodayTaskRow: View {
     let task: TodayTask
 
@@ -471,9 +544,9 @@ private struct TodayTaskRow: View {
                 .foregroundStyle(task.isCompleted ? PathTrioTheme.warm : PathTrioTheme.line)
         }
         .padding(12)
-        .background(.white.opacity(0.58))
+        .background(.white.opacity(0.68), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
         .overlay {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .stroke(task.isCompleted ? PathTrioTheme.warm.opacity(0.35) : PathTrioTheme.action.opacity(0.16), lineWidth: 1)
         }
     }

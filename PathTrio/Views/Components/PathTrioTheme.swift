@@ -3,25 +3,29 @@ import SwiftUI
 enum PathTrioTheme {
     static let pageBackground = LinearGradient(
         colors: [
-            Color(red: 0.971, green: 0.988, blue: 1.000),
-            Color(red: 0.934, green: 0.972, blue: 0.992),
-            Color(red: 0.957, green: 0.928, blue: 1.000)
+            Color(red: 1.000, green: 0.972, blue: 0.930),
+            Color(red: 0.934, green: 0.990, blue: 0.966),
+            Color(red: 0.936, green: 0.958, blue: 1.000)
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
-    static let ink = Color(red: 0.055, green: 0.071, blue: 0.090)
-    static let muted = Color(red: 0.420, green: 0.463, blue: 0.510)
-    static let action = Color(red: 0.000, green: 0.478, blue: 0.933)
-    static let actionAlt = Color(red: 0.050, green: 0.760, blue: 0.990)
-    static let teal = Color(red: 0.000, green: 0.620, blue: 0.560)
-    static let warm = Color(red: 0.940, green: 0.470, blue: 0.150)
-    static let hawk = Color(red: 0.968, green: 0.590, blue: 0.160)
-    static let sunset = Color(red: 1.000, green: 0.390, blue: 0.450)
+    static let ink = Color(red: 0.125, green: 0.104, blue: 0.153)
+    static let muted = Color(red: 0.438, green: 0.446, blue: 0.520)
+    static let action = Color(red: 0.185, green: 0.498, blue: 0.965)
+    static let actionAlt = Color(red: 0.180, green: 0.780, blue: 0.980)
+    static let teal = Color(red: 0.000, green: 0.690, blue: 0.600)
+    static let warm = Color(red: 0.965, green: 0.430, blue: 0.180)
+    static let hawk = Color(red: 1.000, green: 0.670, blue: 0.180)
+    static let sunset = Color(red: 1.000, green: 0.380, blue: 0.420)
+    static let peach = Color(red: 1.000, green: 0.565, blue: 0.390)
+    static let mint = Color(red: 0.450, green: 0.900, blue: 0.760)
+    static let banana = Color(red: 1.000, green: 0.840, blue: 0.280)
+    static let candyPurple = Color(red: 0.555, green: 0.455, blue: 0.960)
     static let tabBarFill = LinearGradient(
         colors: [
-            Color(red: 0.992, green: 0.996, blue: 1.000).opacity(0.94),
-            Color(red: 0.938, green: 0.976, blue: 0.990).opacity(0.94)
+            Color.white.opacity(0.96),
+            Color(red: 1.000, green: 0.940, blue: 0.900).opacity(0.94)
         ],
         startPoint: .top,
         endPoint: .bottom
@@ -31,13 +35,12 @@ enum PathTrioTheme {
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
-    static let line = Color.black.opacity(0.08)
+    static let line = Color(red: 0.165, green: 0.135, blue: 0.220).opacity(0.10)
     static let cardCornerRadius: CGFloat = 8
     static let glassFill = LinearGradient(
         colors: [
-            Color.white.opacity(0.82),
-            Color(red: 0.930, green: 0.982, blue: 0.990).opacity(0.64),
-            Color(red: 0.934, green: 0.956, blue: 1.000).opacity(0.58)
+            Color.white.opacity(0.98),
+            Color(red: 1.000, green: 0.968, blue: 0.925).opacity(0.95)
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
@@ -67,6 +70,10 @@ enum PathTrioTheme {
             .orange
         }
     }
+
+    static func candyGradient(_ colors: [Color]) -> LinearGradient {
+        LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing)
+    }
 }
 
 struct PathTrioCardBackground: ViewModifier {
@@ -75,18 +82,17 @@ struct PathTrioCardBackground: ViewModifier {
             .background {
                 RoundedRectangle(cornerRadius: PathTrioTheme.cardCornerRadius, style: .continuous)
                     .fill(PathTrioTheme.glassFill)
+                    .shadow(color: PathTrioTheme.peach.opacity(0.18), radius: 0, x: 0, y: 4)
+                    .shadow(color: .black.opacity(0.055), radius: 10, x: 0, y: 5)
             }
             .overlay {
                 RoundedRectangle(cornerRadius: PathTrioTheme.cardCornerRadius, style: .continuous)
-                    .stroke(.white.opacity(0.92), lineWidth: 1)
-                    .blendMode(.overlay)
+                    .stroke(.white.opacity(0.96), lineWidth: 1)
             }
             .overlay {
                 RoundedRectangle(cornerRadius: PathTrioTheme.cardCornerRadius, style: .continuous)
-                    .stroke(PathTrioTheme.action.opacity(0.08), lineWidth: 1)
+                    .stroke(PathTrioTheme.ink.opacity(0.10), lineWidth: 1)
             }
-            .shadow(color: PathTrioTheme.action.opacity(0.10), radius: 14, x: 0, y: 7)
-            .shadow(color: .black.opacity(0.035), radius: 5, x: 0, y: 2)
     }
 }
 
@@ -108,12 +114,12 @@ struct PathTrioPageHeader: View {
                 .font(.title3.weight(.black))
                 .foregroundStyle(.white)
                 .frame(width: 46, height: 46)
-                .background(tint, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .background(tint, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                 .overlay {
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
                         .stroke(.white.opacity(0.78), lineWidth: 1)
                 }
-                .shadow(color: tint.opacity(0.18), radius: 12, x: 0, y: 6)
+                .shadow(color: tint.opacity(0.24), radius: 0, x: 0, y: 4)
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 4) {
