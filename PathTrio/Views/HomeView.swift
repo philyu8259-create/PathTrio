@@ -104,7 +104,7 @@ struct HomeView: View {
                         }
                     }
                     .padding(16)
-                    .padding(.bottom, 96)
+                    .padding(.bottom, 132)
                 }
             }
             .navigationDestination(isPresented: $showingActiveWorkout) {

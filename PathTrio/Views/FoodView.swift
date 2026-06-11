@@ -58,7 +58,7 @@ struct FoodView: View {
                         }
                     }
                     .padding(16)
-                    .padding(.bottom, 96)
+                    .padding(.bottom, 132)
                 }
             }
             .navigationTitle(Text("food.title"))
@@ -350,10 +350,7 @@ struct FoodView: View {
 
                 Spacer(minLength: 0)
 
-                ProgressView(value: Double(usage.usedCount), total: Double(max(usage.dailyLimit, 1)))
-                    .progressViewStyle(.linear)
-                    .tint(PathTrioTheme.hawk)
-                    .frame(width: 140)
+                recognitionUsageDots
             }
 
             if usage.canUseForRecognition {
@@ -375,6 +372,21 @@ struct FoodView: View {
             RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .stroke(.white.opacity(0.75), lineWidth: 1)
         }
+    }
+
+    private var recognitionUsageDots: some View {
+        HStack(spacing: 5) {
+            ForEach(0..<max(usage.dailyLimit, 1), id: \.self) { index in
+                Circle()
+                    .fill(index < usage.usedCount ? PathTrioTheme.hawk : PathTrioTheme.line.opacity(0.86))
+                    .frame(width: 9, height: 9)
+                    .overlay {
+                        Circle()
+                            .stroke(.white.opacity(0.9), lineWidth: 0.8)
+                    }
+            }
+        }
+        .accessibilityLabel(L10n.string("food.recognitionUsage.value", "\(usage.usedCount)", "\(usage.dailyLimit)"))
     }
 
     private var entryControls: some View {

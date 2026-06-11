@@ -35,7 +35,7 @@ struct ProfileView: View {
                         clubhouseLinks
                     }
                     .padding(16)
-                    .padding(.bottom, 96)
+                    .padding(.bottom, 132)
                 }
             }
             .task {
